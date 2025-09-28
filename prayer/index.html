@@ -13,7 +13,7 @@ font-family: 'Microsoft YaHei', sans-serif;
 }
 
 body {
-background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+background: linear-gradient(135deg, #0a0a1a 0%, #0d1b2a 100%);
 color: #fff;
 min-height: 100vh;
 overflow-x: hidden;
@@ -27,7 +27,7 @@ left: 0;
 width: 100%;
 height: 100%;
 z-index: -1;
-background: radial-gradient(ellipse at center, rgba(255,100,0,0.1) 0%, rgba(255,50,0,0.05) 40%, rgba(0,0,0,0) 70%);
+background: radial-gradient(ellipse at center, rgba(255,100,0,0.15) 0%, rgba(255,50,0,0.08) 40%, rgba(0,0,0,0) 70%);
 animation: fireGlow 4s infinite alternate;
 }
 
@@ -47,10 +47,10 @@ z-index: 1;
 header {
 text-align: center;
 margin-bottom: 40px;
-padding: 20px;
-background: rgba(0, 0, 0, 0.4);
+padding: 30px;
+background: rgba(0, 0, 0, 0.5);
 border-radius: 15px;
-box-shadow: 0 10px 30px rgba(255, 69, 0, 0.2);
+box-shadow: 0 10px 30px rgba(255, 69, 0, 0.3);
 animation: fadeInDown 1s ease-out;
 position: relative;
 overflow: hidden;
@@ -73,59 +73,65 @@ animation: shimmer 3s infinite;
 }
 
 h1 {
-font-size: 2.8rem;
-margin-bottom: 15px;
-color: #ff6b35;
-text-shadow: 0 0 10px rgba(255, 107, 53, 0.7);
+font-size: 3.5rem;
+margin-bottom: 20px;
+color: #ff8c42;
+text-shadow: 0 0 15px rgba(255, 140, 66, 0.8);
 animation: textGlow 2s infinite alternate;
 }
 
 @keyframes textGlow {
-0% { text-shadow: 0 0 10px rgba(255, 107, 53, 0.7); }
-100% { text-shadow: 0 0 20px rgba(255, 107, 53, 1), 0 0 30px rgba(255, 107, 53, 0.8); }
+0% { text-shadow: 0 0 15px rgba(255, 140, 66, 0.8); }
+100% { text-shadow: 0 0 25px rgba(255, 140, 66, 1), 0 0 35px rgba(255, 140, 66, 0.9); }
+}
+
+header p {
+font-size: 1.8rem;
+margin-bottom: 15px;
+color: #f0f0f0;
 }
 
 .verse {
 font-style: italic;
 margin: 25px 0;
-font-size: 1.2rem;
-line-height: 1.6;
-color: #f8f9fa;
-padding: 15px;
-background: rgba(0, 0, 0, 0.3);
-border-left: 4px solid #ff6b35;
-border-radius: 0 8px 8px 0;
+font-size: 1.6rem;
+line-height: 1.8;
+color: #ffffff;
+padding: 20px;
+background: rgba(0, 0, 0, 0.4);
+border-left: 6px solid #ff8c42;
+border-radius: 0 10px 10px 0;
 animation: slideInLeft 1s ease-out;
 }
 
 .prayer-section {
-background: rgba(0, 0, 0, 0.4);
+background: rgba(0, 0, 0, 0.5);
 border-radius: 15px;
-padding: 25px;
-margin-bottom: 30px;
-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+padding: 30px;
+margin-bottom: 35px;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
 animation: fadeInUp 1s ease-out;
 transition: transform 0.3s;
 }
 
 .prayer-section:hover {
 transform: translateY(-5px);
-box-shadow: 0 10px 25px rgba(255, 69, 0, 0.3);
+box-shadow: 0 10px 25px rgba(255, 69, 0, 0.4);
 }
 
 h2 {
-color: #ffa726;
-margin-bottom: 20px;
-padding-bottom: 10px;
-border-bottom: 2px solid rgba(255, 167, 38, 0.3);
-font-size: 1.8rem;
+color: #ffb347;
+margin-bottom: 25px;
+padding-bottom: 15px;
+border-bottom: 3px solid rgba(255, 179, 71, 0.4);
+font-size: 2.2rem;
 display: flex;
 align-items: center;
 }
 
 h2::before {
 content: '🔥';
-margin-right: 10px;
+margin-right: 15px;
 animation: flame 1.5s infinite alternate;
 }
 
@@ -140,10 +146,11 @@ padding-left: 20px;
 }
 
 li {
-margin-bottom: 15px;
-padding-left: 30px;
+margin-bottom: 20px;
+padding-left: 40px;
 position: relative;
-line-height: 1.6;
+line-height: 1.8;
+font-size: 1.6rem;
 animation: fadeIn 1s ease-out;
 animation-fill-mode: both;
 }
@@ -152,38 +159,40 @@ li::before {
 content: '✝';
 position: absolute;
 left: 0;
-color: #ff6b35;
-font-size: 1.2rem;
+color: #ff8c42;
+font-size: 1.8rem;
 }
 
 .special-prayer {
-background: rgba(255, 107, 53, 0.1);
-padding: 15px;
-border-radius: 8px;
-margin-top: 10px;
-border-left: 4px solid #ff6b35;
+background: rgba(255, 140, 66, 0.2);
+padding: 20px;
+border-radius: 10px;
+margin-top: 15px;
+border-left: 6px solid #ff8c42;
 animation: pulse 2s infinite;
+font-size: 1.7rem;
+font-weight: bold;
 }
 
 @keyframes pulse {
-0% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.4); }
-70% { box-shadow: 0 0 0 10px rgba(255, 107, 53, 0); }
-100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0); }
+0% { box-shadow: 0 0 0 0 rgba(255, 140, 66, 0.5); }
+70% { box-shadow: 0 0 0 15px rgba(255, 140, 66, 0); }
+100% { box-shadow: 0 0 0 0 rgba(255, 140, 66, 0); }
 }
 
 footer {
 text-align: center;
-margin-top: 40px;
-padding: 20px;
-font-size: 1.2rem;
-color: #ffa726;
+margin-top: 50px;
+padding: 25px;
+font-size: 1.6rem;
+color: #ffb347;
 animation: fadeIn 2s ease-out;
 }
 
 .fire-emojis {
-font-size: 2.5rem;
-letter-spacing: 10px;
-margin: 10px 0;
+font-size: 3rem;
+letter-spacing: 15px;
+margin: 15px 0;
 animation: firePop 1.5s infinite;
 }
 
@@ -226,9 +235,9 @@ pointer-events: none;
 
 .particle {
 position: absolute;
-width: 4px;
-height: 4px;
-background: rgba(255, 107, 53, 0.7);
+width: 5px;
+height: 5px;
+background: rgba(255, 140, 66, 0.8);
 border-radius: 50%;
 animation: float 15s infinite linear;
 }
@@ -242,10 +251,23 @@ animation: float 15s infinite linear;
 
 /* 响应式设计 */
 @media (max-width: 768px) {
-h1 { font-size: 2.2rem; }
-.verse { font-size: 1.1rem; }
-h2 { font-size: 1.5rem; }
+h1 { font-size: 2.8rem; }
+header p { font-size: 1.5rem; }
+.verse { font-size: 1.4rem; }
+h2 { font-size: 1.8rem; }
+li { font-size: 1.4rem; }
+.special-prayer { font-size: 1.5rem; }
 .container { padding: 15px; }
+}
+
+@media (max-width: 480px) {
+h1 { font-size: 2.4rem; }
+header p { font-size: 1.3rem; }
+.verse { font-size: 1.2rem; }
+h2 { font-size: 1.6rem; }
+li { font-size: 1.2rem; }
+.special-prayer { font-size: 1.3rem; }
+footer { font-size: 1.4rem; }
 }
 </style>
 </head>
@@ -319,7 +341,7 @@ const particle = document.createElement('div');
 particle.classList.add('particle');
 
 // 随机位置和大小
-const size = Math.random() * 3 + 1;
+const size = Math.random() * 4 + 2;
 const left = Math.random() * 100;
 const animationDuration = Math.random() * 10 + 10;
 const animationDelay = Math.random() * 5;
