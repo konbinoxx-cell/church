@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>祷告会通知生成器</title>
+    <style>
+        :root {
+            --primary-color: #ff8c42;
+            --secondary-color: #ffb347;
+            --background-dark: #0a0a1a;
+            --background-medium: #0d1b2a;
+            --text-light: #ffffff;
+            --text-medium: #f0f0f0;
+            --accent-color: #ff6b35;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--background-dark) 0%, var(--background-medium) 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(255, 140, 66, 0.7);
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: var(--text-medium);
+        }
+        
+        .app-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 900px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .editor-panel, .preview-panel {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .panel-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            border-bottom: 2px solid rgba(255, 179, 71, 0.3);
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+            color: var(--text-medium);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .color-picker {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+        }
+        
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+        
+        .color-option.active {
+            border-color: white;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: var(--accent-color);
+        }
+        
+        .btn-full {
+            width: 100%;
+        }
+        
+        .preview-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .preview-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+        }
+        
+        .preview-title {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .preview-verse {
+            font-style: italic;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .preview-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+        }
+        
+        .preview-section-title {
+            font-size: 1.6rem;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .preview-section-title::before {
+            content: '🔥';
+            margin-right: 10px;
+        }
+        
+        .preview-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        
+        .preview-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            font-size: 1.2rem;
+        }
+        
+        .preview-list li::before {
+            content: '✝';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+        
+        .special-prayer {
+            background: rgba(255, 140, 66, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .preview-footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+        }
+        
+        .fire-emojis {
+            font-size: 2rem;
+            letter-spacing: 10px;
+            margin: 10px 0;
+        }
+        
+        .export-options {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .instructions {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        
+        .instructions h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        .instructions ol {
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 15px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>祷告会通知生成器</h1>
+            <p class="subtitle">轻松创建并自定义您的祷告会通知页面</p>
+        </header>
+        
+        <div class="app-container">
+            <div class="editor-panel">
+                <h2 class="panel-title">编辑内容</h2>
+                
+                <div class="form-group">
+                    <label for="title">祷告会标题</label>
+                    <input type="text" id="title" value="周三祷告会通知 🔥">
+                </div>
+                
+                <div class="form-group">
+                    <label for="time">祷告会时间</label>
+                    <input type="text" id="time" value="7:30-8:40 PM">
+                </div>
+                
+                <div class="form-group">
+                    <label for="verse1">经文一</label>
+                    <textarea id="verse1">「有一件事，我曾寻求耶和华，我仍要寻求：就是一生一世住在耶和华的殿中，瞻仰祂的荣美，在祂的殿里求问。」(诗 27:4)</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="verse2">经文二</label>
+                    <textarea id="verse2">「耶稣说：我不是对你说过，你若信，就必看见 神的荣耀吗？」（约 11:40)</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">引言信息</label>
+                    <textarea id="message">亲爱的主内家人，让我们一同来到 神与基督耶稣施恩宝座前寻求祂的荣面，并同心为神国事工、主内肢体与自己需要争战得胜祷告。</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="prayer1">国度代祷事项 (每行一项)</label>
+                    <textarea id="prayer1">以色列与列国局势
+加拿大所有华人教会的复兴
+在灾难中受苦的百姓</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="prayer2">为教会代祷事项 (每行一项)</label>
+                    <textarea id="prayer2">建立荣耀神的教会
+为教会的复兴、兴起
+为教会的合一、彼此相爱
+为弟兄姐妹们的灵命成长
+为更多愿意为主做工的同工
+为敬拜团、行政总务、团契小组、福音外展、财务</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="prayer3">个人代祷需要 (每行一项)</label>
+                    <textarea id="prayer3">身心灵医治恢复
+家人得救
+人际关系修补
+财务需要
+圣灵充满与复兴
+边洁姊妹父亲边玉桂身体得医治</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="specialPrayer">特别代祷事项</label>
+                    <input type="text" id="specialPrayer" value="边洁姊妹父亲边玉桂身体得医治">
+                </div>
+                
+                <h2 class="panel-title">选择配色方案</h2>
+                
+                <div class="form-group">
+                    <label>主题颜色</label>
+                    <div class="color-picker">
+                        <div class="color-option active" style="background-color: #ff8c42;" data-color="#ff8c42"></div>
+                        <div class="color-option" style="background-color: #e74c3c;" data-color="#e74c3c"></div>
+                        <div class="color-option" style="background-color: #3498db;" data-color="#3498db"></div>
+                        <div class="color-option" style="background-color: #2ecc71;" data-color="#2ecc71"></div>
+                        <div class="color-option" style="background-color: #9b59b6;" data-color="#9b59b6"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>背景颜色</label>
+                    <div class="color-picker">
+                        <div class="color-option active" style="background-color: #0a0a1a;" data-bg="#0a0a1a"></div>
+                        <div class="color-option" style="background-color: #1a1a2e;" data-bg="#1a1a2e"></div>
+                        <div class="color-option" style="background-color: #0d1b2a;" data-bg="#0d1b2a"></div>
+                        <div class="color-option" style="background-color: #1d2d44;" data-bg="#1d2d44"></div>
+                        <div class="color-option" style="background-color: #14213d;" data-bg="#14213d"></div>
+                    </div>
+                </div>
+                
+                <button id="updatePreview" class="btn btn-full">更新预览</button>
+            </div>
+            
+            <div class="preview-panel">
+                <h2 class="panel-title">预览效果</h2>
+                
+                <div class="preview-container" id="preview">
+                    <div class="preview-header">
+                        <h2 class="preview-title">周三祷告会通知 🔥</h2>
+                        <p>时间：7:30-8:40 PM</p>
+                        
+                        <div class="preview-verse">
+                            「有一件事，我曾寻求耶和华，我仍要寻求：就是一生一世住在耶和华的殿中，瞻仰祂的荣美，在祂的殿里求问。」(诗 27:4)
+                        </div>
+                        
+                        <div class="preview-verse">
+                            「耶稣说：我不是对你说过，你若信，就必看见 神的荣耀吗？」（约 11:40)
+                        </div>
+                        
+                        <p>亲爱的主内家人，让我们一同来到 神与基督耶稣施恩宝座前寻求祂的荣面，并同心为神国事工、主内肢体与自己需要争战得胜祷告。</p>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <h3 class="preview-section-title">一、国度代祷</h3>
+                        <ul class="preview-list">
+                            <li>以色列与列国局势</li>
+                            <li>加拿大所有华人教会的复兴</li>
+                            <li>在灾难中受苦的百姓</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <h3 class="preview-section-title">二、为多伦多生命河灵粮堂</h3>
+                        <ul class="preview-list">
+                            <li>建立荣耀神的教会</li>
+                            <li>为教会的复兴、兴起</li>
+                            <li>为教会的合一、彼此相爱</li>
+                            <li>为弟兄姐妹们的灵命成长</li>
+                            <li>为更多愿意为主做工的同工</li>
+                            <li>为敬拜团、行政总务、团契小组、福音外展、财务</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <h3 class="preview-section-title">三、个人代祷需要</h3>
+                        <ul class="preview-list">
+                            <li>身心灵医治恢复</li>
+                            <li>家人得救</li>
+                            <li>人际关系修补</li>
+                            <li>财务需要</li>
+                            <li>圣灵充满与复兴</li>
+                            <li class="special-prayer">边洁姊妹父亲边玉桂身体得医治</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="preview-footer">
+                        <div class="fire-emojis">🔥🔥🔥</div>
+                        <p>感谢赞美主</p>
+                    </div>
+                </div>
+                
+                <div class="export-options">
+                    <button id="copyCode" class="btn">复制HTML代码</button>
+                    <button id="downloadCode" class="btn">下载HTML文件</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h2>使用说明</h2>
+            <ol>
+                <li>在左侧编辑区域修改祷告会的内容</li>
+                <li>选择您喜欢的配色方案</li>
+                <li>点击"更新预览"查看效果</li>
+                <li>满意后，点击"复制HTML代码"或"下载HTML文件"</li>
+                <li>将生成的代码嵌入到您的教会网站中</li>
+            </ol>
+            
+            <h2>如何集成到网站</h2>
+            <p>将生成的HTML代码插入到您的网页中，或将其保存为独立的HTML文件上传到您的网站服务器。</p>
+            
+            <div class="code-block" id="generatedCode">
+                <!-- 生成的代码将显示在这里 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const updateBtn = document.getElementById('updatePreview');
+            const copyBtn = document.getElementById('copyCode');
+            const downloadBtn = document.getElementById('downloadCode');
+            const colorOptions = document.querySelectorAll('.color-option[data-color]');
+            const bgOptions = document.querySelectorAll('.color-option[data-bg]');
+            const codeBlock = document.getElementById('generatedCode');
+            
+            let primaryColor = '#ff8c42';
+            let backgroundColor = '#0a0a1a';
+            
+            // 颜色选择
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    colorOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    primaryColor = this.getAttribute('data-color');
+                    updatePreview();
+                });
+            });
+            
+            bgOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    bgOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    backgroundColor = this.getAttribute('data-bg');
+                    updatePreview();
+                });
+            });
+            
+            // 更新预览
+            updateBtn.addEventListener('click', updatePreview);
+            
+            function updatePreview() {
+                // 获取表单值
+                const title = document.getElementById('title').value;
+                const time = document.getElementById('time').value;
+                const verse1 = document.getElementById('verse1').value;
+                const verse2 = document.getElementById('verse2').value;
+                const message = document.getElementById('message').value;
+                const prayer1 = document.getElementById('prayer1').value.split('\n');
+                const prayer2 = document.getElementById('prayer2').value.split('\n');
+                const prayer3 = document.getElementById('prayer3').value.split('\n');
+                const specialPrayer = document.getElementById('specialPrayer').value;
+                
+                // 更新预览
+                const preview = document.getElementById('preview');
+                preview.innerHTML = `
+                    <div class="preview-header">
+                        <h2 class="preview-title">${title}</h2>
+                        <p>时间：${time}</p>
+                        
+                        <div class="preview-verse">
+                            ${verse1}
+                        </div>
+                        
+                        <div class="preview-verse">
+                            ${verse2}
+                        </div>
+                        
+                        <p>${message}</p>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <h3 class="preview-section-title">一、国度代祷</h3>
+                        <ul class="preview-list">
+                            ${prayer1.map(item => item.trim() ? `<li>${item}</li>` : '').join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <h3 class="preview-section-title">二、为教会代祷</h3>
+                        <ul class="preview-list">
+                            ${prayer2.map(item => item.trim() ? `<li>${item}</li>` : '').join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <h3 class="preview-section-title">三、个人代祷需要</h3>
+                        <ul class="preview-list">
+                            ${prayer3.map(item => item.trim() && item !== specialPrayer ? `<li>${item}</li>` : '').join('')}
+                            ${specialPrayer ? `<li class="special-prayer">${specialPrayer}</li>` : ''}
+                        </ul>
+                    </div>
+                    
+                    <div class="preview-footer">
+                        <div class="fire-emojis">🔥🔥🔥</div>
+                        <p>感谢赞美主</p>
+                    </div>
+                `;
+                
+                // 更新CSS变量
+                preview.style.setProperty('--primary-color', primaryColor);
+                preview.style.setProperty('--secondary-color', lightenColor(primaryColor, 20));
+                preview.style.setProperty('--background-dark', backgroundColor);
+                preview.style.setProperty('--background-medium', lightenColor(backgroundColor, 10));
+                
+                // 生成完整HTML代码
+                generateFullCode();
+            }
+            
+            function lightenColor(color, percent) {
+                const num = parseInt(color.replace("#", ""), 16);
+                const amt = Math.round(2.55 * percent);
+                const R = (num >> 16) + amt;
+                const G = (num >> 8 & 0x00FF) + amt;
+                const B = (num & 0x0000FF) + amt;
+                return "#" + (
+                    0x1000000 +
+                    (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
+                    (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
+                    (B < 255 ? (B < 1 ? 0 : B) : 255)
+                ).toString(16).slice(1);
+            }
+            
+            function generateFullCode() {
+                const title = document.getElementById('title').value;
+                const time = document.getElementById('time').value;
+                const verse1 = document.getElementById('verse1').value;
+                const verse2 = document.getElementById('verse2').value;
+                const message = document.getElementById('message').value;
+                const prayer1 = document.getElementById('prayer1').value.split('\n');
+                const prayer2 = document.getElementById('prayer2').value.split('\n');
+                const prayer3 = document.getElementById('prayer3').value.split('\n');
+                const specialPrayer = document.getElementById('specialPrayer').value;
+                
+                const htmlCode = `
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${title}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, ${backgroundColor} 0%, ${lightenColor(backgroundColor, 10)} 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .fire-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at center, rgba(255,100,0,0.15) 0%, rgba(255,50,0,0.08) 40%, rgba(0,0,0,0) 70%);
+            animation: fireGlow 4s infinite alternate;
+        }
+        
+        @keyframes fireGlow {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 69, 0, 0.3);
+            animation: fadeInDown 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: ${primaryColor};
+            text-shadow: 0 0 15px ${primaryColor}80;
+            animation: textGlow 2s infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 15px ${primaryColor}80; }
+            100% { text-shadow: 0 0 25px ${primaryColor}, 0 0 35px ${primaryColor}90; }
+        }
+        
+        header p {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #f0f0f0;
+        }
+        
+        .verse {
+            font-style: italic;
+            margin: 25px 0;
+            font-size: 1.6rem;
+            line-height: 1.8;
+            color: #ffffff;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 6px solid ${primaryColor};
+            border-radius: 0 10px 10px 0;
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        .prayer-section {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 1s ease-out;
+            transition: transform 0.3s;
+        }
+        
+        .prayer-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 69, 0, 0.4);
+        }
+        
+        h2 {
+            color: ${lightenColor(primaryColor, 20)};
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid ${lightenColor(primaryColor, 20)}40;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2::before {
+            content: '🔥';
+            margin-right: 15px;
+            animation: flame 1.5s infinite alternate;
+        }
+        
+        @keyframes flame {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2); }
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 20px;
+            padding-left: 40px;
+            position: relative;
+            line-height: 1.8;
+            font-size: 1.6rem;
+            animation: fadeIn 1s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        li::before {
+            content: '✝';
+            position: absolute;
+            left: 0;
+            color: ${primaryColor};
+            font-size: 1.8rem;
+        }
+        
+        .special-prayer {
+            background: ${primaryColor}20;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 6px solid ${primaryColor};
+            animation: pulse 2s infinite;
+            font-size: 1.7rem;
+            font-weight: bold;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 ${primaryColor}50; }
+            70% { box-shadow: 0 0 0 15px ${primaryColor}00; }
+            100% { box-shadow: 0 0 0 0 ${primaryColor}00; }
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            font-size: 1.6rem;
+            color: ${lightenColor(primaryColor, 20)};
+            animation: fadeIn 2s ease-out;
+        }
+        
+        .fire-emojis {
+            font-size: 3rem;
+            letter-spacing: 15px;
+            margin: 15px 0;
+            animation: firePop 1.5s infinite;
+        }
+        
+        @keyframes firePop {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* 动画关键帧 */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            header p { font-size: 1.5rem; }
+            .verse { font-size: 1.4rem; }
+            h2 { font-size: 1.8rem; }
+            li { font-size: 1.4rem; }
+            .special-prayer { font-size: 1.5rem; }
+            .container { padding: 15px; }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 2.4rem; }
+            header p { font-size: 1.3rem; }
+            .verse { font-size: 1.2rem; }
+            h2 { font-size: 1.6rem; }
+            li { font-size: 1.2rem; }
+            .special-prayer { font-size: 1.3rem; }
+            footer { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="fire-bg"></div>
+    
+    <div class="container">
+        <header>
+            <h1>${title}</h1>
+            <p>时间：${time}</p>
+            
+            <div class="verse">
+                ${verse1}
+            </div>
+            
+            <div class="verse">
+                ${verse2}
+            </div>
+            
+            <p>${message}</p>
+        </header>
+        
+        <section class="prayer-section">
+            <h2>一、国度代祷</h2>
+            <ul>
+                ${prayer1.map(item => item.trim() ? `<li>${item}</li>` : '').join('')}
+            </ul>
+        </section>
+        
+        <section class="prayer-section">
+            <h2>二、为教会代祷</h2>
+            <ul>
+                ${prayer2.map(item => item.trim() ? `<li>${item}</li>` : '').join('')}
+            </ul>
+        </section>
+        
+        <section class="prayer-section">
+            <h2>三、个人代祷需要</h2>
+            <ul>
+                ${prayer3.map(item => item.trim() && item !== specialPrayer ? `<li>${item}</li>` : '').join('')}
+                ${specialPrayer ? `<li class="special-prayer">${specialPrayer}</li>` : ''}
+            </ul>
+        </section>
+        
+        <footer>
+            <div class="fire-emojis">🔥🔥🔥</div>
+            <p>感谢赞美主</p>
+        </footer>
+    </div>
+</body>
+</html>
+                `;
+                
+                codeBlock.textContent = htmlCode;
+            }
+            
+            // 复制代码
+            copyBtn.addEventListener('click', function() {
+                const code = codeBlock.textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    alert('HTML代码已复制到剪贴板！');
+                }).catch(err => {
+                    console.error('复制失败: ', err);
+                });
+            });
+            
+            // 下载代码
+            downloadBtn.addEventListener('click', function() {
+                const code = codeBlock.textContent;
+                const blob = new Blob([code], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'prayer-meeting-notice.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+            
+            // 初始化预览
+            updatePreview();
+        });
+    </script>
+</body>
+</html>
