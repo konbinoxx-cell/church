@@ -2,172 +2,33 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>教会网站 Demo</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      color: #fff;
-    }
-    header {
-      position: relative;
-      height: 300px;
-      background: url("https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?auto=format&fit=crop&w=1600&q=80") no-repeat center center/cover;
-      overflow: hidden;
-    }
-    header::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.5);
-    }
-    header .content {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding-top: 100px;
-      opacity: 0;
-      animation: fadeIn 2s ease forwards;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.5em;
-    }
-    header p {
-      font-size: 1.2em;
-      margin-top: 10px;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    nav {
-      background: #0066cc;
-      display: flex;
-      justify-content: center;
-    }
-    nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-    }
-    nav li {
-      position: relative;
-    }
-    nav a {
-      display: block;
-      padding: 12px 20px;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover {
-      background: #004080;
-    }
-    nav ul ul {
-      display: none;
-      position: absolute;
-      background: #0066cc;
-      top: 100%;
-      left: 0;
-      min-width: 150px;
-      flex-direction: column;
-      z-index: 1000;
-    }
-    nav ul ul li {
-      width: 100%;
-    }
-    nav li:hover > ul {
-      display: block;
-    }
-    main {
-      padding: 40px 20px;
-      text-align: center;
-      background: #f5f5f5;
-      color: #333;
-      animation: fadeIn 3s ease forwards;
-    }
-    main h2 {
-      color: #004080;
-    }
-    #verse-box {
-      margin-top: 20px;
-      padding: 15px;
-      border: 1px solid #ccc;
-      background: #fff;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      font-style: italic;
-    }
-    footer {
-      background: #004080;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      margin-top: 20px;
-    }
-  </style>
+  <title>首页 - 教会网站</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <div class="content">
-      <h1>欢迎来到我们的教会</h1>
-      <p>同心合意，敬拜真神</p>
-    </div>
+    <h1>欢迎来到我们的教会</h1>
+    <p>同心合意，敬拜真神</p>
   </header>
 
   <nav>
-    <ul>
-      <li><a href="index.html">首页</a></li>
-      <li>
-        <a href="#">聚会 ▾</a>
-        <ul>
-          <li><a href="sermon.html">主日讲道</a></li>
-          <li><a href="prayer.html">祷告会</a></li>
-          <li><a href="events.html">特会活动</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">小组生活 ▾</a>
-        <ul>
-          <li><a href="fellowship.html">团契</a></li>
-          <li><a href="biblestudy.html">查经</a></li>
-        </ul>
-      </li>
-      <li><a href="testimonies.html">见证</a></li>
-      <li><a href="resources.html">资源</a></li>
-      <li><a href="about.html">关于我们</a></li>
-      <li><a href="contact.html">联系</a></li>
-    </ul>
+    <a href="index.html">首页</a>
+    <a href="meetings.html">聚会</a>
+    <a href="groups.html">小组</a>
+    <a href="testimonies.html">见证</a>
+    <a href="resources.html">资源</a>
+    <a href="about.html">关于我们</a>
+    <a href="contact.html">联系</a>
   </nav>
 
   <main>
     <h2>本周主题</h2>
     <p>“因为无论在哪里，有两三个人奉我的名聚会，那里就有我在他们中间。” (马太福音 18:20)</p>
     <p><strong>本周日讲道：</strong> 晚上 7:30</p>
-
-    <div id="verse-box">加载一节经文...</div>
-    <button onclick="loadVerse()">换一节经文</button>
   </main>
 
   <footer>
     <p>© 2025 我们的教会 | 联系: info@example.com</p>
   </footer>
-
-  <script>
-    async function loadVerse() {
-      try {
-        let res = await fetch("https://bible-api.com/John%203:16?translation=cuvs");
-        let data = await res.json();
-        document.getElementById("verse-box").innerText = data.text + " —— " + data.reference;
-      } catch (e) {
-        document.getElementById("verse-box").innerText = "无法加载经文，请稍后重试。";
-      }
-    }
-    // 页面加载时调用一次
-    loadVerse();
-  </script>
 </body>
 </html>
