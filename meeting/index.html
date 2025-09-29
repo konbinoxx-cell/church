@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>祷告会通知生成器 - 自动部署版</title>
+    <style>
+        /* 所有之前的CSS样式保持不变 */
+        :root {
+            --primary-color: #ff8c42;
+            --secondary-color: #ffb347;
+            --background-dark: #0a0a1a;
+            --background-medium: #0d1b2a;
+            --text-light: #ffffff;
+            --text-medium: #f0f0f0;
+            --accent-color: #ff6b35;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--background-dark) 0%, var(--background-medium) 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        /* 其他CSS样式保持不变... */
+        
+        .github-section {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        
+        .github-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .github-form input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .token-info {
+            background: rgba(255, 140, 66, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .token-info h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .token-info ol {
+            padding-left: 20px;
+        }
+        
+        .token-info li {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>祷告会通知生成器 - 自动部署版</h1>
+            <p class="subtitle">轻松创建并自动部署到GitHub Pages</p>
+        </header>
+        
+        <!-- 原有的编辑和预览面板保持不变 -->
+        <div class="app-container">
+            <div class="editor-panel">
+                <h2 class="panel-title">编辑内容</h2>
+                
+                <div class="form-group">
+                    <label for="title">祷告会标题</label>
+                    <input type="text" id="title" value="周三祷告会通知 🔥">
+                </div>
+                
+                <div class="form-group">
+                    <label for="time">祷告会时间</label>
+                    <input type="text" id="time" value="7:30-8:40 PM">
+                </div>
+                
+                <div class="form-group">
+                    <label for="verse1">经文一</label>
+                    <textarea id="verse1">「有一件事，我曾寻求耶和华，我仍要寻求：就是一生一世住在耶和华的殿中，瞻仰祂的荣美，在祂的殿里求问。」(诗 27:4)</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="verse2">经文二</label>
+                    <textarea id="verse2">「耶稣说：我不是对你说过，你若信，就必看见 神的荣耀吗？」（约 11:40)</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">引言信息</label>
+                    <textarea id="message">亲爱的主内家人，让我们一同来到 神与基督耶稣施恩宝座前寻求祂的荣面，并同心为神国事工、主内肢体与自己需要争战得胜祷告。</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="prayer1">国度代祷事项 (每行一项)</label>
+                    <textarea id="prayer1">以色列与列国局势
+加拿大所有华人教会的复兴
+在灾难中受苦的百姓</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="prayer2">为教会代祷事项 (每行一项)</label>
+                    <textarea id="prayer2">建立荣耀神的教会
+为教会的复兴、兴起
+为教会的合一、彼此相爱
+为弟兄姐妹们的灵命成长
+为更多愿意为主做工的同工
+为敬拜团、行政总务、团契小组、福音外展、财务</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="prayer3">个人代祷需要 (每行一项)</label>
+                    <textarea id="prayer3">身心灵医治恢复
+家人得救
+人际关系修补
+财务需要
+圣灵充满与复兴
+边洁姊妹父亲边玉桂身体得医治</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="specialPrayer">特别代祷事项</label>
+                    <input type="text" id="specialPrayer" value="边洁姊妹父亲边玉桂身体得医治">
+                </div>
+                
+                <h2 class="panel-title">选择配色方案</h2>
+                
+                <div class="form-group">
+                    <label>主题颜色</label>
+                    <div class="color-picker">
+                        <div class="color-option active" style="background-color: #ff8c42;" data-color="#ff8c42"></div>
+                        <div class="color-option" style="background-color: #e74c3c;" data-color="#e74c3c"></div>
+                        <div class="color-option" style="background-color: #3498db;" data-color="#3498db"></div>
+                        <div class="color-option" style="background-color: #2ecc71;" data-color="#2ecc71"></div>
+                        <div class="color-option" style="background-color: #9b59b6;" data-color="#9b59b6"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>背景颜色</label>
+                    <div class="color-picker">
+                        <div class="color-option active" style="background-color: #0a0a1a;" data-bg="#0a0a1a"></div>
+                        <div class="color-option" style="background-color: #1a1a2e;" data-bg="#1a1a2e"></div>
+                        <div class="color-option" style="background-color: #0d1b2a;" data-bg="#0d1b2a"></div>
+                        <div class="color-option" style="background-color: #1d2d44;" data-bg="#1d2d44"></div>
+                        <div class="color-option" style="background-color: #14213d;" data-bg="#14213d"></div>
+                    </div>
+                </div>
+                
+                <button id="updatePreview" class="btn btn-full">更新预览</button>
+            </div>
+            
+            <div class="preview-panel">
+                <h2 class="panel-title">预览效果</h2>
+                
+                <div class="preview-container" id="preview">
+                    <!-- 预览内容 -->
+                </div>
+                
+                <div class="export-options">
+                    <button id="copyCode" class="btn">复制HTML代码</button>
+                    <button id="downloadCode" class="btn">下载HTML文件</button>
+                    <button id="deployToGitHub" class="btn">部署到GitHub</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 新增的GitHub部署部分 -->
+        <div class="github-section">
+            <h2 class="panel-title">自动部署到GitHub</h2>
+            
+            <div class="github-form">
+                <div class="form-group">
+                    <label for="githubToken">GitHub Personal Token</label>
+                    <input type="password" id="githubToken" placeholder="输入您的GitHub Token">
+                </div>
+                
+                <div class="form-group">
+                    <label for="repoName">仓库名称</label>
+                    <input type="text" id="repoName" value="prayer-meeting" placeholder="例如: prayer-meeting">
+                </div>
+                
+                <div class="form-group">
+                    <label for="fileName">文件名称</label>
+                    <input type="text" id="fileName" value="index.html" placeholder="例如: prayer-notice.html">
+                </div>
+                
+                <div class="form-group">
+                    <label for="commitMessage">提交信息</label>
+                    <input type="text" id="commitMessage" value="更新祷告会通知" placeholder="提交描述">
+                </div>
+            </div>
+            
+            <div class="token-info">
+                <h4>如何获取GitHub Personal Token：</h4>
+                <ol>
+                    <li>登录GitHub，点击右上角头像 → Settings</li>
+                    <li>左侧菜单选择 Developer settings → Personal access tokens → Tokens (classic)</li>
+                    <li>点击 Generate new token → Generate new token (classic)</li>
+                    <li>设置备注名称，选择过期时间，勾选 repo 权限</li>
+                    <li>点击 Generate token，复制生成的token</li>
+                </ol>
+            </div>
+            
+            <button id="autoDeploy" class="btn btn-full">一键自动部署</button>
+            <div id="deployStatus" style="margin-top: 15px; padding: 10px; border-radius: 5px; display: none;"></div>
+        </div>
+        
+        <div class="instructions">
+            <h2>使用说明</h2>
+            <ol>
+                <li>在编辑区域修改祷告会内容</li>
+                <li>配置GitHub部署信息（需要Personal Token）</li>
+                <li>点击"一键自动部署"将页面直接发布到GitHub Pages</li>
+                <li>访问生成的网址分享给教会同工</li>
+            </ol>
+            
+            <div class="code-block" id="generatedCode">
+                <!-- 生成的代码将显示在这里 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 所有之前的JavaScript代码保持不变...
+        document.addEventListener('DOMContentLoaded', function() {
+            const updateBtn = document.getElementById('updatePreview');
+            const copyBtn = document.getElementById('copyCode');
+            const downloadBtn = document.getElementById('downloadCode');
+            const deployBtn = document.getElementById('deployToGitHub');
+            const autoDeployBtn = document.getElementById('autoDeploy');
+            const colorOptions = document.querySelectorAll('.color-option[data-color]');
+            const bgOptions = document.querySelectorAll('.color-option[data-bg]');
+            const codeBlock = document.getElementById('generatedCode');
+            const deployStatus = document.getElementById('deployStatus');
+            
+            let primaryColor = '#ff8c42';
+            let backgroundColor = '#0a0a1a';
+            let currentHtmlCode = '';
+            
+            // 颜色选择
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    colorOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    primaryColor = this.getAttribute('data-color');
+                    updatePreview();
+                });
+            });
+            
+            bgOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    bgOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    backgroundColor = this.getAttribute('data-bg');
+                    updatePreview();
+                });
+            });
+            
+            // 更新预览
+            updateBtn.addEventListener('click', updatePreview);
+            
+            function updatePreview() {
+                // 获取表单值
+                const title = document.getElementById('title').value;
+                const time = document.getElementById('time').value;
+                const verse1 = document.getElementById('verse1').value;
+                const verse2 = document.getElementById('verse2').value;
+                const message = document.getElementById('message').value;
+                const prayer1 = document.getElementById('prayer1').value.split('\n');
+                const prayer2 = document.getElementById('prayer2').value.split('\n');
+                const prayer3 = document.getElementById('prayer3').value.split('\n');
+                const specialPrayer = document.getElementById('specialPrayer').value;
+                
+                // 更新预览
+                const preview = document.getElementById('preview');
+                preview.innerHTML = `
+                    <div class="preview-header">
+                        <h2 class="preview-title">${title}</h2>
+                        <p>时间：${time}</p>
+                        
+                        <div class="preview-verse">
+                            ${verse1}
+                        </div>
+                        
+                        <div class="preview-verse">
+                            ${verse2}
+                        </div>
+                        
+                        <p>${message}</p>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <h3 class="preview-section-title">一、国度代祷</h3>
+                        <ul class="preview-list">
+                            ${prayer1.map(item => item.trim() ? `<li>${item}</li>` : '').join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <h3 class="preview-section-title">二、为教会代祷</h3>
+                        <ul class="preview-list">
+                            ${prayer2.map(item => item.trim() ? `<li>${item}</li>` : '').join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <h3 class="preview-section-title">三、个人代祷需要</h3>
+                        <ul class="preview-list">
+                            ${prayer3.map(item => item.trim() && item !== specialPrayer ? `<li>${item}</li>` : '').join('')}
+                            ${specialPrayer ? `<li class="special-prayer">${specialPrayer}</li>` : ''}
+                        </ul>
+                    </div>
+                    
+                    <div class="preview-footer">
+                        <div class="fire-emojis">🔥🔥🔥</div>
+                        <p>感谢赞美主</p>
+                    </div>
+                `;
+                
+                // 更新CSS变量
+                preview.style.setProperty('--primary-color', primaryColor);
+                preview.style.setProperty('--secondary-color', lightenColor(primaryColor, 20));
+                preview.style.setProperty('--background-dark', backgroundColor);
+                preview.style.setProperty('--background-medium', lightenColor(backgroundColor, 10));
+                
+                // 生成完整HTML代码
+                generateFullCode();
+            }
+            
+            function lightenColor(color, percent) {
+                const num = parseInt(color.replace("#", ""), 16);
+                const amt = Math.round(2.55 * percent);
+                const R = (num >> 16) + amt;
+                const G = (num >> 8 & 0x00FF) + amt;
+                const B = (num & 0x0000FF) + amt;
+                return "#" + (
+                    0x1000000 +
+                    (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
+                    (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
+                    (B < 255 ? (B < 1 ? 0 : B) : 255)
+                ).toString(16).slice(1);
+            }
+            
+            function generateFullCode() {
+                const title = document.getElementById('title').value;
+                const time = document.getElementById('time').value;
+                const verse1 = document.getElementById('verse1').value;
+                const verse2 = document.getElementById('verse2').value;
+                const message = document.getElementById('message').value;
+                const prayer1 = document.getElementById('prayer1').value.split('\n');
+                const prayer2 = document.getElementById('prayer2').value.split('\n');
+                const prayer3 = document.getElementById('prayer3').value.split('\n');
+                const specialPrayer = document.getElementById('specialPrayer').value;
+                
+                currentHtmlCode = `
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${title}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, ${backgroundColor} 0%, ${lightenColor(backgroundColor, 10)} 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .fire-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at center, rgba(255,100,0,0.15) 0%, rgba(255,50,0,0.08) 40%, rgba(0,0,0,0) 70%);
+            animation: fireGlow 4s infinite alternate;
+        }
+        
+        @keyframes fireGlow {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 69, 0, 0.3);
+            animation: fadeInDown 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: ${primaryColor};
+            text-shadow: 0 0 15px ${primaryColor}80;
+            animation: textGlow 2s infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 15px ${primaryColor}80; }
+            100% { text-shadow: 0 0 25px ${primaryColor}, 0 0 35px ${primaryColor}90; }
+        }
+        
+        header p {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #f0f0f0;
+        }
+        
+        .verse {
+            font-style: italic;
+            margin: 25px 0;
+            font-size: 1.6rem;
+            line-height: 1.8;
+            color: #ffffff;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 6px solid ${primaryColor};
+            border-radius: 0 10px 10px 0;
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        .prayer-section {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 1s ease-out;
+            transition: transform 0.3s;
+        }
+        
+        .prayer-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 69, 0, 0.4);
+        }
+        
+        h2 {
+            color: ${lightenColor(primaryColor, 20)};
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid ${lightenColor(primaryColor, 20)}40;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2::before {
+            content: '🔥';
+            margin-right: 15px;
+            animation: flame 1.5s infinite alternate;
+        }
+        
+        @keyframes flame {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2); }
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 20px;
+            padding-left: 40px;
+            position: relative;
+            line-height: 1.8;
+            font-size: 1.6rem;
+            animation: fadeIn 1s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        li::before {
+            content: '✝';
+            position: absolute;
+            left: 0;
+            color: ${primaryColor};
+            font-size: 1.8rem;
+        }
+        
+        .special-prayer {
+            background: ${primaryColor}20;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 6px solid ${primaryColor};
+            animation: pulse 2s infinite;
+            font-size: 1.7rem;
+            font-weight: bold;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 ${primaryColor}50; }
+            70% { box-shadow: 0 0 0 15px ${primaryColor}00; }
+            100% { box-shadow: 0 0 0 0 ${primaryColor}00; }
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            font-size: 1.6rem;
+            color: ${lightenColor(primaryColor, 20)};
+            animation: fadeIn 2s ease-out;
+        }
+        
+        .fire-emojis {
+            font-size: 3rem;
+            letter-spacing: 15px;
+            margin: 15px 0;
+            animation: firePop 1.5s infinite;
+        }
+        
+        @keyframes firePop {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* 动画关键帧 */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            header p { font-size: 1.5rem; }
+            .verse { font-size: 1.4rem; }
+            h2 { font-size: 1.8rem; }
+            li { font-size: 1.4rem; }
+            .special-prayer { font-size: 1.5rem; }
+            .container { padding: 15px; }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 2.4rem; }
+            header p { font-size: 1.3rem; }
+            .verse { font-size: 1.2rem; }
+            h2 { font-size: 1.6rem; }
+            li { font-size: 1.2rem; }
+            .special-prayer { font-size: 1.3rem; }
+            footer { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="fire-bg"></div>
+    
+    <div class="container">
+        <header>
+            <h1>${title}</h1>
+            <p>时间：${time}</p>
+            
+            <div class="verse">
+                ${verse1}
+            </div>
+            
+            <div class="verse">
+                ${verse2}
+            </div>
+            
+            <p>${message}</p>
+        </header>
+        
+        <section class="prayer-section">
+            <h2>一、国度代祷</h2>
+            <ul>
+                ${prayer1.map(item => item.trim() ? `<li>${item}</li>` : '').join('')}
+            </ul>
+        </section>
+        
+        <section class="prayer-section">
+            <h2>二、为教会代祷</h2>
+            <ul>
+                ${prayer2.map(item => item.trim() ? `<li>${item}</li>` : '').join('')}
+            </ul>
+        </section>
+        
+        <section class="prayer-section">
+            <h2>三、个人代祷需要</h2>
+            <ul>
+                ${prayer3.map(item => item.trim() && item !== specialPrayer ? `<li>${item}</li>` : '').join('')}
+                ${specialPrayer ? `<li class="special-prayer">${specialPrayer}</li>` : ''}
+            </ul>
+        </section>
+        
+        <footer>
+            <div class="fire-emojis">🔥🔥🔥</div>
+            <p>感谢赞美主</p>
+        </footer>
+    </div>
+</body>
+</html>
+                `;
+                
+                codeBlock.textContent = currentHtmlCode;
+            }
+            
+            // 复制代码
+            copyBtn.addEventListener('click', function() {
+                const code = codeBlock.textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    alert('HTML代码已复制到剪贴板！');
+                }).catch(err => {
+                    console.error('复制失败: ', err);
+                });
+            });
+            
+            // 下载代码
+            downloadBtn.addEventListener('click', function() {
+                const code = codeBlock.textContent;
+                const blob = new Blob([code], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'prayer-meeting-notice.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+            
+            // 自动部署到GitHub
+            autoDeployBtn.addEventListener('click', async function() {
+                const token = document.getElementById('githubToken').value;
+                const repoName = document.getElementById('repoName').value;
+                const fileName = document.getElementById('fileName').value;
+                const commitMessage = document.getElementById('commitMessage').value;
+                
+                if (!token || !repoName) {
+                    showDeployStatus('请填写GitHub Token和仓库名称', 'error');
+                    return;
+                }
+                
+                try {
+                    showDeployStatus('正在部署到GitHub...', 'loading');
+                    
+                    // 这里使用GitHub API进行自动部署
+                    const result = await deployToGitHub(
+                        token, 
+                        repoName, 
+                        fileName, 
+                        currentHtmlCode, 
+                        commitMessage
+                    );
+                    
+                    if (result.success) {
+                        showDeployStatus(`部署成功！访问地址: https://${result.username}.github.io/${repoName}/${fileName}`, 'success');
+                    } else {
+                        showDeployStatus(`部署失败: ${result.message}`, 'error');
+                    }
+                } catch (error) {
+                    showDeployStatus(`部署错误: ${error.message}`, 'error');
+                }
+            });
+            
+            async function deployToGitHub(token, repoName, fileName, content, commitMessage) {
+                // 获取用户信息
+                const userResponse = await fetch('https://api.github.com/user', {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+                
+                if (!userResponse.ok) {
+                    throw new Error('GitHub Token无效');
+                }
+                
+                const userData = await userResponse.json();
+                const username = userData.login;
+                
+                // 检查仓库是否存在，如果不存在则创建
+                let repoExists = true;
+                const repoResponse = await fetch(`https://api.github.com/repos/${username}/${repoName}`, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+                
+                if (!repoResponse.ok) {
+                    // 仓库不存在，创建新仓库
+                    const createRepoResponse = await fetch('https://api.github.com/user/repos', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: repoName,
+                            description: '祷告会通知页面',
+                            private: false,
+                            auto_init: true
+                        })
+                    });
+                    
+                    if (!createRepoResponse.ok) {
+                        throw new Error('创建仓库失败');
+                    }
+                }
+                
+                // 获取文件SHA（如果文件已存在）
+                let fileSHA = null;
+                try {
+                    const fileResponse = await fetch(`https://api.github.com/repos/${username}/${repoName}/contents/${fileName}`, {
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    });
+                    
+                    if (fileResponse.ok) {
+                        const fileData = await fileResponse.json();
+                        fileSHA = fileData.sha;
+                    }
+                } catch (error) {
+                    // 文件不存在，继续创建
+                }
+                
+                // 上传文件
+                const uploadResponse = await fetch(`https://api.github.com/repos/${username}/${repoName}/contents/${fileName}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: commitMessage,
+                        content: btoa(unescape(encodeURIComponent(content))),
+                        sha: fileSHA
+                    })
+                });
+                
+                if (!uploadResponse.ok) {
+                    throw new Error('文件上传失败');
+                }
+                
+                return {
+                    success: true,
+                    username: username,
+                    url: `https://${username}.github.io/${repoName}/${fileName}`
+                };
+            }
+            
+            function showDeployStatus(message, type) {
+                deployStatus.style.display = 'block';
+                deployStatus.textContent = message;
+                deployStatus.style.background = type === 'success' ? 'rgba(46, 204, 113, 0.2)' : 
+                                              type === 'error' ? 'rgba(231, 76, 60, 0.2)' : 
+                                              'rgba(52, 152, 219, 0.2)';
+                deployStatus.style.borderLeft = type === 'success' ? '4px solid #2ecc71' : 
+                                              type === 'error' ? '4px solid #e74c3c' : 
+                                              '4px solid #3498db';
+                deployStatus.style.color = type === 'success' ? '#2ecc71' : 
+                                          type === 'error' ? '#e74c3c' : 
+                                          '#3498db';
+            }
+            
+            // 初始化预览
+            updatePreview();
+        });
+    </script>
+</body>
+</html>
