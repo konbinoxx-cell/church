@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>资源 - 教会网站</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>资源</h1>
+    <p>讲道录音、敬拜音乐、灵修材料</p>
+  </header>
+
+  <nav>
+    <a href="index.html">首页</a>
+    <a href="meetings.html">聚会</a>
+    <a href="groups.html">小组</a>
+    <a href="testimonies.html">见证</a>
+    <a href="resources.html">资源</a>
+    <a href="about.html">关于我们</a>
+    <a href="contact.html">联系</a>
+  </nav>
+
+  <main>
+    <h2>圣经经文查询 📖</h2>
+    <input type="text" id="verse-input" placeholder="例如 John 3:16">
+    <button onclick="searchVerse()">查询</button>
+    <div id="verse-result" style="margin-top:20px; font-style:italic; color:#222;"></div>
+  </main>
+
+  <footer>
+    <p>© 2025 我们的教会</p>
+  </footer>
+
+  <script>
+    async function searchVerse() {
+      const query = document.getElementById("verse-input").value;
+      const resultDiv = document.getElementById("verse-result");
+      if(!query){
+        resultDiv.innerText = "请输入经文，如 John 3:16";
+        return;
+      }
+      try{
+        const res = await fetch(`https://bible-api.com/${encodeURIComponent(query)}`);
+        const data = await res.json();
+        if(data.text){
+          resultDiv.innerText = `${data.reference}: ${data.text.trim()}`;
+        }else{
+          resultDiv.innerText = "未找到该经文，请检查输入。";
+        }
+      }catch(e){
+        resultDiv.innerText = "查询失败，请稍后再试。";
+      }
+    }
+  </script>
+</body>
+</html>
