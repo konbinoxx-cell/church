@@ -87,7 +87,18 @@
             color: var(--toronto-blue);
             margin-top: -5px;
         }
-        
+
+        .logo-image {
+            height: 40px;  /* 初始大小，如果太大可以调小 */
+            width: auto;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .logo-image {
+            height: 35px;  /* 移动端稍小一些 */
+            }
+        }
         .nav-menu {
             display: flex;
             gap: 25px;
