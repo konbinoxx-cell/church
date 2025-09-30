@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>恩典教会 - 欢迎回家</title>
+    <title>多伦多恩典教会 - 欢迎回家</title>
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --text: #333;
-            --text-light: #7f8c8d;
-            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --primary: #1a5276;      /* 深蓝色 - 庄重 */
+            --secondary: #e67e22;    /* 橙色 - 温暖乐观 */
+            --accent: #27ae60;       /* 绿色 - 生机希望 */
+            --light: #f9f7f2;        /* 浅米色 - 温暖明亮 */
+            --dark: #2c3e50;         /* 深蓝灰 - 严肃 */
+            --text: #34495e;         /* 深灰蓝 - 易读 */
+            --text-light: #7f8c8d;   /* 中灰色 */
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
             --transition: all 0.3s ease;
+            --toronto-blue: #1e88e5; /* 多伦多蓝 */
+            --toronto-red: #d32f2f;  /* 加拿大红 */
         }
         
         * {
@@ -49,8 +51,8 @@
         
         /* 头部样式 */
         header {
-            background-color: var(--primary);
-            color: white;
+            background-color: white;
+            color: var(--primary);
             box-shadow: var(--shadow);
             position: sticky;
             top: 0;
@@ -78,6 +80,12 @@
         .logo-text {
             font-size: 1.5rem;
             font-weight: 700;
+        }
+        
+        .logo-subtitle {
+            font-size: 0.8rem;
+            color: var(--toronto-blue);
+            margin-top: -5px;
         }
         
         .nav-menu {
@@ -126,24 +134,39 @@
         
         /* 英雄区域 */
         .hero {
-            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.9)), url('images/banner.jpg');
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8)), 
+                        url('images/toronto-church-banner.jpg');
             background-size: cover;
             background-position: center;
-            color: white;
-            padding: 100px 0;
+            color: var(--primary);
+            padding: 120px 0;
             text-align: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--toronto-blue) 0%, transparent 70%);
+            opacity: 0.1;
+            z-index: -1;
         }
         
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: var(--primary);
         }
         
         .hero p {
             font-size: 1.2rem;
             max-width: 700px;
             margin: 0 auto 30px;
+            color: var(--text);
         }
         
         .btn {
@@ -159,19 +182,20 @@
         }
         
         .btn:hover {
-            background-color: #2980b9;
+            background-color: #d35400;
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
         
         .btn-outline {
             background-color: transparent;
-            border: 2px solid white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
         }
         
         .btn-outline:hover {
-            background-color: white;
-            color: var(--primary);
+            background-color: var(--primary);
+            color: white;
         }
         
         /* 主要内容区域 */
@@ -200,7 +224,7 @@
             transform: translateX(-50%);
             width: 80px;
             height: 3px;
-            background-color: var(--secondary);
+            background: linear-gradient(to right, var(--toronto-blue), var(--secondary));
         }
         
         .features {
@@ -212,10 +236,11 @@
         
         .feature-card {
             background-color: white;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            border-top: 4px solid var(--secondary);
         }
         
         .feature-card:hover {
@@ -227,6 +252,17 @@
             height: 200px;
             background-size: cover;
             background-position: center;
+            position: relative;
+        }
+        
+        .feature-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.1));
         }
         
         .feature-content {
@@ -241,7 +277,7 @@
         
         .events {
             background-color: var(--light);
-            padding: 60px 0;
+            padding: 80px 0;
         }
         
         .event-list {
@@ -252,13 +288,18 @@
         
         .event-card {
             background-color: white;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
         }
         
         .event-date {
-            background-color: var(--secondary);
+            background: linear-gradient(135deg, var(--toronto-blue), var(--accent));
             color: white;
             padding: 15px;
             text-align: center;
@@ -293,9 +334,30 @@
             gap: 5px;
         }
         
+        /* 多伦多特色区域 */
+        .toronto-section {
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                        url('images/toronto-skyline.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .toronto-section h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .toronto-section p {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+        
         /* 页脚样式 */
         footer {
-            background-color: var(--dark);
+            background: linear-gradient(135deg, var(--primary), var(--dark));
             color: white;
             padding: 60px 0 20px;
         }
@@ -362,6 +424,12 @@
             transform: translateY(-3px);
         }
         
+        .maple-leaf {
+            color: var(--toronto-red);
+            font-size: 1.2rem;
+            margin: 0 2px;
+        }
+        
         .copyright {
             text-align: center;
             padding-top: 20px;
@@ -377,7 +445,7 @@
                 top: 70px;
                 left: -100%;
                 flex-direction: column;
-                background-color: var(--primary);
+                background-color: white;
                 width: 100%;
                 text-align: center;
                 padding: 20px 0;
@@ -409,7 +477,10 @@
         <div class="container header-container">
             <div class="logo">
                 <div class="logo-icon">⛪</div>
-                <div class="logo-text">恩典教会</div>
+                <div>
+                    <div class="logo-text">多伦多恩典教会</div>
+                    <div class="logo-subtitle">Toronto Grace Church</div>
+                </div>
             </div>
             
             <nav>
@@ -431,8 +502,8 @@
     <!-- 英雄区域 -->
     <section class="hero">
         <div class="container">
-            <h1>欢迎来到恩典教会</h1>
-            <p>我们是一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。</p>
+            <h1>欢迎来到多伦多恩典教会</h1>
+            <p>我们在多伦多市中心建立了一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。</p>
             <a href="pages/about.html" class="btn">了解更多</a>
             <a href="pages/meetings.html" class="btn btn-outline">聚会时间</a>
         </div>
@@ -450,7 +521,7 @@
                     <div class="feature-img" style="background-image: url('images/sermon.jpg');"></div>
                     <div class="feature-content">
                         <h3>主日崇拜</h3>
-                        <p>每周日我们聚集一起敬拜神，聆听祂的话语，在真理中得着力量和指引。</p>
+                        <p>每周日我们聚集一起敬拜神，聆听祂的话语，在真理中得着力量和指引。我们的崇拜融合传统与现代元素，适合各个年龄层。</p>
                         <a href="pages/meetings.html" class="btn" style="margin-top: 15px; padding: 8px 20px;">详情</a>
                     </div>
                 </div>
@@ -459,7 +530,7 @@
                     <div class="feature-img" style="background-image: url('images/prayer.jpg');"></div>
                     <div class="feature-content">
                         <h3>祷告会</h3>
-                        <p>每周三晚上我们一同祷告，为个人、教会和世界的需要向神祈求。</p>
+                        <p>每周三晚上我们一同祷告，为个人、教会和世界的需要向神祈求。我们相信祷告的力量，并见证神如何回应我们的祈求。</p>
                         <a href="pages/meetings.html" class="btn" style="margin-top: 15px; padding: 8px 20px;">详情</a>
                     </div>
                 </div>
@@ -468,7 +539,7 @@
                     <div class="feature-img" style="background-image: url('images/group.jpg');"></div>
                     <div class="feature-content">
                         <h3>小组团契</h3>
-                        <p>加入我们的小组，在亲密的关系中彼此扶持，共同成长。</p>
+                        <p>加入我们的小组，在亲密的关系中彼此扶持，共同成长。我们有英语、普通话和粤语小组，满足不同会友的需要。</p>
                         <a href="pages/groups.html" class="btn" style="margin-top: 15px; padding: 8px 20px;">详情</a>
                     </div>
                 </div>
@@ -490,7 +561,7 @@
                         <div class="event-details">
                             <h3>青年营会</h3>
                             <div class="time">⏰ 9:00 AM - 5:00 PM</div>
-                            <p>专为青少年设计的营会活动，包含敬拜、游戏和小组讨论。</p>
+                            <p>专为青少年设计的营会活动，包含敬拜、游戏和小组讨论，地点在美丽的安大略湖畔。</p>
                         </div>
                     </div>
                     
@@ -502,7 +573,7 @@
                         <div class="event-details">
                             <h3>社区服务日</h3>
                             <div class="time">⏰ 10:00 AM - 2:00 PM</div>
-                            <p>与我们一起服务社区，分享基督的爱。</p>
+                            <p>与我们一起服务多伦多市中心社区，分享基督的爱，为有需要的人提供帮助。</p>
                         </div>
                     </div>
                     
@@ -514,10 +585,20 @@
                         <div class="event-details">
                             <h3>婚姻讲座</h3>
                             <div class="time">⏰ 2:00 PM - 4:00 PM</div>
-                            <p>学习如何在基督里建立坚固的婚姻关系。</p>
+                            <p>学习如何在基督里建立坚固的婚姻关系，由经验丰富的婚姻辅导导师主讲。</p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+        
+        <!-- 多伦多特色区域 -->
+        <section class="toronto-section">
+            <div class="container">
+                <h2>我们在多伦多</h2>
+                <p>作为多伦多市中心的一家教会，我们致力于服务这个多元文化的城市。我们欢迎来自不同背景的朋友，无论您来自哪里，说什么语言，我们都诚挚邀请您加入我们的大家庭。</p>
+                <p>我们位于多伦多市中心，交通便利，附近有地铁站和公交车站。<span class="maple-leaf">🍁</span> 让我们一起在这个美丽的加拿大城市中见证神的恩典与慈爱！<span class="maple-leaf">🍁</span></p>
+                <a href="pages/contact.html" class="btn" style="margin-top: 20px;">如何找到我们</a>
             </div>
         </section>
     </main>
@@ -527,7 +608,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>恩典教会</h3>
+                    <h3>多伦多恩典教会</h3>
                     <p>我们是一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。</p>
                     <div class="social-links">
                         <a href="#" class="social-icon">📘</a>
@@ -551,16 +632,16 @@
                 <div class="footer-column">
                     <h3>联系我们</h3>
                     <ul class="contact-info">
-                        <li>📍 某某市某某区某某路123号</li>
-                        <li>📞 (123) 456-7890</li>
-                        <li>✉️ info@gracechurch.com</li>
+                        <li>📍 123 Church Street, Toronto, ON M5C 2R5</li>
+                        <li>📞 (416) 123-4567</li>
+                        <li>✉️ info@torontogracechurch.com</li>
                         <li>🕒 周一至周五: 9:00 AM - 5:00 PM</li>
                     </ul>
                 </div>
             </div>
             
             <div class="copyright">
-                <p>&copy; 2023 恩典教会. 保留所有权利.</p>
+                <p>&copy; 2023 多伦多恩典教会. 保留所有权利. <span class="maple-leaf">🍁</span> 为基督爱多伦多 <span class="maple-leaf">🍁</span></p>
             </div>
         </div>
     </footer>
