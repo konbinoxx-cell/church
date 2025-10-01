@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小组生活 - 多伦多生命河灵粮堂</title>
+    <style>
+        /* 复用主站样式 */
+        :root {
+            --primary: #1a5276;
+            --secondary: #e67e22;
+            --accent: #27ae60;
+            --light: #f9f7f2;
+            --dark: #2c3e50;
+            --text: #34495e;
+            --text-light: #7f8c8d;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+
+        .groups-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-hero {
+            background: linear-gradient(135deg, var(--primary), var(--toronto-blue));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .page-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            display: inline-block;
+            padding-bottom: 10px;
+            position: relative;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--toronto-blue), var(--secondary));
+        }
+
+        .groups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .group-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 5px solid var(--secondary);
+        }
+
+        .group-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .group-header {
+            padding: 30px 30px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+        }
+
+        .group-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .group-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .group-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .group-content {
+            padding: 25px;
+        }
+
+        .group-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: var(--light);
+            border-radius: 8px;
+        }
+
+        .detail-icon {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            min-width: 20px;
+        }
+
+        .detail-text {
+            flex: 1;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 3px;
+            font-size: 0.9rem;
+        }
+
+        .detail-value {
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .group-features {
+            margin: 20px 0;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-list li:before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background-color: #d35400;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .invitation-section {
+            background: var(--light);
+            padding: 60px 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .invitation-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .invitation-text {
+            font-size: 1.1rem;
+            color: var(--text);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .groups-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .group-header {
+                padding: 20px 20px 15px;
+            }
+            
+            .group-name {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 复用您的header导航 -->
+    <header>
+        <!-- 您的导航代码 -->
+    </header>
+
+    <!-- 页面内容 -->
+    <div class="page-hero">
+        <div class="container">
+            <h1>小组生活</h1>
+            <p>在亲密的小组环境中彼此扶持，建立深厚的属灵友谊</p>
+        </div>
+    </div>
+
+    <div class="groups-container">
+        <div class="section-title">
+            <h2>我们的小组</h2>
+        </div>
+
+        <div class="groups-grid">
+            <!-- 新服小组 -->
+            <div class="group-card">
+                <div class="group-header">
+                    <div class="group-icon">📚</div>
+                    <div class="group-name">新服小组</div>
+                    <div class="group-tag">线上查经小组</div>
+                </div>
+                <div class="group-content">
+                    <div class="group-detail">
+                        <div class="detail-icon">🕒</div>
+                        <div class="detail-text">
+                            <div class="detail-label">聚会时间</div>
+                            <div class="detail-value">每周四晚上 7:30</div>
+                        </div>
+                    </div>
+                    
+                    <div class="group-detail">
+                        <div class="detail-icon">📍</div>
+                        <div class="detail-text">
+                            <div class="detail-label">聚会地点</div>
+                            <div class="detail-value">
+                                Zoom 线上会议<br>
+                                ID: 905-456-7755<br>
+                                密码: 7755
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group-features">
+                        <div class="detail-label" style="margin-bottom: 10px;">小组活动</div>
+                        <ul class="feature-list">
+                            <li>深入查考圣经</li>
+                            <li>生命经历分享</li>
+                            <li>彼此代祷扶持</li>
+                            <li>信仰问题讨论</li>
+                        </ul>
+                    </div>
+
+                    <button class="btn" onclick="joinZoom('9054567755', '7755')">加入Zoom会议</button>
+                    <button class="btn btn-outline" onclick="showInvitationForm()">填写邀请表格</button>
+                </div>
+            </div>
+
+            <!-- 300勇士小组 -->
+            <div class="group-card">
+                <div class="group-header">
+                    <div class="group-icon">⚔️</div>
+                    <div class="group-name">300勇士</div>
+                    <div class="group-tag">青年活力小组</div>
+                </div>
+                <div class="group-content">
+                    <div class="group-detail">
+                        <div class="detail-icon">🕒</div>
+                        <div class="detail-text">
+                            <div class="detail-label">聚会时间</div>
+                            <div class="detail-value">每周五晚上 7:30</div>
+                        </div>
+                    </div>
+                    
+                    <div class="group-detail">
+                        <div class="detail-icon">📍</div>
+                        <div class="detail-text">
+                            <div class="detail-label">聚会地点</div>
+                            <div class="detail-value">1200 Speers Rd, Oakville</div>
+                        </div>
+                    </div>
+
+                    <div class="group-features">
+                        <div class="detail-label" style="margin-bottom: 10px;">小组特色</div>
+                        <ul class="feature-list">
+                            <li>活泼热情的敬拜</li>
+                            <li>贴近生活的主题讨论</li>
+                            <li>定期户外团建活动</li>
+                            <li>建立真诚的友谊</li>
+                        </ul>
+                    </div>
+
+                    <div class="group-detail">
+                        <div class="detail-icon">👥</div>
+                        <div class="detail-text">
+                            <div class="detail-label">适合人群</div>
+                            <div class="detail-value">18-35岁年轻人</div>
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="location.href='contact.html'">了解更多信息</button>
+                </div>
+            </div>
+
+            <!-- 主日敬拜 -->
+            <div class="group-card">
+                <div class="group-header">
+                    <div class="group-icon">🙌</div>
+                    <div class="group-name">主日敬拜</div>
+                    <div class="group-tag">敬拜预备小组</div>
+                </div>
+                <div class="group-content">
+                    <div class="group-detail">
+                        <div class="detail-icon">🕒</div>
+                        <div class="detail-text">
+                            <div class="detail-label">聚会时间</div>
+                            <div class="detail-value">周六聚会前40分钟</div>
+                        </div>
+                    </div>
+                    
+                    <div class="group-detail">
+                        <div class="detail-icon">📍</div>
+                        <div class="detail-text">
+                            <div class="detail-label">聚会地点</div>
+                            <div class="detail-value">2460 The Collegeway, Mississauga</div>
+                        </div>
+                    </div>
+
+                    <div class="group-features">
+                        <div class="detail-label" style="margin-bottom: 10px;">小组重点</div>
+                        <ul class="feature-list">
+                            <li>敬拜心志预备</li>
+                            <li>诗歌练习与磨合</li>
+                            <li>同心合意祷告</li>
+                            <li>服事团队建造</li>
+                        </ul>
+                    </div>
+
+                    <div class="group-detail">
+                        <div class="detail-icon">🎵</div>
+                        <div class="detail-text">
+                            <div class="detail-label">特别说明</div>
+                            <div class="detail-value">主要为敬拜团和服事同工的主日预备时间</div>
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="location.href='meetings.html'">查看主日崇拜详情</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 邀请区块 -->
+        <div class="invitation-section">
+            <h3 class="invitation-title">欢迎加入我们的小组！</h3>
+            <p class="invitation-text">
+                无论您是在寻找属灵的家，还是想要更深入地认识神，我们的小组都欢迎您的加入。
+                在这里，您将找到真诚的友谊、属灵的扶持和生命的成长。
+            </p>
+            <button class="btn" onclick="location.href='contact.html'" style="width: auto; padding: 15px 40px;">
+                联系小组负责人
+            </button>
+        </div>
+    </div>
+
+    <!-- 复用您的footer -->
+    <footer>
+        <!-- 您的页脚代码 -->
+    </footer>
+
+    <script>
+        // 加入Zoom会议
+        function joinZoom(meetingId, password) {
+            const zoomLink = `zoommtg://zoom.us/join?confno=${meetingId}&pwd=${password}`;
+            const webLink = `https://zoom.us/j/${meetingId}?pwd=${password}`;
+            
+            // 尝试打开Zoom应用，如果失败则打开网页版
+            window.location.href = zoomLink;
+            setTimeout(() => {
+                window.location.href = webLink;
+            }, 500);
+        }
+
+        // 显示邀请表格
+        function showInvitationForm() {
+            alert('邀请表格功能即将上线！请先通过联系方式与我们联系。');
+        }
+
+        // 页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.group-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 200 * index);
+            });
+        });
+    </script>
+</body>
+</html>
