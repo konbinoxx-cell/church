@@ -145,90 +145,42 @@
             cursor: pointer;
         }
         
-           /* 英雄区域 - 修复语法并使用本地图片 */
-            .hero {
-    background: linear-gradient(135deg, 
-                rgba(26, 82, 118, 0.3) 0%,   /* 很轻微的暗色 */
-                rgba(44, 62, 80, 0.2) 100%), /* 几乎透明 */
-                url('mathew-schwartz-nwtJyl-2iMI-unsplash.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    color: white;
-    padding: 140px 0;
-    text-align: center;
-    position: relative;
-    min-height: 70vh;
-    display: flex;
-    align-items: center;
-}
-            
-            .hero::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(45deg, var(--toronto-blue) 0%, transparent 50%);
-                opacity: 0.3;
-                z-index: -1;
-            }
-            
-            .hero h1 {
-                font-size: 3.5rem;
-                margin-bottom: 25px;
-                color: white;
-                text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-                font-weight: 700;
-            }
-            
-            .hero p {
-                font-size: 1.3rem;
-                max-width: 700px;
-                margin: 0 auto 35px;
-                color: white;
-                text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
-                line-height: 1.6;
-            }
-            
-            /* 移动端适配 */
-            @media (max-width: 768px) {
+                /* 英雄区域 - 修复移动端背景 */
                 .hero {
-                    padding: 100px 0;
-                    background-attachment: scroll;
-                    min-height: 60vh;
-                }
-                
-                .hero h1 {
-                    font-size: 2.5rem;
-                }
-                
-                .hero p {
-                    font-size: 1.1rem;
-                    padding: 0 20px;
-                }
-            }
-
-            /* 移动端适配 */
-            @media (max-width: 768px) {
-                .hero {
-                    padding: 100px 0;
-                    background-attachment: scroll; /* 移动端取消固定背景 */
+                    background: linear-gradient(135deg, 
+                                rgba(26, 82, 118, 0.4) 0%, 
+                                rgba(44, 62, 80, 0.3) 100%), 
+                                url('mathew-schwartz-nwtJyl-2iMI-unsplash.jpg');
+                    background-size: cover;
                     background-position: center;
-                    min-height: 60vh;
+                    background-attachment: fixed;
+                    background-repeat: no-repeat;
+                    background-color: #1a5276; /* 明确的背景色回退 */
+                    color: white;
+                    padding: 140px 0;
+                    text-align: center;
+                    position: relative;
+                    min-height: 70vh;
+                    display: flex;
+                    align-items: center;
                 }
                 
-                .hero h1 {
-                    font-size: 2.5rem;
+                /* 移动端适配 - 修复背景显示 */
+                @media (max-width: 768px) {
+                    .hero {
+                        background: linear-gradient(135deg, 
+                                    rgba(26, 82, 118, 0.4) 0%, 
+                                    rgba(44, 62, 80, 0.3) 100%), 
+                                    url('mathew-schwartz-nwtJyl-2iMI-unsplash.jpg');
+                        background-size: cover;
+                        background-position: center 30%; /* 移动端优化位置 */
+                        background-attachment: scroll; /* 移动端必须用scroll */
+                        background-repeat: no-repeat;
+                        background-color: #1a5276; /* 明确的背景色回退 */
+                        padding: 80px 20px;
+                        min-height: 50vh;
+                    }
                 }
-                
-                .hero p {
-                    font-size: 1.1rem;
-                    padding: 0 20px;
-                }
-            }
         
             /* 主按钮 - 橙色 */
             .btn {
