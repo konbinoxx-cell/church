@@ -230,34 +230,44 @@
                 }
             }
         
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: var(--secondary);
-            color: white;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            background-color: #d35400;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        .btn-outline:hover {
-            background-color: var(--primary);
-            color: white;
-        }
+            /* 主按钮 - 橙色 */
+            .btn {
+                display: inline-block;
+                padding: 12px 30px;
+                background-color: var(--secondary);
+                color: white;
+                border-radius: 30px;
+                font-weight: 600;
+                transition: var(--transition);
+                border: none;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(230, 126, 34, 0.4);
+            }
+            
+            .btn:hover {
+                background-color: #d35400;
+                transform: translateY(-3px);
+                box-shadow: 0 8px 20px rgba(230, 126, 34, 0.5);
+            }
+            
+            /* 轮廓按钮 - 白色 */
+            .btn-outline {
+                background-color: transparent;
+                border: 2px solid white;
+                color: white;
+                border-radius: 30px;
+                font-weight: 600;
+                transition: var(--transition);
+                cursor: pointer;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            }
+            
+            .btn-outline:hover {
+                background-color: white;
+                color: var(--primary);
+                transform: translateY(-3px);
+                box-shadow: 0 8px 20px rgba(255, 255, 255, 0.4);
+            }
         
         /* 主要内容区域 */
         .main-content {
