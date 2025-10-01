@@ -318,6 +318,421 @@
                 text-align: center;
             }
         }
+    /* 语音录音功能样式 */
+.voice-testimony-section {
+    margin: 60px 0;
+}
+
+.voice-recorder {
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.recorder-container {
+    padding: 40px;
+}
+
+.recorder-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.recorder-header .recorder-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.recorder-header h3 {
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.recorder-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.record-btn {
+    padding: 15px 25px;
+    border: 2px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.record-btn:hover:not(:disabled) {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.record-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.record-btn.stop {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.record-btn.stop:hover:not(:disabled) {
+    background: var(--accent);
+    color: white;
+}
+
+.record-btn.play {
+    border-color: var(--secondary);
+    color: var(--secondary);
+}
+
+.record-btn.play:hover:not(:disabled) {
+    background: var(--secondary);
+    color: white;
+}
+
+.btn-icon {
+    font-size: 0.8rem;
+}
+
+.recorder-status {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.status-message {
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.recorder-timer {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-family: 'Courier New', monospace;
+}
+
+.recorder-visualizer {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    height: 30px;
+    align-items: end;
+}
+
+.visualizer-bar {
+    width: 4px;
+    background: var(--secondary);
+    border-radius: 2px;
+    transition: height 0.1s ease;
+}
+
+.recorder-preview {
+    background: var(--light);
+    padding: 25px;
+    border-radius: 10px;
+    margin: 25px 0;
+}
+
+.recorder-preview h4 {
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.preview-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.preview-actions .btn {
+    width: auto;
+    padding: 12px 25px;
+}
+
+.recorder-tips {
+    background: rgba(230, 126, 34, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid var(--secondary);
+}
+
+.recorder-tips h4 {
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.recorder-tips ul {
+    list-style: none;
+}
+
+.recorder-tips li {
+    padding: 5px 0;
+    position: relative;
+    padding-left: 20px;
+}
+
+.recorder-tips li:before {
+    content: '💡';
+    position: absolute;
+    left: 0;
+}
+
+/* 录音状态样式 */
+.recording .record-btn:not(.stop) {
+    opacity: 0.5;
+}
+
+.recording .status-message {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.recording .recorder-timer {
+    color: var(--accent);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .recorder-container {
+        padding: 25px;
+    }
+    
+    .recorder-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .record-btn {
+        width: 200px;
+        justify-content: center;
+    }
+    
+    .preview-actions {
+        flex-direction: column;
+    }
+}
+// 语音录制功能
+class VoiceTestimonyRecorder {
+    constructor() {
+        this.mediaRecorder = null;
+        this.audioChunks = [];
+        this.isRecording = false;
+        this.startTime = null;
+        this.timerInterval = null;
+        this.audioBlob = null;
+        
+        this.initializeElements();
+        this.setupEventListeners();
+    }
+    
+    initializeElements() {
+        this.startBtn = document.getElementById('startRecord');
+        this.stopBtn = document.getElementById('stopRecord');
+        this.playBtn = document.getElementById('playRecord');
+        this.saveBtn = document.getElementById('saveRecording');
+        this.reRecordBtn = document.getElementById('reRecord');
+        this.statusEl = document.getElementById('recorderStatus');
+        this.timerEl = document.getElementById('timer');
+        this.previewEl = document.getElementById('recorderPreview');
+        this.audioPreview = document.getElementById('audioPreview');
+        this.visualizerBars = document.querySelectorAll('.visualizer-bar');
+    }
+    
+    setupEventListeners() {
+        this.startBtn.addEventListener('click', () => this.startRecording());
+        this.stopBtn.addEventListener('click', () => this.stopRecording());
+        this.playBtn.addEventListener('click', () => this.playRecording());
+        this.saveBtn.addEventListener('click', () => this.saveRecording());
+        this.reRecordBtn.addEventListener('click', () => this.resetRecorder());
+    }
+    
+    async startRecording() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ 
+                audio: {
+                    echoCancellation: true,
+                    noiseSuppression: true,
+                    sampleRate: 44100
+                } 
+            });
+            
+            this.mediaRecorder = new MediaRecorder(stream);
+            this.audioChunks = [];
+            
+            this.mediaRecorder.ondataavailable = (event) => {
+                this.audioChunks.push(event.data);
+            };
+            
+            this.mediaRecorder.onstop = () => {
+                this.audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
+                const audioUrl = URL.createObjectURL(this.audioBlob);
+                this.audioPreview.src = audioUrl;
+                this.showPreview();
+            };
+            
+            this.mediaRecorder.start();
+            this.isRecording = true;
+            this.startTime = Date.now();
+            this.updateUI();
+            this.startTimer();
+            this.startVisualizer();
+            
+        } catch (error) {
+            console.error('录音启动失败:', error);
+            this.statusEl.textContent = '无法访问麦克风，请检查权限设置';
+            this.statusEl.style.color = 'var(--toronto-red)';
+        }
+    }
+    
+    stopRecording() {
+        if (this.mediaRecorder && this.isRecording) {
+            this.mediaRecorder.stop();
+            this.isRecording = false;
+            this.stopTimer();
+            this.stopVisualizer();
+            this.updateUI();
+            
+            // 停止所有音频轨道
+            this.mediaRecorder.stream.getTracks().forEach(track => track.stop());
+        }
+    }
+    
+    playRecording() {
+        if (this.audioPreview.src) {
+            this.audioPreview.play();
+        }
+    }
+    
+    startTimer() {
+        this.timerInterval = setInterval(() => {
+            const elapsed = Date.now() - this.startTime;
+            const seconds = Math.floor(elapsed / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const displaySeconds = seconds % 60;
+            this.timerEl.textContent = `${minutes.toString().padStart(2, '0')}:${displaySeconds.toString().padStart(2, '0')}`;
+        }, 1000);
+    }
+    
+    stopTimer() {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+    }
+    
+    startVisualizer() {
+        this.visualizerInterval = setInterval(() => {
+            this.visualizerBars.forEach(bar => {
+                const randomHeight = Math.random() * 20 + 5;
+                bar.style.height = `${randomHeight}px`;
+            });
+        }, 100);
+    }
+    
+    stopVisualizer() {
+        if (this.visualizerInterval) {
+            clearInterval(this.visualizerInterval);
+            this.visualizerBars.forEach(bar => {
+                bar.style.height = '5px';
+            });
+        }
+    }
+    
+    showPreview() {
+        this.previewEl.style.display = 'block';
+        this.statusEl.textContent = '录音完成！请预览并保存您的见证';
+        this.statusEl.style.color = 'var(--accent)';
+    }
+    
+    saveRecording() {
+        if (!this.audioBlob) return;
+        
+        // 创建下载链接
+        const audioUrl = URL.createObjectURL(this.audioBlob);
+        const a = document.createElement('a');
+        a.href = audioUrl;
+        a.download = `信仰见证-${new Date().toISOString().split('T')[0]}.wav`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        
+        // 显示成功消息
+        this.statusEl.textContent = '见证已保存！感谢您的分享';
+        this.statusEl.style.color = 'var(--accent)';
+        
+        // 提供提交选项
+        setTimeout(() => {
+            if (confirm('是否要提交这个语音见证给教会？')) {
+                location.href = 'contact.html?type=testimony';
+            }
+        }, 1000);
+    }
+    
+    resetRecorder() {
+        this.previewEl.style.display = 'none';
+        this.audioPreview.src = '';
+        this.audioBlob = null;
+        this.timerEl.textContent = '00:00';
+        this.statusEl.textContent = '准备开始录音...';
+        this.statusEl.style.color = 'var(--text)';
+        this.updateUI();
+    }
+    
+    updateUI() {
+        this.startBtn.disabled = this.isRecording;
+        this.stopBtn.disabled = !this.isRecording;
+        this.playBtn.disabled = !this.audioBlob;
+        
+        if (this.isRecording) {
+            document.querySelector('.voice-recorder').classList.add('recording');
+            this.statusEl.textContent = '正在录音中...';
+            this.statusEl.style.color = 'var(--accent)';
+        } else {
+            document.querySelector('.voice-recorder').classList.remove('recording');
+        }
+    }
+}
+
+// 初始化语音录制功能
+document.addEventListener('DOMContentLoaded', function() {
+    // 检查浏览器支持
+    if (!navigator.mediaDevices || !window.MediaRecorder) {
+        const voiceSection = document.querySelector('.voice-testimony-section');
+        if (voiceSection) {
+            voiceSection.innerHTML = `
+                <div class="recorder-container" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">🎤</div>
+                    <h3>语音功能暂不可用</h3>
+                    <p>您的浏览器不支持语音录制功能，请使用 Chrome、Firefox 或 Edge 等现代浏览器。</p>
+                    <p style="margin-top: 20px;">
+                        <a href="contact.html" class="btn">通过文字分享见证</a>
+                    </p>
+                </div>
+            `;
+        }
+        return;
+    }
+    
+    // 初始化语音录制器
+    new VoiceTestimonyRecorder();
+});    
     </style>
 </head>
 <body>
@@ -527,6 +942,82 @@
             <button class="btn" onclick="location.href='contact.html'">分享我的见证</button>
             <button class="btn btn-outline" onclick="location.href='prayer-ai.html'">请求代祷</button>
         </div>
+            <!-- 语音录入见证功能 -->
+        <div class="voice-testimony-section">
+            <div class="section-title">
+                <h2>语音分享见证</h2>
+            </div>
+            <div class="voice-recorder">
+                <div class="recorder-container">
+                    <div class="recorder-header">
+                        <div class="recorder-icon">🎤</div>
+                        <h3>语音记录你的见证</h3>
+                        <p>用最自然的方式分享神的作为</p>
+                    </div>
+                    
+                    <div class="recorder-controls">
+                        <button id="startRecord" class="record-btn">
+                            <span class="btn-icon">●</span>
+                            开始录音
+                        </button>
+                        <button id="stopRecord" class="record-btn stop" disabled>
+                            <span class="btn-icon">■</span>
+                            停止录音
+                        </button>
+                        <button id="playRecord" class="record-btn play" disabled>
+                            <span class="btn-icon">▶</span>
+                            播放录音
+                        </button>
+                    </div>
+                    
+                    <div class="recorder-status">
+                        <div id="recorderStatus" class="status-message">准备开始录音...</div>
+                        <div class="recorder-timer">
+                            <span id="timer">00:00</span>
+                        </div>
+                        <div class="recorder-visualizer">
+                            <div class="visualizer-bar"></div>
+                            <div class="visualizer-bar"></div>
+                            <div class="visualizer-bar"></div>
+                            <div class="visualizer-bar"></div>
+                            <div class="visualizer-bar"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="recorder-preview" id="recorderPreview" style="display: none;">
+                        <h4>录音预览</h4>
+                        <audio id="audioPreview" controls style="width: 100%; margin: 10px 0;"></audio>
+                        <div class="preview-actions">
+                            <button id="saveRecording" class="btn">保存见证</button>
+                            <button id="reRecord" class="btn btn-outline">重新录制</button>
+                        </div>
+                    </div>
+                    
+                    <div class="recorder-tips">
+                        <h4>录音提示：</h4>
+                        <ul>
+                            <li>找一个安静的环境</li>
+                            <li>说话清晰，语速适中</li>
+                            <li>分享真实的经历和感受</li>
+                            <li>录音时长建议1-3分钟</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 邀请分享见证 -->
+        <div class="invitation-section">
+            <h3 class="invitation-title">你也有故事要分享吗？</h3>
+            <p class="invitation-text">
+                每个人的生命中都有神奇妙的作为。无论你的故事是大是小，
+                都能成为他人的祝福和鼓励。我们邀请你分享神的恩典在你生命中的见证。
+            </p>
+            <button class="btn" onclick="location.href='contact.html'">分享我的见证</button>
+            <button class="btn btn-outline" onclick="location.href='prayer-ai.html'">请求代祷</button>
+        </div>
+    </div>
+    
     </div>
 
     <!-- 复用您的footer -->
