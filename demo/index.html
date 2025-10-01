@@ -480,68 +480,80 @@
                 font-size: 1rem;
             }
         }
-        /* 下拉菜单样式 */
-            .dropdown {
-            position: relative;
-            }
+       /* 下拉菜单样式 */
+.dropdown {
+    position: relative;
+}
 
-            .dropdown-menu {
-             position: absolute;
-            top: 100%;
-            left: 0;
-            background: white;
-            min-width: 220px;
-            box-shadow: var(--shadow);
-            border-radius: 8px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: var(--transition);
-            z-index: 1000;
-            }
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    min-width: 220px;
+    box-shadow: var(--shadow);
+    border-radius: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    padding: 10px 0;
+}
 
-            .dropdown:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-            }
+/* 只有鼠标悬停时才显示下拉菜单 */
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
 
-            .dropdown-menu li {
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            }
+.dropdown-menu li {
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
 
-            .dropdown-menu li:last-child {
-            border-bottom: none;
-            }
+.dropdown-menu li:last-child {
+    border-bottom: none;
+}
 
-            .dropdown-menu a {
-            display: block;
-            padding: 12px 20px;
-            color: var(--text);
-            font-size: 0.9rem;
-            }
+.dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    color: var(--text);
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
 
-            .dropdown-menu a:hover {
-            background: var(--light);
-            color: var(--secondary);
-            }
+.dropdown-menu a:hover {
+    background: var(--light);
+    color: var(--secondary);
+    padding-left: 25px;
+}
 
-            /* 移动端适配 */
-            @media (max-width: 768px) {
-            .dropdown-menu {
-            position: static;
-            opacity: 1;
-            visibility: visible;
-            transform: none;
-            box-shadow: none;
-            background: transparent;
-            display: none;
-            }
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        background: transparent;
+        display: none;
+        padding: 0;
+        margin-top: 10px;
+        margin-left: 20px;
+    }
     
-            .dropdown.active .dropdown-menu {
-             display: block;
-            }
-            }
+    .dropdown.active .dropdown-menu {
+        display: block;
+    }
+    
+    .dropdown > a::after {
+        content: ' ▼';
+        font-size: 0.8em;
+    }
+}
     
     </style>
 </head>
