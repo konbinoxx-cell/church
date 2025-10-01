@@ -145,14 +145,14 @@
             cursor: pointer;
         }
         
-            /* 英雄区域 - 修复版 */
+           /* 英雄区域 - 修复语法并使用本地图片 */
             .hero {
                 background: linear-gradient(135deg, 
                             rgba(26, 82, 118, 0.85) 0%, 
                             rgba(44, 62, 80, 0.75) 100%), 
-                            url('https://images.unsplash.com/photo-1517935706615-2717063c2225?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+                            url('mathew-schwartz-nwtJyl-2iMI-unsplash.jpg');
                 background-size: cover;
-                background-position: center 30%;
+                background-position: center;
                 background-attachment: fixed;
                 background-repeat: no-repeat;
                 color: white;
@@ -180,7 +180,7 @@
                 font-size: 3.5rem;
                 margin-bottom: 25px;
                 color: white;
-                text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+                text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
                 font-weight: 700;
             }
             
@@ -189,28 +189,46 @@
                 max-width: 700px;
                 margin: 0 auto 35px;
                 color: white;
-                text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
-                opacity: 0.95;
+                text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+                line-height: 1.6;
+            }
+            
+            /* 移动端适配 */
+            @media (max-width: 768px) {
+                .hero {
+                    padding: 100px 0;
+                    background-attachment: scroll;
+                    min-height: 60vh;
+                }
+                
+                .hero h1 {
+                    font-size: 2.5rem;
+                }
+                
+                .hero p {
+                    font-size: 1.1rem;
+                    padding: 0 20px;
+                }
             }
 
-/* 移动端适配 */
-@media (max-width: 768px) {
-    .hero {
-        padding: 100px 0;
-        background-attachment: scroll; /* 移动端取消固定背景 */
-        background-position: center;
-        min-height: 60vh;
-    }
-    
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-    
-    .hero p {
-        font-size: 1.1rem;
-        padding: 0 20px;
-    }
-}
+            /* 移动端适配 */
+            @media (max-width: 768px) {
+                .hero {
+                    padding: 100px 0;
+                    background-attachment: scroll; /* 移动端取消固定背景 */
+                    background-position: center;
+                    min-height: 60vh;
+                }
+                
+                .hero h1 {
+                    font-size: 2.5rem;
+                }
+                
+                .hero p {
+                    font-size: 1.1rem;
+                    padding: 0 20px;
+                }
+            }
         
         .btn {
             display: inline-block;
