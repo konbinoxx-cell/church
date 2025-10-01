@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>信仰见证 - 多伦多生命河灵粮堂</title>
     <style>
-        /* 复用主站样式 */
         :root {
             --primary: #1a5276;
             --secondary: #e67e22;
@@ -16,40 +15,245 @@
             --text-light: #7f8c8d;
             --shadow: 0 4px 12px rgba(0,0,0,0.08);
             --transition: all 0.3s ease;
+            --toronto-blue: #1e88e5;
+            --toronto-red: #d32f2f;
         }
-
-        .testimonies-container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: white;
+            color: var(--primary);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logo-image {
+            height: 100px;
+            width: auto;
+        }
+        
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .logo-subtitle {
+            font-size: 0.7rem;
+            color: var(--toronto-blue);
+            margin-top: -5px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            padding: 5px 0;
+            position: relative;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: var(--secondary);
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* 下拉菜单样式 */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu li {
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .dropdown-menu li:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--text);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-menu a:hover {
+            background: var(--light);
+            color: var(--secondary);
+            padding-left: 25px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                padding: 20px 0;
+                transition: var(--transition);
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: transparent;
+                display: none;
+                padding: 0;
+                margin-top: 10px;
+                margin-left: 20px;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .dropdown > a::after {
+                content: ' ▼';
+                font-size: 0.8em;
+            }
+        }
+        
+        /* 页面特定内容样式 */
         .page-hero {
-            background: linear-gradient(135deg, var(--primary), var(--toronto-blue));
+            background: linear-gradient(135deg, var(--primary), var(--dark));
             color: white;
             padding: 80px 0;
             text-align: center;
-            margin-bottom: 50px;
         }
         
-        .page-hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+        .page-content {
+            padding: 60px 0;
         }
-
+        
         .section-title {
             text-align: center;
             margin-bottom: 50px;
+            position: relative;
         }
-
+        
         .section-title h2 {
             font-size: 2.2rem;
             color: var(--primary);
             display: inline-block;
             padding-bottom: 10px;
-            position: relative;
         }
-
+        
         .section-title h2::after {
             content: '';
             position: absolute;
@@ -60,1041 +264,381 @@
             height: 3px;
             background: linear-gradient(to right, var(--toronto-blue), var(--secondary));
         }
-
-        .testimony-filters {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 10px 25px;
-            background: white;
-            border: 2px solid var(--primary);
-            border-radius: 25px;
-            color: var(--primary);
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-
+        
+        /* 见证页面特定样式 */
         .testimonies-grid {
             display: grid;
-            gap: 40px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
         }
-
+        
         .testimony-card {
             background: white;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
-            opacity: 1;
-            transform: translateY(0);
         }
-
-        .testimony-card.hidden {
-            display: none;
-        }
-
+        
         .testimony-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
-
+        
         .testimony-header {
-            padding: 30px 30px 20px;
-            background: linear-gradient(135deg, var(--primary), var(--dark));
+            padding: 25px;
+            background: linear-gradient(135deg, var(--accent), #2ecc71);
             color: white;
             position: relative;
         }
-
+        
         .testimony-category {
             position: absolute;
-            top: 20px;
-            right: 25px;
+            top: 15px;
+            right: 15px;
             background: rgba(255,255,255,0.2);
             padding: 5px 15px;
-            border-radius: 15px;
+            border-radius: 20px;
             font-size: 0.8rem;
         }
-
-        .testimony-person {
+        
+        .testimony-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        
+        .testimony-author {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
-
-        .person-avatar {
-            width: 60px;
-            height: 60px;
+        
+        .author-avatar {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-weight: bold;
         }
-
-        .person-info h3 {
-            font-size: 1.4rem;
-            margin-bottom: 5px;
+        
+        .author-info {
+            flex: 1;
+        }
+        
+        .author-name {
             font-weight: 600;
         }
-
-        .person-info .role {
-            opacity: 0.8;
-            font-size: 0.9rem;
+        
+        .author-details {
+            font-size: 0.8rem;
+            opacity: 0.9;
         }
-
+        
         .testimony-content {
-            padding: 30px;
+            padding: 25px;
         }
-
-        .testimony-title {
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-            font-weight: 600;
-            line-height: 1.4;
-        }
-
-        .testimony-text {
-            color: var(--text);
+        
+        .testimony-excerpt {
+            color: var(--text-light);
             line-height: 1.8;
             margin-bottom: 20px;
         }
-
-        .testimony-text p {
-            margin-bottom: 15px;
-        }
-
-        .testimony-highlight {
-            background: var(--light);
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid var(--secondary);
-            margin: 20px 0;
-            font-style: italic;
-        }
-
-        .testimony-verse {
-            background: rgba(39, 174, 96, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border-left: 4px solid var(--accent);
-        }
-
-        .verse-text {
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-
-        .verse-ref {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            text-align: right;
-        }
-
-        .share-section {
+        
+        .testimony-stats {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-top: 25px;
-            padding-top: 20px;
             border-top: 1px solid #f0f0f0;
-        }
-
-        .testimony-date {
+            padding-top: 15px;
             color: var(--text-light);
             font-size: 0.9rem;
         }
-
-        .share-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .share-btn {
-            padding: 8px 15px;
-            background: var(--light);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 25px;
+            font-weight: 600;
             transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(230, 126, 34, 0.4);
             font-size: 0.9rem;
         }
-
-        .share-btn:hover {
-            background: var(--secondary);
-            color: white;
+        
+        .btn:hover {
+            background-color: #d35400;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(230, 126, 34, 0.5);
         }
-
-        .invitation-section {
-            background: linear-gradient(135deg, var(--primary), var(--dark));
-            color: white;
-            padding: 60px 40px;
+        
+        .share-testimony {
+            background: var(--light);
+            padding: 40px;
             border-radius: 15px;
             text-align: center;
             margin-top: 50px;
         }
-
-        .invitation-title {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        .invitation-text {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 15px 40px;
-            background-color: var(--secondary);
-            color: white;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 1.1rem;
-        }
-
-        .btn:hover {
-            background-color: #d35400;
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid white;
-            color: white;
-            margin-left: 15px;
-        }
-
-        .btn-outline:hover {
-            background: white;
-            color: var(--primary);
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .testimony-filters {
-                gap: 10px;
-            }
-            
-            .filter-btn {
-                padding: 8px 20px;
-                font-size: 0.9rem;
-            }
-            
-            .testimony-person {
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
-            }
-            
-            .share-section {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-        }
-    /* 语音录音功能样式 */
-.voice-testimony-section {
-    margin: 60px 0;
-}
-
-.voice-recorder {
-    background: white;
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-    overflow: hidden;
-}
-
-.recorder-container {
-    padding: 40px;
-}
-
-.recorder-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.recorder-header .recorder-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.recorder-header h3 {
-    color: var(--primary);
-    margin-bottom: 10px;
-    font-size: 1.5rem;
-}
-
-.recorder-controls {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-}
-
-.record-btn {
-    padding: 15px 25px;
-    border: 2px solid var(--primary);
-    background: white;
-    color: var(--primary);
-    border-radius: 25px;
-    cursor: pointer;
-    transition: var(--transition);
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.record-btn:hover:not(:disabled) {
-    background: var(--primary);
-    color: white;
-    transform: translateY(-2px);
-}
-
-.record-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.record-btn.stop {
-    border-color: var(--accent);
-    color: var(--accent);
-}
-
-.record-btn.stop:hover:not(:disabled) {
-    background: var(--accent);
-    color: white;
-}
-
-.record-btn.play {
-    border-color: var(--secondary);
-    color: var(--secondary);
-}
-
-.record-btn.play:hover:not(:disabled) {
-    background: var(--secondary);
-    color: white;
-}
-
-.btn-icon {
-    font-size: 0.8rem;
-}
-
-.recorder-status {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.status-message {
-    font-size: 1.1rem;
-    color: var(--text);
-    margin-bottom: 15px;
-    font-weight: 500;
-}
-
-.recorder-timer {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--primary);
-    margin-bottom: 20px;
-    font-family: 'Courier New', monospace;
-}
-
-.recorder-visualizer {
-    display: flex;
-    justify-content: center;
-    gap: 3px;
-    height: 30px;
-    align-items: end;
-}
-
-.visualizer-bar {
-    width: 4px;
-    background: var(--secondary);
-    border-radius: 2px;
-    transition: height 0.1s ease;
-}
-
-.recorder-preview {
-    background: var(--light);
-    padding: 25px;
-    border-radius: 10px;
-    margin: 25px 0;
-}
-
-.recorder-preview h4 {
-    color: var(--primary);
-    margin-bottom: 15px;
-}
-
-.preview-actions {
-    display: flex;
-    gap: 15px;
-    margin-top: 20px;
-    flex-wrap: wrap;
-}
-
-.preview-actions .btn {
-    width: auto;
-    padding: 12px 25px;
-}
-
-.recorder-tips {
-    background: rgba(230, 126, 34, 0.1);
-    padding: 20px;
-    border-radius: 10px;
-    border-left: 4px solid var(--secondary);
-}
-
-.recorder-tips h4 {
-    color: var(--primary);
-    margin-bottom: 10px;
-}
-
-.recorder-tips ul {
-    list-style: none;
-}
-
-.recorder-tips li {
-    padding: 5px 0;
-    position: relative;
-    padding-left: 20px;
-}
-
-.recorder-tips li:before {
-    content: '💡';
-    position: absolute;
-    left: 0;
-}
-
-/* 录音状态样式 */
-.recording .record-btn:not(.stop) {
-    opacity: 0.5;
-}
-
-.recording .status-message {
-    color: var(--accent);
-    font-weight: 600;
-}
-
-.recording .recorder-timer {
-    color: var(--accent);
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-    .recorder-container {
-        padding: 25px;
-    }
-    
-    .recorder-controls {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .record-btn {
-        width: 200px;
-        justify-content: center;
-    }
-    
-    .preview-actions {
-        flex-direction: column;
-    }
-}
-// 语音录制功能
-class VoiceTestimonyRecorder {
-    constructor() {
-        this.mediaRecorder = null;
-        this.audioChunks = [];
-        this.isRecording = false;
-        this.startTime = null;
-        this.timerInterval = null;
-        this.audioBlob = null;
-        
-        this.initializeElements();
-        this.setupEventListeners();
-    }
-    
-    initializeElements() {
-        this.startBtn = document.getElementById('startRecord');
-        this.stopBtn = document.getElementById('stopRecord');
-        this.playBtn = document.getElementById('playRecord');
-        this.saveBtn = document.getElementById('saveRecording');
-        this.reRecordBtn = document.getElementById('reRecord');
-        this.statusEl = document.getElementById('recorderStatus');
-        this.timerEl = document.getElementById('timer');
-        this.previewEl = document.getElementById('recorderPreview');
-        this.audioPreview = document.getElementById('audioPreview');
-        this.visualizerBars = document.querySelectorAll('.visualizer-bar');
-    }
-    
-    setupEventListeners() {
-        this.startBtn.addEventListener('click', () => this.startRecording());
-        this.stopBtn.addEventListener('click', () => this.stopRecording());
-        this.playBtn.addEventListener('click', () => this.playRecording());
-        this.saveBtn.addEventListener('click', () => this.saveRecording());
-        this.reRecordBtn.addEventListener('click', () => this.resetRecorder());
-    }
-    
-    async startRecording() {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ 
-                audio: {
-                    echoCancellation: true,
-                    noiseSuppression: true,
-                    sampleRate: 44100
-                } 
-            });
-            
-            this.mediaRecorder = new MediaRecorder(stream);
-            this.audioChunks = [];
-            
-            this.mediaRecorder.ondataavailable = (event) => {
-                this.audioChunks.push(event.data);
-            };
-            
-            this.mediaRecorder.onstop = () => {
-                this.audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
-                const audioUrl = URL.createObjectURL(this.audioBlob);
-                this.audioPreview.src = audioUrl;
-                this.showPreview();
-            };
-            
-            this.mediaRecorder.start();
-            this.isRecording = true;
-            this.startTime = Date.now();
-            this.updateUI();
-            this.startTimer();
-            this.startVisualizer();
-            
-        } catch (error) {
-            console.error('录音启动失败:', error);
-            this.statusEl.textContent = '无法访问麦克风，请检查权限设置';
-            this.statusEl.style.color = 'var(--toronto-red)';
-        }
-    }
-    
-    stopRecording() {
-        if (this.mediaRecorder && this.isRecording) {
-            this.mediaRecorder.stop();
-            this.isRecording = false;
-            this.stopTimer();
-            this.stopVisualizer();
-            this.updateUI();
-            
-            // 停止所有音频轨道
-            this.mediaRecorder.stream.getTracks().forEach(track => track.stop());
-        }
-    }
-    
-    playRecording() {
-        if (this.audioPreview.src) {
-            this.audioPreview.play();
-        }
-    }
-    
-    startTimer() {
-        this.timerInterval = setInterval(() => {
-            const elapsed = Date.now() - this.startTime;
-            const seconds = Math.floor(elapsed / 1000);
-            const minutes = Math.floor(seconds / 60);
-            const displaySeconds = seconds % 60;
-            this.timerEl.textContent = `${minutes.toString().padStart(2, '0')}:${displaySeconds.toString().padStart(2, '0')}`;
-        }, 1000);
-    }
-    
-    stopTimer() {
-        if (this.timerInterval) {
-            clearInterval(this.timerInterval);
-            this.timerInterval = null;
-        }
-    }
-    
-    startVisualizer() {
-        this.visualizerInterval = setInterval(() => {
-            this.visualizerBars.forEach(bar => {
-                const randomHeight = Math.random() * 20 + 5;
-                bar.style.height = `${randomHeight}px`;
-            });
-        }, 100);
-    }
-    
-    stopVisualizer() {
-        if (this.visualizerInterval) {
-            clearInterval(this.visualizerInterval);
-            this.visualizerBars.forEach(bar => {
-                bar.style.height = '5px';
-            });
-        }
-    }
-    
-    showPreview() {
-        this.previewEl.style.display = 'block';
-        this.statusEl.textContent = '录音完成！请预览并保存您的见证';
-        this.statusEl.style.color = 'var(--accent)';
-    }
-    
-    saveRecording() {
-        if (!this.audioBlob) return;
-        
-        // 创建下载链接
-        const audioUrl = URL.createObjectURL(this.audioBlob);
-        const a = document.createElement('a');
-        a.href = audioUrl;
-        a.download = `信仰见证-${new Date().toISOString().split('T')[0]}.wav`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        
-        // 显示成功消息
-        this.statusEl.textContent = '见证已保存！感谢您的分享';
-        this.statusEl.style.color = 'var(--accent)';
-        
-        // 提供提交选项
-        setTimeout(() => {
-            if (confirm('是否要提交这个语音见证给教会？')) {
-                location.href = 'contact.html?type=testimony';
-            }
-        }, 1000);
-    }
-    
-    resetRecorder() {
-        this.previewEl.style.display = 'none';
-        this.audioPreview.src = '';
-        this.audioBlob = null;
-        this.timerEl.textContent = '00:00';
-        this.statusEl.textContent = '准备开始录音...';
-        this.statusEl.style.color = 'var(--text)';
-        this.updateUI();
-    }
-    
-    updateUI() {
-        this.startBtn.disabled = this.isRecording;
-        this.stopBtn.disabled = !this.isRecording;
-        this.playBtn.disabled = !this.audioBlob;
-        
-        if (this.isRecording) {
-            document.querySelector('.voice-recorder').classList.add('recording');
-            this.statusEl.textContent = '正在录音中...';
-            this.statusEl.style.color = 'var(--accent)';
-        } else {
-            document.querySelector('.voice-recorder').classList.remove('recording');
-        }
-    }
-}
-
-// 初始化语音录制功能
-document.addEventListener('DOMContentLoaded', function() {
-    // 检查浏览器支持
-    if (!navigator.mediaDevices || !window.MediaRecorder) {
-        const voiceSection = document.querySelector('.voice-testimony-section');
-        if (voiceSection) {
-            voiceSection.innerHTML = `
-                <div class="recorder-container" style="text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 20px;">🎤</div>
-                    <h3>语音功能暂不可用</h3>
-                    <p>您的浏览器不支持语音录制功能，请使用 Chrome、Firefox 或 Edge 等现代浏览器。</p>
-                    <p style="margin-top: 20px;">
-                        <a href="contact.html" class="btn">通过文字分享见证</a>
-                    </p>
-                </div>
-            `;
-        }
-        return;
-    }
-    
-    // 初始化语音录制器
-    new VoiceTestimonyRecorder();
-});    
     </style>
 </head>
 <body>
-    <!-- 复用您的header导航 -->
+    <!-- 头部导航 -->
     <header>
-        <!-- 您的导航代码 -->
+        <div class="container header-container">
+            <div class="logo">
+                <img src="../trolcc_logo1.png" alt="多伦多生命河灵粮堂" class="logo-image">
+                <div>
+                    <div class="logo-text">多伦多生命河灵粮堂</div>
+                    <div class="logo-subtitle">Toronto River of Life Christian Church</div>
+                </div>
+            </div>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="../index.html" class="nav-link">首页</a></li>
+                    <li><a href="meetings.html" class="nav-link">聚会时间</a></li>
+                    <li><a href="groups.html" class="nav-link">小组生活</a></li>
+                    <li><a href="testimonies.html" class="nav-link active">信仰见证</a></li>
+                    <li><a href="resources.html" class="nav-link">资源中心</a></li>
+                    <li><a href="../prayer-ai.html" class="nav-link">🙏 祷告AI & 生成器</a></li>
+                    
+                    <!-- 母堂资源下拉菜单 -->
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">母堂资源 ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://rolcc.net/rolcc2/" target="_blank">母堂主页</a></li>
+                            <li><a href="https://rolcc.net/bulletin/" target="_blank">电子周报</a></li>
+                            <li><a href="https://rolcc.net/rolcc2/sunday-media/" target="_blank">主日影音</a></li>
+                            <li><a href="https://myrolcc.net/onlinezone/" target="_blank">网络牧区</a></li>
+                            <li><a href="https://rolcc.net/rolcc2/church/#" target="_blank">母堂教会事工</a></li>
+                            <li><a href="https://rolcc.net/rolcc2/equip/" target="_blank">信徒装备</a></li>
+                            <li><a href="https://rolcc.net/rolcc2/rolcc-apps/" target="_blank">ROLCC APP</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li><a href="about.html" class="nav-link">关于我们</a></li>
+                    <li><a href="contact.html" class="nav-link">联系我们</a></li>
+                </ul>
+            </nav>
+            
+            <div class="mobile-toggle">☰</div>
+        </div>
     </header>
 
     <!-- 页面内容 -->
-    <div class="page-hero">
+    <section class="page-hero">
         <div class="container">
             <h1>信仰见证</h1>
-            <p>真实的故事，生命的改变，神的恩典</p>
+            <p>见证神的恩典与大能，分享生命改变的奇迹</p>
         </div>
-    </div>
+    </section>
 
-    <div class="testimonies-container">
-        <div class="section-title">
-            <h2>生命见证故事</h2>
-        </div>
-
-        <!-- 见证筛选 -->
-        <div class="testimony-filters">
-            <button class="filter-btn active" data-filter="all">全部见证</button>
-            <button class="filter-btn" data-filter="healing">疾病得医治</button>
-            <button class="filter-btn" data-filter="family">家庭重建</button>
-            <button class="filter-btn" data-filter="career">职场恩典</button>
-            <button class="filter-btn" data-filter="salvation">生命改变</button>
-        </div>
-
-        <!-- 见证列表 -->
-        <div class="testimonies-grid">
-            <!-- 见证1：疾病得医治 -->
-            <div class="testimony-card" data-category="healing">
-                <div class="testimony-header">
-                    <div class="testimony-category">疾病得医治</div>
-                    <div class="testimony-person">
-                        <div class="person-avatar">👩</div>
-                        <div class="person-info">
-                            <h3>张姐妹</h3>
-                            <div class="role">教会会友 · 三个孩子的母亲</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimony-content">
-                    <h3 class="testimony-title">从癌症诊断到完全康复：神的医治大能</h3>
-                    <div class="testimony-text">
-                        <p>2022年春天，我被诊断出患有乳腺癌第三期。医生告诉我需要立即进行手术和化疗，生存率只有40%。那一刻，我的世界仿佛崩塌了。</p>
-                        
-                        <div class="testimony-highlight">
-                            "在病床上，我第一次真正地祷告：'神啊，如果你真的存在，求你让我认识你。'"
-                        </div>
-
-                        <p>教会的兄弟姐妹们为我组织了一个祷告链，每天24小时不间断地为我祷告。在化疗最痛苦的时候，我经历了前所未有的平安。奇妙的是，第三次化疗后的检查显示，肿瘤竟然缩小了80%！</p>
-
-                        <div class="testimony-verse">
-                            <div class="verse-text">"他赦免你的一切罪孽，医治你的一切疾病。"</div>
-                            <div class="verse-ref">诗篇 103:3</div>
-                        </div>
-
-                        <p>如今，我已经完全康复，医生称这是个"医学奇迹"。但我知道，这不是奇迹，这是神的恩典。我现在在教会参与关怀事工，用我的经历安慰其他正在经历病痛的人。</p>
-                    </div>
-                    <div class="share-section">
-                        <div class="testimony-date">分享于 2023年6月15日</div>
-                        <div class="share-buttons">
-                            <button class="share-btn" onclick="shareTestimony(1)">📤 分享见证</button>
-                            <button class="share-btn" onclick="likeTestimony(1)">❤️ 感动 (128)</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 见证2：家庭重建 -->
-            <div class="testimony-card" data-category="family">
-                <div class="testimony-header">
-                    <div class="testimony-category">家庭重建</div>
-                    <div class="testimony-person">
-                        <div class="person-avatar">👨</div>
-                        <div class="person-info">
-                            <h3>李先生</h3>
-                            <div class="role">IT工程师 · 曾经婚姻破裂</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimony-content">
-                    <h3 class="testimony-title">从离婚边缘到恩爱如初：基督里的婚姻重建</h3>
-                    <div class="testimony-text">
-                        <p>我和妻子结婚12年，但因为工作压力和沟通问题，我们的关系越来越差。2021年，我们开始分居，并准备办理离婚手续。</p>
-                        
-                        <p>在一个偶然的机会，同事邀请我参加教会的主日崇拜。那天牧师讲到"爱是恒久忍耐"，我突然意识到，我从未真正理解什么是无条件的爱。</p>
-
-                        <div class="testimony-highlight">
-                            "神让我看到，问题不在于我的妻子，而在于我自己的心。我需要先被神的爱充满，才能去爱别人。"
-                        </div>
-
-                        <p>我开始参加教会的婚姻辅导课程，学习按照圣经的原则来经营婚姻。经过半年的努力，我和妻子重新走到了一起。现在我们的关系比刚结婚时还要甜蜜！</p>
-
-                        <div class="testimony-verse">
-                            <div class="verse-text">"所以，神配合的，人不可分开。"</div>
-                            <div class="verse-ref">马太福音 19:6</div>
-                        </div>
-
-                        <p>如今，我们夫妻一起在教会服事，帮助其他面临婚姻危机的夫妇。神的爱真正重建了我们的家庭。</p>
-                    </div>
-                    <div class="share-section">
-                        <div class="testimony-date">分享于 2023年8月22日</div>
-                        <div class="share-buttons">
-                            <button class="share-btn" onclick="shareTestimony(2)">📤 分享见证</button>
-                            <button class="share-btn" onclick="likeTestimony(2)">❤️ 感动 (96)</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 见证3：职场恩典 -->
-            <div class="testimony-card" data-category="career">
-                <div class="testimony-header">
-                    <div class="testimony-category">职场恩典</div>
-                    <div class="testimony-person">
-                        <div class="person-avatar">👩‍💼</div>
-                        <div class="person-info">
-                            <h3>王姐妹</h3>
-                            <div class="role">市场营销总监 · 前职场焦虑者</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimony-content">
-                    <h3 class="testimony-title">从职场焦虑到平安喜乐：在基督里找到真正价值</h3>
-                    <div class="testimony-text">
-                        <p>在认识主之前，我是一个典型的工作狂。我的价值完全建立在工作成就上，经常为了项目熬夜加班，压力大到需要服用安眠药才能入睡。</p>
-                        
-                        <p>2020年疫情爆发，我所在的公司大规模裁员，我也失去了工作。那一刻，我觉得自己的人生彻底失败了。</p>
-
-                        <div class="testimony-highlight">
-                            "失业让我意识到，我把事业当成了偶像。当我失去工作时，仿佛失去了整个身份。"
-                        </div>
-
-                        <p>在低谷中，一位基督徒朋友带我来到教会。我第一次听到"你们要先求他的国和他的义，这些东西都要加给你们了"这节经文。</p>
-
-                        <div class="testimony-verse">
-                            <div class="verse-text">"不要为生命忧虑吃什么，喝什么；为身体忧虑穿什么。生命不胜于饮食吗？身体不胜于衣裳吗？"</div>
-                            <div class="verse-ref">马太福音 6:25</div>
-                        </div>
-
-                        <p>信主后，神不仅为我预备了更好的工作机会，更重要的是，我找到了在基督里的身份和价值。现在我在职场中为神作见证，带领了两个同事信主！</p>
-                    </div>
-                    <div class="share-section">
-                        <div class="testimony-date">分享于 2023年10月5日</div>
-                        <div class="share-buttons">
-                            <button class="share-btn" onclick="shareTestimony(3)">📤 分享见证</button>
-                            <button class="share-btn" onclick="likeTestimony(3)">❤️ 感动 (87)</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 见证4：生命改变 -->
-            <div class="testimony-card" data-category="salvation">
-                <div class="testimony-header">
-                    <div class="testimony-category">生命改变</div>
-                    <div class="testimony-person">
-                        <div class="person-avatar">👦</div>
-                        <div class="person-info">
-                            <h3>陈弟兄</h3>
-                            <div class="role">大学生 · 从迷失到找到方向</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimony-content">
-                    <h3 class="testimony-title">从迷失青年到神学生：在基督里找到人生使命</h3>
-                    <div class="testimony-text">
-                        <p>大学二年级时，我陷入了深深的迷茫。不知道为什么要学习，不知道人生的意义是什么。我开始沉迷游戏，经常逃课，成绩一落千丈。</p>
-                        
-                        <p>有一次在图书馆，我偶然翻到一本圣经。出于好奇，我开始阅读四福音书。耶稣的生平和教导深深吸引了我。</p>
-
-                        <div class="testimony-highlight">
-                            "当我读到'我就是道路、真理、生命'时，眼泪不由自主地流下来。我知道，这就是我一直在寻找的答案。"
-                        </div>
-
-                        <p>我决定接受耶稣作为我的救主。信主后，我的生命发生了翻天覆地的变化：戒掉了游戏瘾，学习成绩提升，更重要的是，我找到了人生的方向和使命。</p>
-
-                        <div class="testimony-verse">
-                            <div class="verse-text">"若有人在基督里，他就是新造的人，旧事已过，都变成新的了。"</div>
-                            <div class="verse-ref">哥林多后书 5:17</div>
-                        </div>
-
-                        <p>现在我已经毕业，正在神学院进修，准备全职服事主。感谢神，他把我从迷失中拯救出来，给了我新的生命和使命！</p>
-                    </div>
-                    <div class="share-section">
-                        <div class="testimony-date">分享于 2023年11月18日</div>
-                        <div class="share-buttons">
-                            <button class="share-btn" onclick="shareTestimony(4)">📤 分享见证</button>
-                            <button class="share-btn" onclick="likeTestimony(4)">❤️ 感动 (113)</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 邀请分享见证 -->
-        <div class="invitation-section">
-            <h3 class="invitation-title">你也有故事要分享吗？</h3>
-            <p class="invitation-text">
-                每个人的生命中都有神奇妙的作为。无论你的故事是大是小，
-                都能成为他人的祝福和鼓励。我们邀请你分享神的恩典在你生命中的见证。
-            </p>
-            <button class="btn" onclick="location.href='contact.html'">分享我的见证</button>
-            <button class="btn btn-outline" onclick="location.href='prayer-ai.html'">请求代祷</button>
-        </div>
-            <!-- 语音录入见证功能 -->
-        <div class="voice-testimony-section">
+    <section class="page-content">
+        <div class="container">
             <div class="section-title">
-                <h2>语音分享见证</h2>
+                <h2>生命见证</h2>
+                <p>真实的故事，见证神的信实与慈爱</p>
             </div>
-            <div class="voice-recorder">
-                <div class="recorder-container">
-                    <div class="recorder-header">
-                        <div class="recorder-icon">🎤</div>
-                        <h3>语音记录你的见证</h3>
-                        <p>用最自然的方式分享神的作为</p>
-                    </div>
-                    
-                    <div class="recorder-controls">
-                        <button id="startRecord" class="record-btn">
-                            <span class="btn-icon">●</span>
-                            开始录音
-                        </button>
-                        <button id="stopRecord" class="record-btn stop" disabled>
-                            <span class="btn-icon">■</span>
-                            停止录音
-                        </button>
-                        <button id="playRecord" class="record-btn play" disabled>
-                            <span class="btn-icon">▶</span>
-                            播放录音
-                        </button>
-                    </div>
-                    
-                    <div class="recorder-status">
-                        <div id="recorderStatus" class="status-message">准备开始录音...</div>
-                        <div class="recorder-timer">
-                            <span id="timer">00:00</span>
-                        </div>
-                        <div class="recorder-visualizer">
-                            <div class="visualizer-bar"></div>
-                            <div class="visualizer-bar"></div>
-                            <div class="visualizer-bar"></div>
-                            <div class="visualizer-bar"></div>
-                            <div class="visualizer-bar"></div>
+            
+            <div class="testimonies-grid">
+                <div class="testimony-card">
+                    <div class="testimony-header">
+                        <div class="testimony-category">医治见证</div>
+                        <h3 class="testimony-title">从重病到完全康复</h3>
+                        <div class="testimony-author">
+                            <div class="author-avatar">张</div>
+                            <div class="author-info">
+                                <div class="author-name">张弟兄</div>
+                                <div class="author-details">45岁 · 工程师</div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="recorder-preview" id="recorderPreview" style="display: none;">
-                        <h4>录音预览</h4>
-                        <audio id="audioPreview" controls style="width: 100%; margin: 10px 0;"></audio>
-                        <div class="preview-actions">
-                            <button id="saveRecording" class="btn">保存见证</button>
-                            <button id="reRecord" class="btn btn-outline">重新录制</button>
+                    <div class="testimony-content">
+                        <p class="testimony-excerpt">
+                            "去年我被诊断出患有严重的疾病，医生说我需要立即手术且预后不佳。在教会弟兄姐妹的祷告支持下，我经历了神的奇妙医治。三个月后的复查显示，我的病情完全好转，医生都感到惊讶..."
+                        </p>
+                        <button class="btn">阅读完整见证</button>
+                        <div class="testimony-stats">
+                            <span>👍 24人感动</span>
+                            <span>📅 2023年10月</span>
                         </div>
                     </div>
-                    
-                    <div class="recorder-tips">
-                        <h4>录音提示：</h4>
-                        <ul>
-                            <li>找一个安静的环境</li>
-                            <li>说话清晰，语速适中</li>
-                            <li>分享真实的经历和感受</li>
-                            <li>录音时长建议1-3分钟</li>
-                        </ul>
+                </div>
+                
+                <div class="testimony-card">
+                    <div class="testimony-header">
+                        <div class="testimony-category">家庭见证</div>
+                        <h3 class="testimony-title">破碎家庭的复原</h3>
+                        <div class="testimony-author">
+                            <div class="author-avatar">李</div>
+                            <div class="author-info">
+                                <div class="author-name">李姐妹</div>
+                                <div class="author-details">38岁 · 教师</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimony-content">
+                        <p class="testimony-excerpt">
+                            "我们的婚姻曾经濒临破裂，争吵和冷漠充斥着家庭。通过参加教会的小组和婚姻辅导，我们学会了在基督里彼此饶恕。现在我们的关系比婚前还要甜蜜，孩子们也在健康的家庭环境中成长..."
+                        </p>
+                        <button class="btn">阅读完整见证</button>
+                        <div class="testimony-stats">
+                            <span>👍 31人感动</span>
+                            <span>📅 2023年8月</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimony-card">
+                    <div class="testimony-header">
+                        <div class="testimony-category">职场见证</div>
+                        <h3 class="testimony-title">失业后的恩典之路</h3>
+                        <div class="testimony-author">
+                            <div class="author-avatar">王</div>
+                            <div class="author-info">
+                                <div class="author-name">王弟兄</div>
+                                <div class="author-details">32岁 · 项目经理</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimony-content">
+                        <p class="testimony-excerpt">
+                            "疫情期间我失去了工作，投了上百份简历都石沉大海。在最绝望的时候，教会弟兄姐妹为我祷告，神为我开路。不仅找到了更好的工作，薪水还比之前高出30%。我深深体会到神的供应从不迟到..."
+                        </p>
+                        <button class="btn">阅读完整见证</button>
+                        <div class="testimony-stats">
+                            <span>👍 19人感动</span>
+                            <span>📅 2023年6月</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimony-card">
+                    <div class="testimony-header">
+                        <div class="testimony-category">信仰历程</div>
+                        <h3 class="testimony-title">从无神论到虔诚信徒</h3>
+                        <div class="testimony-author">
+                            <div class="author-avatar">陈</div>
+                            <div class="author-info">
+                                <div class="author-name">陈博士</div>
+                                <div class="author-details">50岁 · 大学教授</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimony-content">
+                        <p class="testimony-excerpt">
+                            "作为一名科研工作者，我曾经坚信科学可以解释一切。直到一次重病让我重新思考生命的意义。通过系统地研究圣经和与基督徒朋友的交流，我发现了超越科学的真理。现在我在大学里也带领查经小组..."
+                        </p>
+                        <button class="btn">阅读完整见证</button>
+                        <div class="testimony-stats">
+                            <span>👍 42人感动</span>
+                            <span>📅 2023年4月</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimony-card">
+                    <div class="testimony-header">
+                        <div class="testimony-category">青年见证</div>
+                        <h3 class="testimony-title">迷途知返的年轻人</h3>
+                        <div class="testimony-author">
+                            <div class="author-avatar">刘</div>
+                            <div class="author-info">
+                                <div class="author-name">刘弟兄</div>
+                                <div class="author-details">25岁 · 留学生</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimony-content">
+                        <p class="testimony-excerpt">
+                            "刚来加拿大时，我被自由的生活冲昏了头脑，沉迷游戏，学业一落千丈。在教会青年小组的关爱下，我重新找到了人生的方向。现在不仅顺利毕业，还成为了小组的同工，帮助其他留学生..."
+                        </p>
+                        <button class="btn">阅读完整见证</button>
+                        <div class="testimony-stats">
+                            <span>👍 28人感动</span>
+                            <span>📅 2023年2月</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimony-card">
+                    <div class="testimony-header">
+                        <div class="testimony-category">事奉见证</div>
+                        <h3 class="testimony-title">在服事中经历成长</h3>
+                        <div class="testimony-author">
+                            <div class="author-avatar">黄</div>
+                            <div class="author-info">
+                                <div class="author-name">黄姐妹</div>
+                                <div class="author-details">29岁 · 音乐老师</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimony-content">
+                        <p class="testimony-excerpt">
+                            "刚开始在教会司琴时，我总是紧张害怕出错。通过祷告和操练，神不仅提升了我的音乐技巧，更让我明白事奉的真谛。现在带领敬拜团队，看到会众在敬拜中遇见神，是我最大的喜乐..."
+                        </p>
+                        <button class="btn">阅读完整见证</button>
+                        <div class="testimony-stats">
+                            <span>👍 35人感动</span>
+                            <span>📅 2023年1月</span>
+                        </div>
                     </div>
                 </div>
             </div>
+            
+            <div class="share-testimony">
+                <h3>分享你的见证</h3>
+                <p>神在你生命中的作为值得被传扬！分享你的见证可以鼓励更多的人。</p>
+                <button class="btn" style="background-color: var(--accent); box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);">
+                    我要分享见证
+                </button>
+            </div>
         </div>
+    </section>
 
-        <!-- 邀请分享见证 -->
-        <div class="invitation-section">
-            <h3 class="invitation-title">你也有故事要分享吗？</h3>
-            <p class="invitation-text">
-                每个人的生命中都有神奇妙的作为。无论你的故事是大是小，
-                都能成为他人的祝福和鼓励。我们邀请你分享神的恩典在你生命中的见证。
-            </p>
-            <button class="btn" onclick="location.href='contact.html'">分享我的见证</button>
-            <button class="btn btn-outline" onclick="location.href='prayer-ai.html'">请求代祷</button>
+    <!-- 页脚 -->
+    <footer style="background: linear-gradient(135deg, var(--primary), var(--dark)); color: white; padding: 60px 0 20px;">
+        <div class="container">
+            <div class="copyright" style="text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p>&copy; 2023 多伦多生命河灵粮堂教会. 保留所有权利. 🍁 为基督爱多伦多 🍁</p>
+            </div>
         </div>
-    </div>
-    
-    </div>
-
-    <!-- 复用您的footer -->
-    <footer>
-        <!-- 您的页脚代码 -->
     </footer>
 
     <script>
-        // 见证筛选功能
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                // 更新活跃按钮
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                
-                const filter = this.dataset.filter;
-                const cards = document.querySelectorAll('.testimony-card');
-                
-                cards.forEach(card => {
-                    if (filter === 'all' || card.dataset.category === filter) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                });
+        // 移动端菜单切换
+        document.querySelector('.mobile-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // 移动端下拉菜单切换
+        document.querySelectorAll('.dropdown > a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    // 关闭其他打开的下拉菜单
+                    document.querySelectorAll('.dropdown.active').forEach(menu => {
+                        if (menu !== this.parentElement) {
+                            menu.classList.remove('active');
+                        }
+                    });
+                    this.parentElement.classList.toggle('active');
+                }
             });
         });
 
-        // 分享见证功能
-        function shareTestimony(id) {
-            const testimony = document.querySelector(`.testimony-card:nth-child(${id})`);
-            const title = testimony.querySelector('.testimony-title').textContent;
-            const person = testimony.querySelector('.person-info h3').textContent;
-            
-            const shareText = `阅读"${person}"的见证：${title} - 多伦多生命河灵粮堂`;
-            const shareUrl = window.location.href;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: '信仰见证',
-                    text: shareText,
-                    url: shareUrl
+        // 点击页面其他区域关闭下拉菜单
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown') && window.innerWidth <= 768) {
+                document.querySelectorAll('.dropdown.active').forEach(menu => {
+                    menu.classList.remove('active');
                 });
-            } else {
-                // 备用分享方式
-                prompt('复制分享链接：', shareUrl);
             }
-        }
-
-        // 点赞功能
-        function likeTestimony(id) {
-            const btn = event.target;
-            let count = parseInt(btn.textContent.match(/\d+/)) || 0;
-            count++;
-            btn.textContent = `❤️ 感动 (${count})`;
-            btn.style.background = 'var(--secondary)';
-            btn.style.color = 'white';
-            
-            // 模拟保存到本地存储
-            setTimeout(() => {
-                alert('感谢您的回应！这个见证也感动了您的心，愿神祝福您。');
-            }, 300);
-        }
-
-        // 页面加载动画
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.testimony-card');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                
-                setTimeout(() => {
-                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 200 * index);
-            });
         });
     </script>
 </body>
