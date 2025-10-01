@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>联系我们 - 多伦多生命河灵粮堂</title>
     <style>
-        /* 复用主站样式 */
         :root {
             --primary: #1a5276;
             --secondary: #e67e22;
@@ -16,379 +15,654 @@
             --text-light: #7f8c8d;
             --shadow: 0 4px 12px rgba(0,0,0,0.08);
             --transition: all 0.3s ease;
+            --toronto-blue: #1e88e5;
+            --toronto-red: #d32f2f;
         }
-
-        .contact-container {
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        .container {
+            width: 90%;
             max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
+            margin: 0 auto;
+            padding: 0 15px;
         }
-
+        
+        /* 头部样式 */
+        header {
+            background-color: white;
+            color: var(--primary);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logo-image {
+            height: 100px;
+            width: auto;
+        }
+        
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .logo-subtitle {
+            font-size: 0.7rem;
+            color: var(--toronto-blue);
+            margin-top: -5px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            padding: 5px 0;
+            position: relative;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: var(--secondary);
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* 下拉菜单样式 */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu li {
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .dropdown-menu li:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--text);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-menu a:hover {
+            background: var(--light);
+            color: var(--secondary);
+            padding-left: 25px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                padding: 20px 0;
+                transition: var(--transition);
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: transparent;
+                display: none;
+                padding: 0;
+                margin-top: 10px;
+                margin-left: 20px;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .dropdown > a::after {
+                content: ' ▼';
+                font-size: 0.8em;
+            }
+        }
+        
+        /* 页面特定内容样式 */
         .page-hero {
-            background: linear-gradient(135deg, var(--primary), var(--toronto-blue));
+            background: linear-gradient(135deg, var(--primary), var(--dark));
             color: white;
             padding: 80px 0;
             text-align: center;
+        }
+        
+        .page-content {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--toronto-blue), var(--secondary));
+        }
+        
+        /* 联系我们特定样式 */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
             margin-bottom: 50px;
         }
         
-        .page-hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            margin-bottom: 60px;
-        }
-
         .contact-info {
             background: white;
             padding: 40px;
             border-radius: 15px;
             box-shadow: var(--shadow);
         }
-
+        
         .contact-form {
             background: white;
             padding: 40px;
             border-radius: 15px;
             box-shadow: var(--shadow);
         }
-
-        .section-title {
-            margin-bottom: 30px;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .section-title h2 {
-            font-size: 1.8rem;
-            color: var(--primary);
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: var(--secondary);
-        }
-
-        .contact-item {
+        
+        .info-item {
             display: flex;
             align-items: flex-start;
-            gap: 15px;
-            margin-bottom: 25px;
-            padding: 20px;
-            background: var(--light);
-            border-radius: 10px;
-            transition: var(--transition);
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
         }
-
-        .contact-item:hover {
-            transform: translateX(5px);
-            background: rgba(230, 126, 34, 0.1);
+        
+        .info-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
         }
-
-        .contact-icon {
+        
+        .info-icon {
             font-size: 1.5rem;
+            margin-right: 15px;
             color: var(--secondary);
             min-width: 30px;
         }
-
-        .contact-details h3 {
+        
+        .info-content h3 {
             color: var(--primary);
-            margin-bottom: 5px;
-            font-size: 1.1rem;
+            margin-bottom: 8px;
         }
-
-        .contact-details p {
-            color: var(--text);
-            margin: 0;
-        }
-
+        
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
-
-        .form-label {
+        
+        .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
             color: var(--primary);
         }
-
-        .form-input, .form-textarea, .form-select {
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
             padding: 12px 15px;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 16px;
             transition: var(--transition);
-            font-family: inherit;
         }
-
-        .form-input:focus, .form-textarea:focus, .form-select:focus {
-            outline: none;
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
             border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
         }
-
-        .form-textarea {
-            height: 120px;
-            resize: vertical;
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
-
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: var(--secondary);
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: var(--secondary);
             color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
+            border-radius: 30px;
             font-weight: 600;
-            cursor: pointer;
             transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(230, 126, 34, 0.4);
+            font-size: 1rem;
+            width: 100%;
         }
-
-        .submit-btn:hover {
-            background: #d35400;
-            transform: translateY(-2px);
+        
+        .btn:hover {
+            background-color: #d35400;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(230, 126, 34, 0.5);
         }
-
-        .service-times {
-            background: var(--light);
+        
+        .map-container {
+            background: white;
             padding: 40px;
             border-radius: 15px;
+            box-shadow: var(--shadow);
             margin-top: 40px;
         }
-
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 25px;
-        }
-
-        .service-card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .service-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
-
-        .service-name {
-            font-size: 1.2rem;
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .map-container {
-            margin-top: 50px;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-        }
-
+        
         .map-placeholder {
-            background: var(--light);
-            height: 300px;
+            height: 400px;
+            background: linear-gradient(135deg, var(--light), #e8f4f8);
             border-radius: 10px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             color: var(--text-light);
-            font-size: 1.1rem;
         }
-
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .contact-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            
-            .service-grid {
-                grid-template-columns: 1fr;
-            }
+        
+        .map-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .office-hours {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 25px;
+        }
+        
+        .hours-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .hours-table tr {
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .hours-table tr:last-child {
+            border-bottom: none;
+        }
+        
+        .hours-table td {
+            padding: 12px 0;
+        }
+        
+        .hours-table td:first-child {
+            font-weight: 600;
+            color: var(--primary);
         }
     </style>
 </head>
 <body>
-    <!-- 复用您的header导航 -->
+    <!-- 头部导航 -->
     <header>
-        <!-- 您的导航代码 -->
+        <div class="container header-container">
+            <div class="logo">
+                <img src="../trolcc_logo1.png" alt="多伦多生命河灵粮堂" class="logo-image">
+                <div>
+                    <div class="logo-text">多伦多生命河灵粮堂</div>
+                    <div class="logo-subtitle">Toronto River of Life Christian Church</div>
+                </div>
+            </div>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="../index.html" class="nav-link">首页</a></li>
+                    <li><a href="meetings.html" class="nav-link">聚会时间</a></li>
+                    <li><a href="groups.html" class="nav-link">小组生活</a></li>
+                    <li><a href="testimonies.html" class="nav-link">信仰见证</a></li>
+                    <li><a href="resources.html" class="nav-link">资源中心</a></li>
+                    <li><a href="../prayer-ai.html" class="nav-link">🙏 祷告AI & 生成器</a></li>
+                    
+                    <!-- 母堂资源下拉菜单 -->
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">母堂资源 ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://rolcc.net/rolcc2/" target="_blank">母堂主页</a></li>
+                            <li><a href="https://rolcc.net/bulletin/" target="_blank">电子周报</a></li>
+                            <li><a href="https://rolcc.net/rolcc2/sunday-media/" target="_blank">主日影音</a></li>
+                            <li><a href="https://myrolcc.net/onlinezone/" target="_blank">网络牧区</a></li>
+                            <li><a href="https://rolcc.net/rolcc2/church/#" target="_blank">母堂教会事工</a></li>
+                            <li><a href="https://rolcc.net/rolcc2/equip/" target="_blank">信徒装备</a></li>
+                            <li><a href="https://rolcc.net/rolcc2/rolcc-apps/" target="_blank">ROLCC APP</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li><a href="about.html" class="nav-link">关于我们</a></li>
+                    <li><a href="contact.html" class="nav-link active">联系我们</a></li>
+                </ul>
+            </nav>
+            
+            <div class="mobile-toggle">☰</div>
+        </div>
     </header>
 
     <!-- 页面内容 -->
-    <div class="page-hero">
+    <section class="page-hero">
         <div class="container">
             <h1>联系我们</h1>
             <p>我们期待听到您的声音，欢迎随时与我们联系</p>
         </div>
-    </div>
+    </section>
 
-    <div class="contact-container">
-        <div class="contact-content">
-            <!-- 联系信息 -->
-            <div class="contact-info">
-                <div class="section-title">
-                    <h2>联系信息</h2>
+    <section class="page-content">
+        <div class="container">
+            <div class="section-title">
+                <h2>取得联系</h2>
+                <p>多种方式联系我们，我们很乐意为您服务</p>
+            </div>
+            
+            <div class="contact-grid">
+                <!-- 联系信息 -->
+                <div class="contact-info">
+                    <h2 style="color: var(--primary); margin-bottom: 30px;">联系信息</h2>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">📍</div>
+                        <div class="info-content">
+                            <h3>地址</h3>
+                            <p>123 Church Street<br>Mississauga, ON L5B 2C9<br>Canada</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">📞</div>
+                        <div class="info-content">
+                            <h3>电话</h3>
+                            <p>办公室: (905) 123-4567<br>牧者热线: (905) 123-4568<br>紧急联系: (905) 123-4569</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">✉️</div>
+                        <div class="info-content">
+                            <h3>邮箱</h3>
+                            <p>一般咨询: info@trolcc.ca<br>牧养关怀: pastoral@trolcc.ca<br>活动报名: events@trolcc.ca</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">🌐</div>
+                        <div class="info-content">
+                            <h3>社交媒体</h3>
+                            <p>微信公众号: TROLCC<br>Facebook: @TorontoROLCC<br>Instagram: @trolcc</p>
+                        </div>
+                    </div>
+                    
+                    <div class="office-hours">
+                        <h3 style="color: var(--primary); margin-bottom: 20px;">办公室时间</h3>
+                        <table class="hours-table">
+                            <tr>
+                                <td>周一至周四</td>
+                                <td>9:00 AM - 5:00 PM</td>
+                            </tr>
+                            <tr>
+                                <td>周五</td>
+                                <td>9:00 AM - 4:00 PM</td>
+                            </tr>
+                            <tr>
+                                <td>周六</td>
+                                <td>10:00 AM - 2:00 PM</td>
+                            </tr>
+                            <tr>
+                                <td>周日</td>
+                                <td>8:00 AM - 1:00 PM</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
                 
-                <div class="contact-item">
-                    <div class="contact-icon">📍</div>
-                    <div class="contact-details">
-                        <h3>地址</h3>
-                        <p>1234 Church Street, Toronto, ON, Canada<br>
-                        <small>近地铁站，提供停车位</small></p>
-                    </div>
-                </div>
-
-                <div class="contact-item">
-                    <div class="contact-icon">📞</div>
-                    <div class="contact-details">
-                        <h3>电话</h3>
-                        <p>+1 (416) 123-4567<br>
-                        <small>周一至周五 9:00-17:00</small></p>
-                    </div>
-                </div>
-
-                <div class="contact-item">
-                    <div class="contact-icon">✉️</div>
-                    <div class="contact-details">
-                        <h3>电子邮件</h3>
-                        <p>info@trolcc.ca<br>
-                        <small>一般咨询</small></p>
-                        <p>pastor@trolcc.ca<br>
-                        <small>牧养关怀</small></p>
-                    </div>
-                </div>
-
-                <div class="contact-item">
-                    <div class="contact-icon">🕒</div>
-                    <div class="contact-details">
-                        <h3>办公室时间</h3>
-                        <p>周一至周五: 9:00 AM - 5:00 PM<br>
-                        周六: 10:00 AM - 2:00 PM<br>
-                        周日: 教会聚会日</p>
-                    </div>
+                <!-- 联系表单 -->
+                <div class="contact-form">
+                    <h2 style="color: var(--primary); margin-bottom: 30px;">发送消息</h2>
+                    
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">名字 *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">姓氏 *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">邮箱地址 *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">电话号码</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">咨询类别 *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">请选择...</option>
+                                <option value="general">一般咨询</option>
+                                <option value="prayer">祷告请求</option>
+                                <option value="counseling">牧养关怀</option>
+                                <option value="membership">会友申请</option>
+                                <option value="baptism">受洗报名</option>
+                                <option value="wedding">婚礼咨询</option>
+                                <option value="other">其他</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">详细信息 *</label>
+                            <textarea id="message" name="message" rows="6" required placeholder="请详细描述您的问题或需求..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">发送消息</button>
+                    </form>
                 </div>
             </div>
-
-            <!-- 联系表单 -->
-            <div class="contact-form">
-                <div class="section-title">
-                    <h2>发送消息</h2>
+            
+            <!-- 地图部分 -->
+            <div class="map-container">
+                <h2 style="color: var(--primary); margin-bottom: 25px;">我们的位置</h2>
+                <div class="map-placeholder">
+                    <div class="map-icon">🗺️</div>
+                    <h3>地图位置</h3>
+                    <p>123 Church Street, Mississauga, ON L5B 2C9</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem;">
+                        🚗 免费停车 | 🚌 公交便利 | ♿ 无障碍设施
+                    </p>
                 </div>
                 
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label class="form-label">姓名 *</label>
-                        <input type="text" class="form-input" placeholder="请输入您的姓名" required>
+                <div style="margin-top: 25px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div style="text-align: center;">
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">🚗 开车前来</h4>
+                        <p>从401高速出口5分钟可达，提供充足免费停车位</p>
                     </div>
-
-                    <div class="form-group">
-                        <label class="form-label">电子邮件 *</label>
-                        <input type="email" class="form-input" placeholder="请输入您的电子邮件" required>
+                    <div style="text-align: center;">
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">🚌 公共交通</h4>
+                        <p>密西沙加公交1A、1C路直达，步行2分钟</p>
                     </div>
-
-                    <div class="form-group">
-                        <label class="form-label">电话</label>
-                        <input type="tel" class="form-input" placeholder="请输入您的电话号码">
+                    <div style="text-align: center;">
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">🚇 GO Transit</h4>
+                        <p>从Union Station乘GO火车至Cooksvile站</p>
                     </div>
-
-                    <div class="form-group">
-                        <label class="form-label">事由</label>
-                        <select class="form-select">
-                            <option value="">请选择咨询事由</option>
-                            <option value="general">一般咨询</option>
-                            <option value="prayer">代祷请求</option>
-                            <option value="visit">初次来访</option>
-                            <option value="service">事工参与</option>
-                            <option value="other">其他</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">消息内容 *</label>
-                        <textarea class="form-textarea" placeholder="请详细描述您的问题或需要..." required></textarea>
-                    </div>
-
-                    <button type="submit" class="submit-btn">发送消息</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- 服务时间 -->
-        <div class="service-times">
-            <div class="section-title">
-                <h2>聚会时间</h2>
-            </div>
-            <div class="service-grid">
-                <div class="service-card">
-                    <div class="service-icon">⛪</div>
-                    <div class="service-name">主日崇拜</div>
-                    <p>周日 10:00 AM</p>
-                    <p>中英文双语</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🙏</div>
-                    <div class="service-name">祷告会</div>
-                    <p>周三 7:30 PM</p>
-                    <p>线上线下同步</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">👥</div>
-                    <div class="service-name">小组聚会</div>
-                    <p>周五/周六</p>
-                    <p>各小组安排</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">👶</div>
-                    <div class="service-name">儿童主日学</div>
-                    <p>周日 10:00 AM</p>
-                    <p>与崇拜同步</p>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- 地图 -->
-        <div class="map-container">
-            <div class="section-title">
-                <h2>我们的位置</h2>
-            </div>
-            <div class="map-placeholder">
-                🗺️ 地图位置 - 1234 Church Street, Toronto, ON
+    <!-- 页脚 -->
+    <footer style="background: linear-gradient(135deg, var(--primary), var(--dark)); color: white; padding: 60px 0 20px;">
+        <div class="container">
+            <div class="copyright" style="text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p>&copy; 2023 多伦多生命河灵粮堂教会. 保留所有权利. 🍁 为基督爱多伦多 🍁</p>
             </div>
         </div>
-    </div>
-
-    <!-- 复用您的footer -->
-    <footer>
-        <!-- 您的页脚代码 -->
     </footer>
 
     <script>
-        // 简单的表单处理
+        // 移动端菜单切换
+        document.querySelector('.mobile-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // 移动端下拉菜单切换
+        document.querySelectorAll('.dropdown > a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    // 关闭其他打开的下拉菜单
+                    document.querySelectorAll('.dropdown.active').forEach(menu => {
+                        if (menu !== this.parentElement) {
+                            menu.classList.remove('active');
+                        }
+                    });
+                    this.parentElement.classList.toggle('active');
+                }
+            });
+        });
+
+        // 点击页面其他区域关闭下拉菜单
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown') && window.innerWidth <= 768) {
+                document.querySelectorAll('.dropdown.active').forEach(menu => {
+                    menu.classList.remove('active');
+                });
+            }
+        });
+
+        // 联系表单处理
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             alert('感谢您的留言！我们会尽快与您联系。');
