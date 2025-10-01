@@ -747,27 +747,8 @@
         </div>
     </footer>
 
-    <script>
-        // 移动端菜单切换
-        document.querySelector('.mobile-toggle').addEventListener('click', function() {
-            document.querySelector('.nav-menu').classList.toggle('active');
-        });
-        
-        // 页面加载动画
-        document.addEventListener('DOMContentLoaded', function() {
-            // 简单的加载动画
-            const elements = document.querySelectorAll('.feature-card, .event-card');
-            elements.forEach((el, index) => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
-                }, 100 * index);
-            });
-        });
+        </footer>
+
     <script>
         // 移动端菜单切换
         document.querySelector('.mobile-toggle').addEventListener('click', function() {
@@ -790,7 +771,6 @@
             });
         });
 
-        // ========== 新增的下拉菜单代码 ==========
         // 移动端下拉菜单切换
         document.querySelectorAll('.dropdown > a').forEach(link => {
             link.addEventListener('click', function(e) {
@@ -815,8 +795,8 @@
                 });
             }
         });
-        // ========== 新增代码结束 ==========
     </script>
-
 </body>
 </html>
+
+
