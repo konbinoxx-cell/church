@@ -284,7 +284,28 @@
             margin-top: 15px;
             font-family: monospace;
         }
-    </style>
+/* 与主站风格统一 */
+:root {
+    --primary: #1a5276;
+    --secondary: #e67e22;
+    --accent: #27ae60;
+    --light: #f9f7f2;
+    --dark: #2c3e50;
+    --text: #34495e;
+}
+
+/* 复用主站头部导航 */
+.site-header {
+    background: white;
+    color: var(--primary);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+    
+</style>
+    
 </head>
 <body>
     <div class="container">
