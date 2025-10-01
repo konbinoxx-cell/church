@@ -449,7 +449,7 @@
             color: rgba(255,255,255,0.7);
         }
         
-        /* 响应式设计 */
+               /* 响应式设计 */
         @media (max-width: 768px) {
             .nav-menu {
                 position: fixed;
@@ -478,6 +478,54 @@
             
             .hero p {
                 font-size: 1rem;
+            }
+        }
+
+        /* ========== 新增：移动端下拉菜单样式 ========== */
+        @media (max-width: 768px) {
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: transparent;
+                display: none;
+                padding: 0;
+                margin-top: 10px;
+                margin-left: 20px;
+                border-left: 2px solid var(--secondary);
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .dropdown-menu li {
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+                margin-bottom: 5px;
+            }
+            
+            .dropdown-menu a {
+                padding: 8px 15px;
+                color: var(--text);
+                display: block;
+                transition: var(--transition);
+            }
+            
+            .dropdown-menu a:hover {
+                background: rgba(230, 126, 34, 0.1);
+                color: var(--secondary);
+            }
+            
+            .dropdown > a::after {
+                content: ' ▼';
+                font-size: 0.7em;
+                margin-left: 5px;
+            }
+            
+            .dropdown.active > a::after {
+                content: ' ▲';
             }
         }
        /* 下拉菜单样式 */
