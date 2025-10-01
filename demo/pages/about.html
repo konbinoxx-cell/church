@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们 - 多伦多生命河灵粮堂</title>
+    <style>
+        /* 复用主站样式 */
+        :root {
+            --primary: #1a5276;
+            --secondary: #e67e22;
+            --accent: #27ae60;
+            --light: #f9f7f2;
+            --dark: #2c3e50;
+            --text: #34495e;
+            --text-light: #7f8c8d;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+
+        .about-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-hero {
+            background: linear-gradient(135deg, var(--primary), var(--toronto-blue));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .page-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            display: inline-block;
+            padding-bottom: 10px;
+            position: relative;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--toronto-blue), var(--secondary));
+        }
+
+        .mission-statement {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            text-align: center;
+            border-left: 5px solid var(--secondary);
+        }
+
+        .mission-statement p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .core-values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .value-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            border-top: 4px solid var(--secondary);
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .value-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .value-description {
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .history-section {
+            background: var(--light);
+            padding: 50px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        .history-timeline {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--accent);
+        }
+
+        .timeline-year {
+            font-weight: bold;
+            color: var(--secondary);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .team-section {
+            margin-top: 50px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .team-member {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .member-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--light);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+
+        .member-name {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .member-role {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .member-bio {
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 复用您的header导航 -->
+    <header>
+        <!-- 您的导航代码 -->
+    </header>
+
+    <!-- 页面内容 -->
+    <div class="page-hero">
+        <div class="container">
+            <h1>关于我们</h1>
+            <p>认识多伦多生命河灵粮堂 - 一个充满爱与真理的属灵家园</p>
+        </div>
+    </div>
+
+    <div class="about-container">
+        <!-- 使命宣言 -->
+        <div class="section">
+            <div class="mission-statement">
+                <p>多伦多生命河灵粮堂是一间以耶稣基督为中心的教会。<br>
+                我们渴望建立一个充满爱与真理的属灵家园，在这里，人们可以经历神的恩典，生命得着更新，并被装备去祝福家庭、社区和列国。</p>
+            </div>
+        </div>
+
+        <!-- 核心价值 -->
+        <div class="section">
+            <div class="section-title">
+                <h2>我们的核心价值</h2>
+            </div>
+            <div class="core-values">
+                <div class="value-card">
+                    <div class="value-icon">🙌</div>
+                    <div class="value-title">敬拜</div>
+                    <div class="value-description">全心敬拜独一的真神，在赞美和祷告中与神建立亲密关系</div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">📖</div>
+                    <div class="value-title">真理</div>
+                    <div class="value-description">扎根圣经真理，在基督里成长，活出信仰的真实</div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">👥</div>
+                    <div class="value-title">团契</div>
+                    <div class="value-description">彼此相爱，互相扶持，建立真诚的属灵大家庭</div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🌍</div>
+                    <div class="value-title">使命</div>
+                    <div class="value-description">传扬福音，服事世界，成为社区的祝福和见证</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 教会历史 -->
+        <div class="section">
+            <div class="section-title">
+                <h2>教会历程</h2>
+            </div>
+            <div class="history-section">
+                <div class="history-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2010年</div>
+                        <div class="timeline-content">教会成立，开始在小组成员家中聚会</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2013年</div>
+                        <div class="timeline-content">迁入第一个固定聚会场所，正式成立主日崇拜</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2018年</div>
+                        <div class="timeline-content">拓展社区服务，开展英语崇拜和青少年事工</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2020年</div>
+                        <div class="timeline-content">建立线上聚会平台，服务更多会众</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2023年</div>
+                        <div class="timeline-content">迁入现址，继续拓展神国事工</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 同工团队 -->
+        <div class="section team-section">
+            <div class="section-title">
+                <h2>牧养团队</h2>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-photo">👨‍💼</div>
+                    <div class="member-name">张牧师</div>
+                    <div class="member-role">主任牧师</div>
+                    <div class="member-bio">神学硕士，从事牧养工作超过15年，专注于门徒训练和教会建造</div>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">👩‍💼</div>
+                    <div class="member-name">李传道</div>
+                    <div class="member-role">青少年事工负责人</div>
+                    <div class="member-bio">致力于青少年灵命培育，建立健康的下一代信仰群体</div>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">👨‍💼</div>
+                    <div class="member-name">王弟兄</div>
+                    <div class="member-role">敬拜带领</div>
+                    <div class="member-bio">带领会众透过音乐敬拜神，营造与神相遇的敬拜氛围</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 邀请 -->
+        <div class="section">
+            <div class="mission-statement" style="background: linear-gradient(135deg, var(--primary), var(--toronto-blue)); color: white;">
+                <p style="color: white; font-size: 1.3rem; font-weight: 500;">
+                    我们真诚欢迎您加入，与我们一同经历神在这个世代的作为。
+                </p>
+                <a href="contact.html" class="btn" style="display: inline-block; margin-top: 20px; padding: 12px 30px; background: white; color: var(--primary); border-radius: 30px; font-weight: 600;">联系我们</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 复用您的footer -->
+    <footer>
+        <!-- 您的页脚代码 -->
+    </footer>
+</body>
+</html>
