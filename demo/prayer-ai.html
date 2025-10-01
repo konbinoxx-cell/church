@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>祷告AI助手 - 多伦多生命河灵粮堂</title>
+    <style>
+        /* 复用您现有的CSS变量 */
+        :root {
+            --primary: #1a5276;
+            --secondary: #e67e22;
+            --accent: #27ae60;
+            --light: #f9f7f2;
+            --dark: #2c3e50;
+            --text: #34495e;
+            --text-light: #7f8c8d;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+
+        .prayer-ai-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .prayer-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .prayer-header h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .prayer-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .prayer-form {
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .form-textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .prayer-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option-card {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .option-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .option-card.selected {
+            border-color: var(--secondary);
+            background: rgba(230, 126, 34, 0.1);
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .generate-btn:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+        }
+
+        .generate-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--secondary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .prayer-result {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background: var(--light);
+            border-radius: 10px;
+            border-left: 5px solid var(--accent);
+        }
+
+        .prayer-title {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .prayer-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .prayer-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+        }
+
+        .new-prayer-btn {
+            background: var(--accent);
+            color: white;
+        }
+
+        .share-btn {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .bible-verse {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            font-style: italic;
+            color: var(--text-light);
+            border-left: 3px solid var(--secondary);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .prayer-ai-container {
+                margin: 20px;
+                padding: 20px;
+            }
+            
+            .prayer-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 复用您的header导航 -->
+    <header>
+        <!-- 您的导航代码 -->
+    </header>
+
+    <div class="prayer-ai-container">
+        <div class="prayer-header">
+            <h1>🙏 祷告AI助手</h1>
+            <p>基于您的需要，为您生成个性化的祷告词</p>
+        </div>
+
+        <div class="prayer-form">
+            <div class="form-group">
+                <label for="prayerType">祷告类型</label>
+                <select id="prayerType" class="form-select">
+                    <option value="thanksgiving">感恩祷告</option>
+                    <option value="healing">医治祷告</option>
+                    <option value="guidance">寻求指引</option>
+                    <option value="peace">平安祷告</option>
+                    <option value="strength">力量祷告</option>
+                    <option value="family">家庭祷告</option>
+                    <option value="financial">经济需要</option>
+                    <option value="salvation">救恩祷告</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="prayerTopic">祷告主题或具体需要</label>
+                <textarea id="prayerTopic" class="form-textarea" placeholder="请描述您的具体需要，比如：为生病的家人祷告、为工作决策寻求智慧、为家庭关系祷告等..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>祷告风格</label>
+                <div class="prayer-options">
+                    <div class="option-card" data-style="traditional">
+                        <strong>传统式</strong>
+                        <p>使用传统祷告语言</p>
+                    </div>
+                    <div class="option-card" data-style="modern">
+                        <strong>现代式</strong>
+                        <p>使用现代日常语言</p>
+                    </div>
+                    <div class="option-card" data-style="scriptural">
+                        <strong>经文式</strong>
+                        <p>融入圣经经文</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="generate-btn" id="generateBtn">
+                生成祷告词
+            </button>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="loading-spinner"></div>
+            <p>AI正在为您生成祷告词...</p>
+        </div>
+
+        <div class="prayer-result" id="prayerResult">
+            <h3 class="prayer-title" id="resultTitle">您的祷告词</h3>
+            <div class="prayer-content" id="prayerContent">
+                <!-- 祷告内容将在这里显示 -->
+            </div>
+            
+            <div class="bible-verse" id="bibleVerse">
+                <!-- 相关经文将在这里显示 -->
+            </div>
+            
+            <div class="prayer-actions">
+                <button class="action-btn copy-btn" onclick="copyPrayer()">📋 复制祷告词</button>
+                <button class="action-btn new-prayer-btn" onclick="newPrayer()">🔄 新的祷告</button>
+                <button class="action-btn share-btn" onclick="sharePrayer()">📤 分享</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 祷告风格选择
+        document.querySelectorAll('.option-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // 默认选择第一个风格
+        document.querySelector('.option-card').classList.add('selected');
+
+        // 生成祷告词
+        document.getElementById('generateBtn').addEventListener('click', generatePrayer);
+
+        // 模拟AI生成祷告词（后续可以替换为真实的AI API）
+        const prayerTemplates = {
+            thanksgiving: {
+                title: "感恩的祷告",
+                verses: ["帖撒罗尼迦前书 5:18", "凡事谢恩，因为这是神在基督耶稣里向你们所定的旨意。"],
+                templates: [
+                    "亲爱的天父，我们满心感谢赞美你！感谢你赐给我们生命的气息，感谢你每日的看顾和保守。为着我们所拥有的一切，我们献上感恩。",
+                    "主啊，我们感谢你的恩典如此丰盛！为着家庭的温暖，为着朋友的关爱，为着教会的团契，我们献上衷心的感谢。",
+                    "慈爱的神，我们为着你的信实献上感恩！在顺境中你与我们同在，在逆境中你作我们的避难所，你的慈爱永不改变。"
+                ]
+            },
+            healing: {
+                title: "医治的祷告", 
+                verses: ["耶利米书 30:17", "耶和华说：我必使你痊愈，医好你的伤痕。"],
+                templates: [
+                    "满有怜悯的主，我们来到你面前，为需要医治的弟兄姊妹祷告。求你伸出医治的手，触摸他们的身体，恢复他们的健康。",
+                    "慈爱的医治者，我们相信你大能的手能够医治一切的疾病。求你看顾病痛中的肢体，赐下平安和康复。",
+                    "全能的神，你是创造的主，也是医治的主。我们为病人的需要向你呼求，求你施恩医治，恢复健康。"
+                ]
+            },
+            guidance: {
+                title: "寻求指引的祷告",
+                verses: ["箴言 3:5-6", "你要专心仰赖耶和华，不可倚靠自己的聪明，在你一切所行的事上都要认定他，他必指引你的路。"],
+                templates: [
+                    "智慧的主，我们在人生的十字路口寻求你的指引。求你照亮我们的道路，显明你的旨意，引导我们走当行的路。",
+                    "亲爱的圣灵，我们需要你的带领。在面临重要决定时，求你赐下智慧和分辨力，让我们明白你的心意。",
+                    "永活的真神，你是我们的牧者。在这困惑的时刻，我们寻求你的面，求你指引我们前面的道路。"
+                ]
+            }
+        };
+
+        function generatePrayer() {
+            const prayerType = document.getElementById('prayerType').value;
+            const prayerTopic = document.getElementById('prayerTopic').value;
+            const selectedStyle = document.querySelector('.option-card.selected').dataset.style;
+            
+            // 显示加载中
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('prayerResult').style.display = 'none';
+            document.getElementById('generateBtn').disabled = true;
+
+            // 模拟AI处理时间
+            setTimeout(() => {
+                const template = prayerTemplates[prayerType] || prayerTemplates.thanksgiving;
+                const randomTemplate = template.templates[Math.floor(Math.random() * template.templates.length)];
+                
+                // 构建祷告内容
+                let prayerContent = randomTemplate;
+                if (prayerTopic) {
+                    prayerContent += ` 特别为：${prayerTopic}祷告。`;
+                }
+                
+                prayerContent += " 奉主耶稣基督的名祷告，阿们！";
+
+                // 显示结果
+                document.getElementById('resultTitle').textContent = template.title;
+                document.getElementById('prayerContent').textContent = prayerContent;
+                document.getElementById('bibleVerse').innerHTML = 
+                    `<strong>${template.verses[0]}</strong><br>${template.verses[1]}`;
+
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('prayerResult').style.display = 'block';
+                document.getElementById('generateBtn').disabled = false;
+
+            }, 2000); // 模拟2秒处理时间
+        }
+
+        function copyPrayer() {
+            const prayerText = document.getElementById('prayerContent').textContent;
+            navigator.clipboard.writeText(prayerText).then(() => {
+                alert('祷告词已复制到剪贴板！');
+            });
+        }
+
+        function newPrayer() {
+            document.getElementById('prayerTopic').value = '';
+            document.getElementById('prayerResult').style.display = 'none';
+        }
+
+        function sharePrayer() {
+            const prayerText = document.getElementById('prayerContent').textContent;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'AI生成的祷告词',
+                    text: prayerText
+                });
+            } else {
+                alert('分享功能在当前浏览器不可用，请使用复制功能。');
+            }
+        }
+    </script>
+</body>
+</html>
