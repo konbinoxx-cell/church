@@ -127,7 +127,17 @@
         .nav-link.active::after {
             width: 100%;
         }
-        
+        /* 圆点指示方案 - 只添加这个 */
+        .nav-link.active::after {
+            content: '•';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--secondary);
+            font-size: 1.2rem;
+            line-height: 1;
+        }        
         .mobile-toggle {
             display: none;
             font-size: 1.5rem;
