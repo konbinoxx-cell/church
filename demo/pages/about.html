@@ -49,21 +49,23 @@
             padding: 0 15px;
         }
         
-        /* 头部样式 */
+        /* 头部样式 - 使用渐变 */
         header {
-            background-color: white;
-            color: var(--primary);
+            background: linear-gradient(135deg, #1a5276 0%, #2c3e50 100%);
+            color: white;
             box-shadow: var(--shadow);
             position: sticky;
             top: 0;
             z-index: 1000;
+            height: 70px; /* 统一高度 */
         }
         
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
+            padding: 8px 0;
+            height: 100%;
         }
         
         .logo {
