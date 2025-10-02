@@ -49,24 +49,21 @@
             padding: 0 15px;
         }
         
-        /* 头部样式 - 恢复原始深蓝色渐变背景 */
+        /* 头部样式 */
         header {
-            background: linear-gradient(135deg, var(--primary), var(--dark)); /* 恢复深蓝色渐变 */
-            color: white; /* 头部文字颜色仍为白色 */
+            background-color: white;
+            color: var(--primary);
             box-shadow: var(--shadow);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
         
-        /* 恢复原始设计，不需要 header::before 遮罩 */
-        /* .header-container 恢复到没有 position:relative 和 z-index */
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 12px 0;
-            /* 移除 position: relative; z-index: 1; */
         }
         
         .logo {
@@ -85,10 +82,9 @@
             font-weight: 700;
         }
         
-        /* 恢复副标题颜色 */
-        .logo-subtitle { 
+        .logo-subtitle {
             font-size: 0.7rem;
-            color: var(--toronto-blue); /* 恢复原始的蓝色 */
+            color: var(--toronto-blue);
             margin-top: -5px;
         }
         
@@ -97,49 +93,45 @@
             gap: 20px;
         }
         
-        /* 恢复导航链接颜色 */
         .nav-link {
-            color: white; /* 导航链接颜色仍为白色 */
+            font-weight: 500;
+            padding: 5px 0;
             position: relative;
-            padding: 10px 0;
-            display: inline-block;
+            font-size: 0.9rem;
+            white-space: nowrap;
         }
         
         .nav-link:hover {
             color: var(--secondary);
         }
         
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
         .nav-link.active {
             color: var(--secondary);
         }
         
-        /* 移除所有导航链接的下划线（如果有，原代码中已移除）*/
-        .nav-link::after {
-            display: none;
-        }
-        
-        /* 只为激活状态添加圆点 */
         .nav-link.active::after {
-            content: '•';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--secondary);
-            font-size: 1.2rem;
-            line-height: 1;
-            background: none !important;
-            width: auto !important;
-            height: auto !important;
-            display: block; /* 确保圆点显示 */
+            width: 100%;
         }
         
-        /* 恢复移动端切换按钮的颜色，以在深色背景上可见 */
         .mobile-toggle {
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: white; /* 确保在深色头部可见 */
         }
         
         /* 下拉菜单样式 */
@@ -391,6 +383,7 @@
     </style>
 </head>
 <body>
+    <!-- 头部导航 -->
     <header>
         <div class="container header-container">
             <div class="logo">
@@ -410,6 +403,7 @@
                     <li><a href="resources.html" class="nav-link">资源中心</a></li>
                     <li><a href="../prayer-ai.html" class="nav-link">🙏 祷告AI & 生成器</a></li>
                     
+                    <!-- 母堂资源下拉菜单 -->
                     <li class="dropdown">
                         <a href="#" class="nav-link">母堂资源 ▼</a>
                         <ul class="dropdown-menu">
@@ -432,6 +426,7 @@
         </div>
     </header>
 
+    <!-- 页面内容 -->
     <section class="page-hero">
         <div class="container">
             <h1>关于我们</h1>
@@ -442,6 +437,7 @@
     <section class="page-content">
         <div class="container">
             <div class="about-content">
+                <!-- 教会介绍 -->
                 <div class="about-section">
                     <div class="about-header">
                         <div class="about-icon">⛪</div>
@@ -451,6 +447,7 @@
                     <p>我们的教会是一个多元文化的大家庭，欢迎来自不同背景的朋友。我们致力于在真理和爱心中建立信徒，在社区中见证基督的爱，并积极参与本地和全球的宣教事工。</p>
                 </div>
                 
+                <!-- 异象使命 -->
                 <div class="about-section">
                     <div class="about-header">
                         <div class="about-icon">🎯</div>
@@ -471,6 +468,7 @@
                     </div>
                 </div>
                 
+                <!-- 信仰宣言 -->
                 <div class="about-section">
                     <div class="about-header">
                         <div class="about-icon">✝️</div>
@@ -512,6 +510,7 @@
                     </div>
                 </div>
                 
+                <!-- 牧者团队 -->
                 <div class="about-section">
                     <div class="about-header">
                         <div class="about-icon">👥</div>
@@ -553,6 +552,7 @@
                     </div>
                 </div>
                 
+                <!-- 教会历史 -->
                 <div class="about-section">
                     <div class="about-header">
                         <div class="about-icon">📜</div>
@@ -590,6 +590,7 @@
         </div>
     </section>
 
+    <!-- 页脚 -->
     <footer style="background: linear-gradient(135deg, var(--primary), var(--dark)); color: white; padding: 60px 0 20px;">
         <div class="container">
             <div class="copyright" style="text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
