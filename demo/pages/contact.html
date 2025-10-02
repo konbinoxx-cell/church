@@ -595,29 +595,33 @@
             <!-- 地图部分 -->
             <div class="map-container">
                 <h2 style="color: var(--primary); margin-bottom: 25px;">我们的位置</h2>
-                <div class="map-placeholder">
-                    <div class="map-icon">🗺️</div>
-                    <h3>地图位置</h3>
-                    <p>123 Church Street, Mississauga, ON L5B 2C9</p>
-                    <p style="margin-top: 10px; font-size: 0.9rem;">
-                        🚗 免费停车 | 🚌 公交便利 | ♿ 无障碍设施
-                    </p>
+                <div class="map-embed">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2887.478148315719!2d-79.705432!3d43.642566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b6a3d41b3c0a5%3A0x8a1c8b8b8b8b8b8b!2s2460%20The%20Collegeway%2C%20Mississauga%2C%20ON%20L5L%201V3!5e0!3m2!1szh-CN!2sca!4v1698765432"
+                        width="100%" 
+                        height="400" 
+                        style="border:0; border-radius: 10px;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                 </div>
                 
                 <div style="margin-top: 25px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
                     <div style="text-align: center;">
                         <h4 style="color: var(--primary); margin-bottom: 10px;">🚗 开车前来</h4>
-                        <p>从401高速出口5分钟可达，提供充足免费停车位</p>
+                        <p>从403高速出口3分钟可达，提供充足免费停车位</p>
                     </div>
                     <div style="text-align: center;">
                         <h4 style="color: var(--primary); margin-bottom: 10px;">🚌 公共交通</h4>
-                        <p>密西沙加公交1A、1C路直达，步行2分钟</p>
+                        <p>密西沙加公交26路直达，步行1分钟</p>
                     </div>
                     <div style="text-align: center;">
-                        <h4 style="color: var(--primary); margin-bottom: 10px;">🚇 GO Transit</h4>
-                        <p>从Union Station乘GO火车至Cooksvile站</p>
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">🅿️ 停车信息</h4>
+                        <p>教堂前后均有免费停车场</p>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </section>
