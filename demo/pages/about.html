@@ -49,35 +49,24 @@
             padding: 0 15px;
         }
         
-        /* 头部样式 - 使用场景照片背景 */
+        /* 头部样式 - 恢复原始深蓝色渐变背景 */
         header {
-            background: url('../images/church-nav-bg.jpg') center/cover;
-            color: white; /* 文字颜色改为白色 */
+            background: linear-gradient(135deg, var(--primary), var(--dark)); /* 恢复深蓝色渐变 */
+            color: white; /* 头部文字颜色仍为白色 */
             box-shadow: var(--shadow);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
         
-        /* 添加深色遮罩让文字更清晰 */
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.3); /* 30% 透明度的黑色遮罩 */
-            z-index: -1;
-        }
-        
+        /* 恢复原始设计，不需要 header::before 遮罩 */
+        /* .header-container 恢复到没有 position:relative 和 z-index */
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 12px 0;
-            position: relative; /* 确保内容层级高于遮罩 */
-            z-index: 1;
+            /* 移除 position: relative; z-index: 1; */
         }
         
         .logo {
@@ -96,10 +85,10 @@
             font-weight: 700;
         }
         
-        /* 将副标题颜色改为白色或浅色，以在深色背景上保持可见 */
+        /* 恢复副标题颜色 */
         .logo-subtitle { 
             font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.8); /* 使用半透明白色 */
+            color: var(--toronto-blue); /* 恢复原始的蓝色 */
             margin-top: -5px;
         }
         
@@ -108,8 +97,9 @@
             gap: 20px;
         }
         
+        /* 恢复导航链接颜色 */
         .nav-link {
-            color: white; /* 导航链接改为白色 */
+            color: white; /* 导航链接颜色仍为白色 */
             position: relative;
             padding: 10px 0;
             display: inline-block;
@@ -138,17 +128,18 @@
             color: var(--secondary);
             font-size: 1.2rem;
             line-height: 1;
-            /* 确保以下样式不会被其他地方干扰 */
             background: none !important;
             width: auto !important;
             height: auto !important;
             display: block; /* 确保圆点显示 */
         }
         
+        /* 恢复移动端切换按钮的颜色，以在深色背景上可见 */
         .mobile-toggle {
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
+            color: white; /* 确保在深色头部可见 */
         }
         
         /* 下拉菜单样式 */
