@@ -105,28 +105,29 @@
             color: var(--secondary);
         }
         
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--secondary);
-            transition: var(--transition);
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .nav-link.active {
-            color: var(--secondary);
-        }
-        
-        .nav-link.active::after {
-            width: 100%;
-        }
+/* 移除所有导航链接的下划线 */
+.nav-link::after {
+    display: none;
+}
+
+.nav-link.active {
+    color: var(--secondary);
+}
+
+/* 只为激活状态添加圆点 */
+.nav-link.active::after {
+    content: '•';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--secondary);
+    font-size: 1.2rem;
+    line-height: 1;
+    background: none !important;
+    width: auto !important;
+    height: auto !important;
+}
         /* 圆点指示方案 - 只添加这个 */
         .nav-link.active::after {
             content: '•';
