@@ -49,44 +49,36 @@
             padding: 0 15px;
         }
         
-        /* 头部样式 - 恢复原始白色背景 */
-           /* 头部样式 - 使用场景照片背景 */
-                header {
-                    background: url('../images/church-nav-bg.jpg') center/cover;
-                    color: white;
-                    box-shadow: var(--shadow);
-                    position: sticky;
-                    top: 0;
-                    z-index: 1000;
-                }
-                
-                /* 添加深色遮罩让文字更清晰 */
-                header::before {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    background: rgba(0, 0, 0, 0.3);
-                    z-index: -1;
-                }
-                
-                .header-container {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 12px 0;
-                    position: relative;
-                    z-index: 1;
-                }
-            
-            .header-container {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 12px 0;
-            }
+        /* 头部样式 - 使用场景照片背景 */
+        header {
+            background: url('../images/church-nav-bg.jpg') center/cover;
+            color: white; /* 文字颜色改为白色 */
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        /* 添加深色遮罩让文字更清晰 */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3); /* 30% 透明度的黑色遮罩 */
+            z-index: -1;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            position: relative; /* 确保内容层级高于遮罩 */
+            z-index: 1;
+        }
         
         .logo {
             display: flex;
@@ -104,9 +96,10 @@
             font-weight: 700;
         }
         
-        .logo-subtitle {
+        /* 将副标题颜色改为白色或浅色，以在深色背景上保持可见 */
+        .logo-subtitle { 
             font-size: 0.7rem;
-            color: var(--toronto-blue);
+            color: rgba(255, 255, 255, 0.8); /* 使用半透明白色 */
             margin-top: -5px;
         }
         
@@ -115,42 +108,27 @@
             gap: 20px;
         }
         
-.nav-link {
-    color: white; /* 改为白色在深色背景上 */
-}
-
-.nav-link:hover {
-    color: var(--secondary);
-}
-
-.nav-link.active {
-    color: var(--secondary);
-}
+        .nav-link {
+            color: white; /* 导航链接改为白色 */
+            position: relative;
+            padding: 10px 0;
+            display: inline-block;
+        }
         
-/* 移除所有导航链接的下划线 */
-.nav-link::after {
-    display: none;
-}
-
-.nav-link.active {
-    color: var(--secondary);
-}
-
-/* 只为激活状态添加圆点 */
-.nav-link.active::after {
-    content: '•';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: var(--secondary);
-    font-size: 1.2rem;
-    line-height: 1;
-    background: none !important;
-    width: auto !important;
-    height: auto !important;
-}
-        /* 圆点指示方案 - 只添加这个 */
+        .nav-link:hover {
+            color: var(--secondary);
+        }
+        
+        .nav-link.active {
+            color: var(--secondary);
+        }
+        
+        /* 移除所有导航链接的下划线（如果有，原代码中已移除）*/
+        .nav-link::after {
+            display: none;
+        }
+        
+        /* 只为激活状态添加圆点 */
         .nav-link.active::after {
             content: '•';
             position: absolute;
@@ -160,7 +138,13 @@
             color: var(--secondary);
             font-size: 1.2rem;
             line-height: 1;
-        }        
+            /* 确保以下样式不会被其他地方干扰 */
+            background: none !important;
+            width: auto !important;
+            height: auto !important;
+            display: block; /* 确保圆点显示 */
+        }
+        
         .mobile-toggle {
             display: none;
             font-size: 1.5rem;
@@ -416,7 +400,6 @@
     </style>
 </head>
 <body>
-    <!-- 头部导航 -->
     <header>
         <div class="container header-container">
             <div class="logo">
@@ -436,7 +419,6 @@
                     <li><a href="resources.html" class="nav-link">资源中心</a></li>
                     <li><a href="../prayer-ai.html" class="nav-link">🙏 祷告AI & 生成器</a></li>
                     
-                    <!-- 母堂资源下拉菜单 -->
                     <li class="dropdown">
                         <a href="#" class="nav-link">母堂资源 ▼</a>
                         <ul class="dropdown-menu">
@@ -459,7 +441,6 @@
         </div>
     </header>
 
-    <!-- 页面内容 -->
     <section class="page-hero">
         <div class="container">
             <h1>关于我们</h1>
@@ -470,7 +451,6 @@
     <section class="page-content">
         <div class="container">
             <div class="about-content">
-                <!-- 教会介绍 -->
                 <div class="about-section">
                     <div class="about-header">
                         <div class="about-icon">⛪</div>
@@ -480,7 +460,6 @@
                     <p>我们的教会是一个多元文化的大家庭，欢迎来自不同背景的朋友。我们致力于在真理和爱心中建立信徒，在社区中见证基督的爱，并积极参与本地和全球的宣教事工。</p>
                 </div>
                 
-                <!-- 异象使命 -->
                 <div class="about-section">
                     <div class="about-header">
                         <div class="about-icon">🎯</div>
@@ -501,7 +480,6 @@
                     </div>
                 </div>
                 
-                <!-- 信仰宣言 -->
                 <div class="about-section">
                     <div class="about-header">
                         <div class="about-icon">✝️</div>
@@ -543,7 +521,6 @@
                     </div>
                 </div>
                 
-                <!-- 牧者团队 -->
                 <div class="about-section">
                     <div class="about-header">
                         <div class="about-icon">👥</div>
@@ -585,7 +562,6 @@
                     </div>
                 </div>
                 
-                <!-- 教会历史 -->
                 <div class="about-section">
                     <div class="about-header">
                         <div class="about-icon">📜</div>
@@ -623,7 +599,6 @@
         </div>
     </section>
 
-    <!-- 页脚 -->
     <footer style="background: linear-gradient(135deg, var(--primary), var(--dark)); color: white; padding: 60px 0 20px;">
         <div class="container">
             <div class="copyright" style="text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
