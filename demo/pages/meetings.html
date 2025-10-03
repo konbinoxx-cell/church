@@ -94,38 +94,37 @@
             gap: 25px;
         }
         
-        .nav-link {
-            font-weight: 500;
-            padding: 5px 0;
-            position: relative;
-        }
-        
-        .nav-link:hover {
-            color: var(--secondary);
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--secondary);
-            transition: var(--transition);
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .nav-link.active {
-            color: var(--secondary);
-        }
-        
-        .nav-link.active::after {
-            width: 100%;
-        }
+       .nav-link {
+    font-weight: 500;
+    padding: 5px 0;
+    position: relative;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.nav-link:hover {
+    color: var(--secondary);
+}
+
+/* 移除下划线，使用圆点指示器 */
+.nav-link::after {
+    display: none;
+}
+
+.nav-link.active {
+    color: var(--secondary);
+}
+
+.nav-link.active::after {
+    content: '•';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--secondary);
+    font-size: 1.2rem;
+    line-height: 1;
+}
         
         .mobile-toggle {
             display: none;
