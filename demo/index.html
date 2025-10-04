@@ -614,7 +614,7 @@
                     font-size: 0.8em;
                 }
             }
-                    /* ========== 修正版双语切换控件样式 ========== */
+                   /* ========== 修正版双语切换控件样式 ========== */
 .language-switcher {
     margin-left: 20px;
     display: flex;
@@ -637,11 +637,11 @@
     display: block;
     width: 100%;
     height: 100%;
-    background: #e67e22; /* 默认橙色背景（中文状态） */
+    background: #e67e22; /* 修正：正确的橙色 */
     border-radius: 25px;
     position: relative;
     cursor: pointer;
-    border: 1px solid rgba(255,255,255,0.3);
+    border: 1px solid rgba(255,255,255,0.3); /* 修正：1px不是ipx */
 }
 
 /* 滑动按钮 */
@@ -658,7 +658,7 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* 文字位置 - 修正：默认显示中文 */
+/* 文字位置 */
 .lang-slider .zh {
     position: absolute;
     left: 10px;
@@ -666,7 +666,7 @@
     transform: translateY(-50%);
     font-size: 11px;
     font-weight: bold;
-    color: #1a5276; /* 深蓝色 */
+    color: #1a5276;
 }
 
 .lang-slider .en {
@@ -677,12 +677,12 @@
     font-size: 11px;
     font-weight: bold;
     color: white;
-    opacity: 0; /* 默认隐藏英文 */
+    opacity: 0;
 }
 
-/* 选中状态（切换到英文） */
+/* 选中状态 */
 .lang-toggle input:checked + .lang-slider {
-    background: rgba(255,255,255,0.2); /* 切换到浅色背景 */
+    background: rgba(255,255,255,0.2); /* 修正：rgba不是rgb0 */
 }
 
 .lang-toggle input:checked + .lang-slider:before {
@@ -690,11 +690,11 @@
 }
 
 .lang-toggle input:checked + .lang-slider .zh {
-    opacity: 0; /* 隐藏中文 */
+    opacity: 0;
 }
 
 .lang-toggle input:checked + .lang-slider .en {
-    opacity: 1; /* 显示英文 */
+    opacity: 1;
     color: white;
 }
                 </style>
