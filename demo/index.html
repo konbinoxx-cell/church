@@ -614,7 +614,105 @@
                     font-size: 0.8em;
                 }
             }
-                
+                     /* ========== 双语切换控件样式 ========== */
+                    .language-switcher {
+                        margin-left: 20px;
+                    }
+                    
+                    .lang-toggle {
+                        position: relative;
+                        display: inline-block;
+                        width: 70px;
+                        height: 32px;
+                    }
+                    
+                    .lang-toggle input {
+                        opacity: 0;
+                        width: 0;
+                        height: 0;
+                    }
+                    
+                    .lang-slider {
+                        position: absolute;
+                        cursor: pointer;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background-color: rgba(255,255,255,0.2);
+                        border-radius: 34px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 0 8px;
+                        font-size: 11px;
+                        font-weight: 600;
+                        color: white;
+                        border: 1px solid rgba(255,255,255,0.3);
+                    }
+                    
+                    .lang-slider:before {
+                        position: absolute;
+                        content: "";
+                        height: 24px;
+                        width: 24px;
+                        left: 3px;
+                        bottom: 3px;
+                        background-color: white;
+                        border-radius: 50%;
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                        z-index: 2;
+                        transition: all 0.3s ease;
+                    }
+                    
+                    input:checked + .lang-slider {
+                        background-color: var(--secondary);
+                    }
+                    
+                    input:checked + .lang-slider:before {
+                        transform: translateX(38px);
+                    }
+                    
+                    .lang-slider .en, .lang-slider .zh {
+                        z-index: 1;
+                        transition: all 0.3s ease;
+                    }
+                    
+                    input:checked + .lang-slider .en {
+                        color: var(--primary);
+                        font-weight: 700;
+                    }
+                    
+                    input:not(:checked) + .lang-slider .zh {
+                        color: var(--primary);
+                        font-weight: 700;
+                    }
+                    
+                    /* 文本切换动画 */
+                    .fade-out {
+                        opacity: 0;
+                        transform: translateY(-5px);
+                        transition: all 0.3s ease;
+                    }
+                    
+                    .fade-in {
+                        opacity: 1;
+                        transform: translateY(0);
+                        transition: all 0.3s ease;
+                    }
+                    
+                    /* 移动端适配 */
+                    @media (max-width: 768px) {
+                        .language-switcher {
+                            margin-left: 15px;
+                            margin-top: 10px;
+                        }
+                        
+                        .lang-toggle {
+                            width: 65px;
+                            height: 30px;
+                        }
+                    }               
                 </style>
             <base href="./">
 
