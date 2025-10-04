@@ -1153,7 +1153,31 @@ const content = {
     
     console.log('语言切换功能初始化完成');
 });
+// 在 toggleLanguage 函数中添加本地存储
+function toggleLanguage() {
+    const isEnglish = langSwitch.checked;
+    const targetLang = isEnglish ? 'en' : 'zh';
     
+    console.log('切换到语言:', targetLang);
+    
+    // 保存语言偏好
+    localStorage.setItem('preferred-language', targetLang);
+    
+    // 更新文本内容
+    for (const [elementId, text] of Object.entries(content[targetLang])) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.textContent = text;
+        }
+    }
+}
+
+// 在初始化时检查保存的语言偏好
+const savedLang = localStorage.getItem('preferred-language');
+if (savedLang === 'en') {
+    langSwitch.checked = true;
+    toggleLanguage(); // 立即应用英文
+}    
     </script>
 </body>
 </html>
