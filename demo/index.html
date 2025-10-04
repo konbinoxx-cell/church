@@ -961,24 +961,43 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 简化的双语内容 - 先只测试几个关键文本
     const content = {
-        zh: {
-            // 导航
-            'nav-home-link': '首页',
-            'nav-meetings-link': '聚会时间',
-            // 英雄区域
-            'hero-title': '欢迎来到多伦多生命河灵粮堂教会',
-            'hero-text': '我们在多伦多密西沙加建立了一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。'
-        },
-        en: {
-            // Navigation
-            'nav-home-link': 'Home',
-            'nav-meetings-link': 'Service Times',
-            // Hero Section
-            'hero-title': 'Welcome to Toronto River of Life',
-            'hero-text': 'We have built a loving Christian community in Mississauga, dedicated to spreading the gospel and serving people.'
-        }
-    };
-
+    zh: {
+        // 导航
+        'nav-home-link': '首页',
+        'nav-meetings-link': '聚会时间',
+        'nav-groups-link': '小组生活',
+        'nav-testimonies-link': '信仰见证', 
+        'nav-resources-link': '资源中心',
+        'nav-prayer-link': '🙏 祷告AI',
+        'nav-mother-church-link': '母堂资源 ▼',
+        'nav-about-link': '关于我们',
+        'nav-contact-link': '联系我们',
+        
+        // 英雄区域
+        'hero-title': '欢迎来到多伦多生命河灵粮堂教会',
+        'hero-text': '我们在多伦多密西沙加建立了一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。',
+        'hero-btn1': '了解更多',
+        'hero-btn2': '聚会时间'
+    },
+    en: {
+        // Navigation
+        'nav-home-link': 'Home',
+        'nav-meetings-link': 'Service Times',
+        'nav-groups-link': 'Small Groups',           // 添加这个
+        'nav-testimonies-link': 'Testimonies',       // 添加这个
+        'nav-resources-link': 'Resources',           // 添加这个  
+        'nav-prayer-link': '🙏 Prayer AI',           // 添加这个
+        'nav-mother-church-link': 'Mother Church ▼', // 添加这个
+        'nav-about-link': 'About Us',                // 添加这个
+        'nav-contact-link': 'Contact',               // 添加这个
+        
+        // Hero Section
+        'hero-title': 'Welcome to Toronto River of Life',
+        'hero-text': 'We have built a loving Christian community in Mississauga, dedicated to spreading the gospel and serving people.',
+        'hero-btn1': 'Learn More',                   // 添加这个
+        'hero-btn2': 'Service Times'                 // 添加这个
+    }
+};
     // 切换语言函数
     function toggleLanguage() {
         const isEnglish = langSwitch.checked;
