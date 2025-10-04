@@ -954,6 +954,68 @@
                 });
             }
         });
+// ========== 双语切换功能 ==========
+document.addEventListener('DOMContentLoaded', function() {
+    const langSwitch = document.getElementById('lang-switch');
+    if (!langSwitch) {
+        console.log('未找到语言切换开关');
+        return;
+    }
+    
+    console.log('语言切换功能加载成功');
+    
+    // 简化的双语内容 - 先只测试几个关键文本
+    const content = {
+        zh: {
+            // 导航
+            'nav-home-link': '首页',
+            'nav-meetings-link': '聚会时间',
+            // 英雄区域
+            'hero-title': '欢迎来到多伦多生命河灵粮堂教会',
+            'hero-text': '我们在多伦多密西沙加建立了一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。'
+        },
+        en: {
+            // Navigation
+            'nav-home-link': 'Home',
+            'nav-meetings-link': 'Service Times',
+            // Hero Section
+            'hero-title': 'Welcome to Toronto River of Life',
+            'hero-text': 'We have built a loving Christian community in Mississauga, dedicated to spreading the gospel and serving people.'
+        }
+    };
+
+    // 切换语言函数
+    function toggleLanguage() {
+        const isEnglish = langSwitch.checked;
+        const targetLang = isEnglish ? 'en' : 'zh';
+        
+        console.log('切换到语言:', targetLang);
+        
+        // 更新文本内容
+        for (const [elementId, text] of Object.entries(content[targetLang])) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                // 添加淡出效果
+                element.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    element.textContent = text;
+                    // 添加淡入效果
+                    setTimeout(() => {
+                        element.classList.remove('fade-out');
+                        element.classList.add('fade-in');
+                    }, 50);
+                }, 300);
+            }
+        }
+    }
+
+    // 添加事件监听
+    langSwitch.addEventListener('change', toggleLanguage);
+    
+    console.log('语言切换事件监听器已添加');
+});
+    
     </script>
 </body>
 </html>
