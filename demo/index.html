@@ -775,31 +775,31 @@
             
             <div class="features">
                 <div class="feature-card">
-                    <div class="feature-img" style="background-image: url('images/sermon.jpg');"></div>
-                    <div class="feature-content">
-                        <h3>主日崇拜</h3>
-                        <p>每周日我们聚集一起敬拜神，聆听祂的话语，在真理中得着力量和指引。我们的崇拜融合传统与现代元素，适合各个年龄层。</p>
-                        <a href="pages/meetings.html" class="btn" style="margin-top: 15px; padding: 8px 20px;">详情</a>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-img" style="background-image: url('images/prayer.jpg');"></div>
-                    <div class="feature-content">
-                        <h3>祷告会</h3>
-                        <p>每周三晚上我们一同祷告，为个人、教会和世界的需要向神祈求。我们相信祷告的力量，并见证神如何回应我们的祈求。</p>
-                        <a href="pages/meetings.html" class="btn" style="margin-top: 15px; padding: 8px 20px;">详情</a>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-img" style="background-image: url('images/group.jpg');"></div>
-                    <div class="feature-content">
-                        <h3>小组团契</h3>
-                        <p>加入我们的小组，在亲密的关系中彼此扶持，共同成长。我们有英语、普通话小组，满足不同会友的需要。</p>
-                        <a href="pages/groups.html" class="btn" style="margin-top: 15px; padding: 8px 20px;">详情</a>
-                    </div>
-                </div>
+    <div class="feature-img" style="background-image: url('images/sermon.jpg');"></div>
+    <div class="feature-content">
+        <h3 id="sermon-title">主日崇拜</h3>
+        <p id="sermon-text">每周日我们聚集一起敬拜神，聆听祂的话语，在真理中得着力量和指引。我们的崇拜融合传统与现代元素，适合各个年龄层。</p>
+        <a href="pages/meetings.html" class="btn" style="margin-top: 15px; padding: 8px 20px;">详情</a>
+    </div>
+</div>
+
+<div class="feature-card">
+    <div class="feature-img" style="background-image: url('images/prayer.jpg');"></div>
+    <div class="feature-content">
+        <h3 id="prayer-title">祷告会</h3>
+        <p id="prayer-text">每周三晚上我们一同祷告，为个人、教会和世界的需要向神祈求。我们相信祷告的力量，并见证神如何回应我们的祈求。</p>
+        <a href="pages/meetings.html" class="btn" style="margin-top: 15px; padding: 8px 20px;">详情</a>
+    </div>
+</div>
+
+<div class="feature-card">
+    <div class="feature-img" style="background-image: url('images/group.jpg');"></div>
+    <div class="feature-content">
+        <h3 id="group-title">小组团契</h3>
+        <p id="group-text">加入我们的小组，在亲密的关系中彼此扶持，共同成长。我们有英语、普通话小组，满足不同会友的需要。</p>
+        <a href="pages/groups.html" class="btn" style="margin-top: 15px; padding: 8px 20px;">详情</a>
+    </div>
+</div>
             </div>
         </div>
         
@@ -902,7 +902,28 @@
             </div>
         </div>
     </footer>
+zh: {
+    // ... 现有的内容 ...
     
+    // 教会事工区域
+    'sermon-title': '主日崇拜',
+    'sermon-text': '每周日我们聚集一起敬拜神，聆听祂的话语，在真理中得着力量和指引。我们的崇拜融合传统与现代元素，适合各个年龄层。',
+    'prayer-title': '祷告会',
+    'prayer-text': '每周三晚上我们一同祷告，为个人、教会和世界的需要向神祈求。我们相信祷告的力量，并见证神如何回应我们的祈求。',
+    'group-title': '小组团契', 
+    'group-text': '加入我们的小组，在亲密的关系中彼此扶持，共同成长。我们有英语、普通话小组，满足不同会友的需要。'
+},
+en: {
+    // ... 现有的内容 ...
+    
+    // Church Ministries Section
+    'sermon-title': 'Sunday Service',
+    'sermon-text': 'Every Sunday we gather to worship God, listen to His word, and receive strength and guidance in truth. Our worship blends traditional and contemporary elements suitable for all ages.',
+    'prayer-title': 'Prayer Meeting',
+    'prayer-text': 'Every Wednesday evening we pray together for personal, church, and global needs. We believe in the power of prayer and witness how God answers our petitions.',
+    'group-title': 'Small Groups',
+    'group-text': 'Join our small groups for mutual support and growth in intimate relationships. We have English and Mandarin groups to meet the needs of different members.'
+}    
     <script>
         // 移动端菜单切换
         document.querySelector('.mobile-toggle').addEventListener('click', function() {
