@@ -615,246 +615,255 @@
                 }
             }
                    /* ========== 最终修正版双语切换控件样式 ========== */
-.language-switcher {
-    margin-left: 20px;
-    display: flex;
-    align-items: center;
-}
-
-.lang-toggle {
-    position: relative;
-    width: 70px;
-    height: 32px;
-}
-
-.lang-toggle input {
-    display: none;
-}
-
-.lang-slider {
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: #e67e22; /* 默认橙色 - 中文状态 */
-    border-radius: 25px;
-    position: relative;
-    cursor: pointer;
-    border: 1px solid rgba(255,255,255,0.3);
-}
-
-.lang-slider:before {
-    content: "";
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    background: white;
-    border-radius: 50%;
-    top: 3px;
-    left: 3px;
-    transition: 0.3s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-/* 中文文字 - 默认显示 */
-.lang-slider .zh {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 11px;
-    font-weight: bold;
-    color: #1a5276; /* 深蓝色 */
-}
-
-/* 英文文字 - 默认隐藏 */
-.lang-slider .en {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 11px;
-    font-weight: bold;
-    color: #1a5276; /* 深蓝色 */
-    opacity: 0; /* 默认隐藏 */
-}
-
-/* 切换到英文状态 */
-.lang-toggle input:checked + .lang-slider {
-    background: rgba(255,255,255,0.9); /* 浅色背景 */
-}
-
-.lang-toggle input:checked + .lang-slider:before {
-    transform: translateX(38px);
-}
-
-.lang-toggle input:checked + .lang-slider .zh {
-    opacity: 0; /* 隐藏中文 */
-}
-
-.lang-toggle input:checked + .lang-slider .en {
-    opacity: 1; /* 显示英文 */
-    color: #1a5276; /* 深蓝色 */
-}
-                </style>
-            <base href="./">
-
-</head>
-<body>
-    <!-- 头部导航 -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <img src="trolcc_logo1.png" alt="多伦多生命河灵粮堂" class="logo-image">
-                <div>
-                    <div class="logo-text">多伦多生命河灵粮堂</div>
-                    <div class="logo-subtitle">Toronto River of Life Christian Church</div>
-                </div>
-            </div>
-              <!-- 在logo后面添加这个 -->
-            <div class="language-switcher">
-                <label class="lang-toggle">
-                    <input type="checkbox" id="lang-switch">
-                    <span class="lang-slider">
-                        <span class="zh">中</span>
-                        <span class="en">EN</span>
-                    </span>
-                </label>
-            </div>                    
-            <nav>
-   <nav>
-    <ul class="nav-menu">
-        <li><a href="index.html" class="nav-link active" id="nav-home-link">首页</a></li>
-        <li><a href="pages/meetings.html" class="nav-link" id="nav-meetings-link">聚会时间</a></li>
-        <li><a href="pages/groups.html" class="nav-link" id="nav-groups-link">小组生活</a></li>
-        <li><a href="pages/testimonies.html" class="nav-link" id="nav-testimonies-link">信仰见证</a></li>
-        <li><a href="pages/resources.html" class="nav-link" id="nav-resources-link">资源中心</a></li>
-        <li><a href="prayer-ai.html" class="nav-link" id="nav-prayer-link">🙏 祷告AI</a></li>
-        
-        <!-- 母堂资源下拉菜单 -->
-        <li class="dropdown">
-            <a href="#" class="nav-link" id="nav-mother-church-link">母堂资源 ▼</a>
-            <ul class="dropdown-menu">
-                <li><a href="https://rolcc.net/rolcc2/" target="_blank">母堂主页</a></li>
-                <li><a href="https://rolcc.net/bulletin/" target="_blank">电子周报</a></li>
-                <li><a href="https://rolcc.net/rolcc2/sunday-media/" target="_blank">主日影音</a></li>
-                <li><a href="https://myrolcc.net/onlinezone/" target="_blank">网络牧区</a></li>
-                <li><a href="https://rolcc.net/rolcc2/church/#" target="_blank">母堂教会事工</a></li>
-                <li><a href="https://rolcc.net/rolcc2/equip/" target="_blank">信徒装备</a></li>
-                <li><a href="https://rolcc.net/rolcc2/rolcc-apps/" target="_blank">ROLCC APP</a></li>
-            </ul>
-        </li>
-        
-        <li><a href="pages/about.html" class="nav-link" id="nav-about-link">关于我们</a></li>
-        <li><a href="pages/contact.html" class="nav-link" id="nav-contact-link">联系我们</a></li>
-    </ul>
-</nav>
-            
-</nav>
+                    .language-switcher {
+                        margin-left: 20px;
+                        display: flex;
+                        align-items: center;
+                    }
+                    
+                    .lang-toggle {
+                        position: relative;
+                        width: 70px;
+                        height: 32px;
+                    }
+                    
+                    .lang-toggle input {
+                        display: none;
+                    }
+                    
+                    .lang-slider {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        background: #e67e22; /* 默认橙色 - 中文状态 */
+                        border-radius: 25px;
+                        position: relative;
+                        cursor: pointer;
+                        border: 1px solid rgba(255,255,255,0.3);
+                    }
+                    
+                    .lang-slider:before {
+                        content: "";
+                        position: absolute;
+                        width: 24px;
+                        height: 24px;
+                        background: white;
+                        border-radius: 50%;
+                        top: 3px;
+                        left: 3px;
+                        transition: 0.3s;
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                    }
+                    
+                    /* 中文文字 - 默认显示 */
+                    .lang-slider .zh {
+                        position: absolute;
+                        left: 10px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        font-size: 11px;
+                        font-weight: bold;
+                        color: #1a5276; /* 深蓝色 */
+                    }
+                    
+                    /* 英文文字 - 默认隐藏 */
+                    .lang-slider .en {
+                        position: absolute;
+                        right: 8px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        font-size: 11px;
+                        font-weight: bold;
+                        color: #1a5276; /* 深蓝色 */
+                        opacity: 0; /* 默认隐藏 */
+                    }
+                    
+                    /* 切换到英文状态 */
+                    .lang-toggle input:checked + .lang-slider {
+                        background: rgba(255,255,255,0.9); /* 浅色背景 */
+                    }
+                    
+                    .lang-toggle input:checked + .lang-slider:before {
+                        transform: translateX(38px);
+                    }
+                    
+                    .lang-toggle input:checked + .lang-slider .zh {
+                        opacity: 0; /* 隐藏中文 */
+                    }
+                    
+                    .lang-toggle input:checked + .lang-slider .en {
+                        opacity: 1; /* 显示英文 */
+                        color: #1a5276; /* 深蓝色 */
+                    }
+                                    </style>
+                                <base href="./">
+                     /* 添加淡入淡出动画 */
+                    .fade-out {
+                        opacity: 0;
+                        transition: opacity 0.3s ease;
+                    }
+                    
+                    .fade-in {
+                        opacity: 1;
+                        transition: opacity 0.3s ease;
+                    }                   
+     </head>
+        <body>
+                    <!-- 头部导航 -->
+                    <header>
+                        <div class="container header-container">
+                            <div class="logo">
+                                <img src="trolcc_logo1.png" alt="多伦多生命河灵粮堂" class="logo-image">
+                                <div>
+                                    <div class="logo-text">多伦多生命河灵粮堂</div>
+                                    <div class="logo-subtitle">Toronto River of Life Christian Church</div>
+                                </div>
+                            </div>
+                              <!-- 在logo后面添加这个 -->
+                            <div class="language-switcher">
+                                <label class="lang-toggle">
+                                    <input type="checkbox" id="lang-switch">
+                                    <span class="lang-slider">
+                                        <span class="zh">中</span>
+                                        <span class="en">EN</span>
+                                    </span>
+                                </label>
+                            </div>                    
+                            <nav>
+                   <nav>
+                    <ul class="nav-menu">
+                        <li><a href="index.html" class="nav-link active" id="nav-home-link">首页</a></li>
+                        <li><a href="pages/meetings.html" class="nav-link" id="nav-meetings-link">聚会时间</a></li>
+                        <li><a href="pages/groups.html" class="nav-link" id="nav-groups-link">小组生活</a></li>
+                        <li><a href="pages/testimonies.html" class="nav-link" id="nav-testimonies-link">信仰见证</a></li>
+                        <li><a href="pages/resources.html" class="nav-link" id="nav-resources-link">资源中心</a></li>
+                        <li><a href="prayer-ai.html" class="nav-link" id="nav-prayer-link">🙏 祷告AI</a></li>
+                        
+                        <!-- 母堂资源下拉菜单 -->
+                        <li class="dropdown">
+                            <a href="#" class="nav-link" id="nav-mother-church-link">母堂资源 ▼</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="https://rolcc.net/rolcc2/" target="_blank">母堂主页</a></li>
+                                <li><a href="https://rolcc.net/bulletin/" target="_blank">电子周报</a></li>
+                                <li><a href="https://rolcc.net/rolcc2/sunday-media/" target="_blank">主日影音</a></li>
+                                <li><a href="https://myrolcc.net/onlinezone/" target="_blank">网络牧区</a></li>
+                                <li><a href="https://rolcc.net/rolcc2/church/#" target="_blank">母堂教会事工</a></li>
+                                <li><a href="https://rolcc.net/rolcc2/equip/" target="_blank">信徒装备</a></li>
+                                <li><a href="https://rolcc.net/rolcc2/rolcc-apps/" target="_blank">ROLCC APP</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li><a href="pages/about.html" class="nav-link" id="nav-about-link">关于我们</a></li>
+                        <li><a href="pages/contact.html" class="nav-link" id="nav-contact-link">联系我们</a></li>
+                    </ul>
+                </nav>
+                            
+                </nav>
     
             
             <div class="mobile-toggle">☰</div>
         </div>
     </header>
 
-    <!-- 英雄区域 -->
-   <section class="hero">
-    <div class="container">
-        <h1 id="hero-title">欢迎来到多伦多生命河灵粮堂教会</h1>
-        <p id="hero-text">我们在多伦多密西沙加建立了一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。</p>
-        <a href="pages/about.html" class="btn" id="hero-btn1">了解更多</a>
-        <a href="pages/meetings.html" class="btn btn-outline" id="hero-btn2">聚会时间</a>
-    </div>
-</section>
-
-    <!-- 主要内容 -->
-    <main class="main-content">
-        <div class="container">
-               <div class="section-title">
-                    <h2 id="ministries-title">教会事工,</h2>
+                <!-- 英雄区域 -->
+               <section class="hero">
+                <div class="container">
+                    <h1 id="hero-title">欢迎来到多伦多生命河灵粮堂教会</h1>
+                    <p id="hero-text">我们在多伦多密西沙加建立了一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。</p>
+                    <a href="pages/about.html" class="btn" id="hero-btn1">了解更多</a>
+                    <a href="pages/meetings.html" class="btn btn-outline" id="hero-btn2">聚会时间</a>
                 </div>
+            </section>
             
-            <div class="features">
-                <!-- 第一个卡片 - 主日崇拜 -->
-<div class="feature-card">
-    <div class="feature-content">
-        <h3 id="sunday-service-title">主日崇拜</h3>
-        <p id="sunday-service-text">每周日我们聚集一起敬拜神...</p>
-    </div>
-</div>
-
-<!-- 第二个卡片 - 祷告会 -->
-<div class="feature-card">
-    <div class="feature-content">
-        <h3 id="prayer-meeting-title">祷告会</h3>
-        <p id="prayer-meeting-text">每周三晚上我们一同祷告...</p>
-    </div>
-</div>
-
-<!-- 第三个卡片 - 小组团契 -->
-<div class="feature-card">
-    <div class="feature-content">
-        <h3 id="small-groups-title">小组团契</h3>
-        <p id="small-groups-text">加入我们的小组...</p>
-    </div>
-</div>
+                <!-- 主要内容 -->
+                <main class="main-content">
+                    <div class="container">
+                           <div class="section-title">
+                                <h2 id="ministries-title">教会事工,</h2>
+                            </div>
+                        
+                        <div class="features">
+                            <!-- 第一个卡片 - 主日崇拜 -->
+            <div class="feature-card">
+                <div class="feature-content">
+                    <h3 id="sunday-service-title">主日崇拜</h3>
+                    <p id="sunday-service-text">每周日我们聚集一起敬拜神...</p>
+                </div>
             </div>
-        </div>
-        
-        <section class="events">
-            <div class="container">
-                <div class="section-title">
-                    <h2>近期活动</h2>
+            
+            <!-- 第二个卡片 - 祷告会 -->
+            <div class="feature-card">
+                <div class="feature-content">
+                    <h3 id="prayer-meeting-title">祷告会</h3>
+                    <p id="prayer-meeting-text">每周三晚上我们一同祷告...</p>
+                </div>
+            </div>
+            
+            <!-- 第三个卡片 - 小组团契 -->
+            <div class="feature-card">
+                <div class="feature-content">
+                    <h3 id="small-groups-title">小组团契</h3>
+                    <p id="small-groups-text">加入我们的小组...</p>
+                </div>
+            </div>
+                        </div>
+                    </div>
+                    
+                    <section class="events">
+                        <div class="container">
+                            <div class="section-title">
+                                <h2>近期活动</h2>
+                            </div>
+                            
+                           <div class="event-list">
+                <div class="event-card">
+                    <div class="event-date">
+                        <div class="day">15</div>
+                        <div class="month">六月</div>
+                    </div>
+                    <div class="event-details">
+                        <h3 id="youth-camp-title">青年营会</h3>
+                        <div class="time">⏰ 9:00 AM - 5:00 PM</div>
+                        <p id="youth-camp-text">专为青少年设计的营会活动，包含敬拜、游戏和小组讨论，地点在美丽的安大略湖畔。</p>
+                    </div>
                 </div>
                 
-               <div class="event-list">
-    <div class="event-card">
-        <div class="event-date">
-            <div class="day">15</div>
-            <div class="month">六月</div>
-        </div>
-        <div class="event-details">
-            <h3 id="youth-camp-title">青年营会</h3>
-            <div class="time">⏰ 9:00 AM - 5:00 PM</div>
-            <p id="youth-camp-text">专为青少年设计的营会活动，包含敬拜、游戏和小组讨论，地点在美丽的安大略湖畔。</p>
-        </div>
-    </div>
-    
-    <div class="event-card">
-        <div class="event-date">
-            <div class="day">22</div>
-            <div class="month">六月</div>
-        </div>
-        <div class="event-details">
-            <h3 id="service-day-title">社区服务日</h3>
-            <div class="time">⏰ 10:00 AM - 2:00 PM</div>
-            <p id="service-day-text">与我们一起服务多伦多密西沙加市社区，分享基督的爱，为有需要的人提供帮助。</p>
-        </div>
-    </div>
-    
-    <div class="event-card">
-        <div class="event-date">
-            <div class="day">29</div>
-            <div class="month">六月</div>
-        </div>
-        <div class="event-details">
-            <h3 id="marriage-seminar-title">婚姻讲座</h3>
-            <div class="time">⏰ 2:00 PM - 4:00 PM</div>
-            <p id="marriage-seminar-text">学习如何在基督里建立坚固的婚姻关系，由经验丰富的婚姻辅导导师主讲。</p>
-        </div>
-    </div>
-</div>
+                <div class="event-card">
+                    <div class="event-date">
+                        <div class="day">22</div>
+                        <div class="month">六月</div>
+                    </div>
+                    <div class="event-details">
+                        <h3 id="service-day-title">社区服务日</h3>
+                        <div class="time">⏰ 10:00 AM - 2:00 PM</div>
+                        <p id="service-day-text">与我们一起服务多伦多密西沙加市社区，分享基督的爱，为有需要的人提供帮助。</p>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-date">
+                        <div class="day">29</div>
+                        <div class="month">六月</div>
+                    </div>
+                    <div class="event-details">
+                        <h3 id="marriage-seminar-title">婚姻讲座</h3>
+                        <div class="time">⏰ 2:00 PM - 4:00 PM</div>
+                        <p id="marriage-seminar-text">学习如何在基督里建立坚固的婚姻关系，由经验丰富的婚姻辅导导师主讲。</p>
+                    </div>
+                </div>
+            </div>
             </div>
         </section>
         
         <!-- 多伦多特色区域 -->
         <section class="toronto-section">
-    <div class="container">
-        <h2 id="toronto-title">我们在多伦多密西沙加</h2>
-        <p id="toronto-text1">作为多伦多市密西沙加的一家教会，我们致力于服务这个多元文化的城市。我们欢迎来自不同背景的朋友，无论您来自哪里，说什么语言，我们都诚挚邀请您加入我们的大家庭。</p>
-        <p id="toronto-text2">我们位于多伦多市密西沙加，交通便利，附近有地铁站和公交车站。<span class="maple-leaf">🍁</span> 让我们一起在这个美丽的加拿大城市中见证神的恩典与慈爱！<span class="maple-leaf">🍁</span></p>
-        <a href="pages/contact.html" class="btn" id="toronto-btn">如何找到我们</a>
-    </div>
-</section>
+            <div class="container">
+                <h2 id="toronto-title">我们在多伦多密西沙加</h2>
+                <p id="toronto-text1">作为多伦多市密西沙加的一家教会，我们致力于服务这个多元文化的城市。我们欢迎来自不同背景的朋友，无论您来自哪里，说什么语言，我们都诚挚邀请您加入我们的大家庭。</p>
+                <p id="toronto-text2">我们位于多伦多市密西沙加，交通便利，附近有地铁站和公交车站。<span class="maple-leaf">🍁</span> 让我们一起在这个美丽的加拿大城市中见证神的恩典与慈爱！<span class="maple-leaf">🍁</span></p>
+                <a href="pages/contact.html" class="btn" id="toronto-btn">如何找到我们</a>
+            </div>
+        </section>
     </main>
 
     <!-- 页脚 -->
