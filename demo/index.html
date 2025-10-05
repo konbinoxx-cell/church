@@ -908,277 +908,260 @@
 </footer>
    
     <script>
-        // 移动端菜单切换
-        document.querySelector('.mobile-toggle').addEventListener('click', function() {
-            document.querySelector('.nav-menu').classList.toggle('active');
-        });
-        
-        // 页面加载动画
-        document.addEventListener('DOMContentLoaded', function() {
-            // 简单的加载动画
-            const elements = document.querySelectorAll('.feature-card, .event-card');
-            elements.forEach((el, index) => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
-                }, 100 * index);
-            });
-        });
-
-        // 移动端下拉菜单切换
-        document.querySelectorAll('.dropdown > a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    // 关闭其他打开的下拉菜单
-                    document.querySelectorAll('.dropdown.active').forEach(menu => {
-                        if (menu !== this.parentElement) {
-                            menu.classList.remove('active');
-                        }
-                    });
-                    this.parentElement.classList.toggle('active');
-                }
-            });
+    // 移动端菜单切换
+    document.querySelector('.mobile-toggle').addEventListener('click', function() {
+        document.querySelector('.nav-menu').classList.toggle('active');
+    });
+    
+    // 页面加载动画
+    document.addEventListener('DOMContentLoaded', function() {
+        // 简单的加载动画
+        const elements = document.querySelectorAll('.feature-card, .event-card');
+        elements.forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, 100 * index);
         });
 
-        // 点击页面其他区域关闭下拉菜单
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.dropdown') && window.innerWidth <= 768) {
+        // 初始化语言切换功能
+        initializeLanguageSwitcher();
+    });
+
+    // 移动端下拉菜单切换
+    document.querySelectorAll('.dropdown > a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                // 关闭其他打开的下拉菜单
                 document.querySelectorAll('.dropdown.active').forEach(menu => {
-                    menu.classList.remove('active');
+                    if (menu !== this.parentElement) {
+                        menu.classList.remove('active');
+                    }
                 });
+                this.parentElement.classList.toggle('active');
             }
         });
-// ========== 双语切换功能 ==========
-document.addEventListener('DOMContentLoaded', function() {
-    const langSwitch = document.getElementById('lang-switch');
-    if (!langSwitch) {
-        console.log('未找到语言切换开关');
-        return;
-    }
-    
-    console.log('语言切换功能加载成功');
-    
-   // 完整双语内容库
-const content = {
-    zh: {
-        // 导航
-        'nav-home-link': '首页',
-        'nav-meetings-link': '聚会时间',
-        'nav-groups-link': '小组生活',
-        'nav-testimonies-link': '信仰见证', 
-        'nav-resources-link': '资源中心',
-        'nav-prayer-link': '🙏 祷告AI',
-        'nav-mother-church-link': '母堂资源 ▼',
-        'nav-about-link': '关于我们',
-        'nav-contact-link': '联系我们',
+    });
+
+    // 点击页面其他区域关闭下拉菜单
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown') && window.innerWidth <= 768) {
+            document.querySelectorAll('.dropdown.active').forEach(menu => {
+                menu.classList.remove('active');
+            });
+        }
+    });
+
+    // ========== 修复版双语切换功能 ==========
+    function initializeLanguageSwitcher() {
+        const langSwitch = document.getElementById('lang-switch');
+        if (!langSwitch) {
+            console.log('未找到语言切换开关');
+            return;
+        }
         
-        // 母堂资源下拉菜单
-        'mother-home': '母堂主页',
-        'mother-bulletin': '电子周报',
-        'mother-sunday': '主日影音',
-        'mother-online': '网络牧区',
-        'mother-ministries': '母堂教会事工',
-        'mother-equip': '信徒装备',
-        'mother-app': 'ROLCC APP',
+        console.log('语言切换功能加载成功');
         
-        // 英雄区域
-        'hero-title': '欢迎来到多伦多生命河灵粮堂教会',
-        'hero-text': '我们在多伦多密西沙加建立了一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。',
-        'hero-btn1': '了解更多',
-        'hero-btn2': '聚会时间',
-        
-        // 教会事工区域
-        'ministries-title': '教会事工',
-        'sunday-service-title': '主日崇拜',
-        'sunday-service-text': '每周日我们聚集一起敬拜神，聆听祂的话语，在真理中得着力量和指引。我们的崇拜融合传统与现代元素，适合各个年龄层。',
-        'prayer-meeting-title': '祷告会',
-        'prayer-meeting-text': '每周三晚上我们一同祷告，为个人、教会和世界的需要向神祈求。我们相信祷告的力量，并见证神如何回应我们的祈求。',
-        'small-groups-title': '小组团契',
-        'small-groups-text': '加入我们的小组，在亲密的关系中彼此扶持，共同成长。我们有英语、普通话小组，满足不同会友的需要。',
-        
-        // 活动区域
-        'events-title': '近期活动',
-        
-        // 青年营会
-        'youth-camp-title': '青年营会',
-        'month-june1': '六月',
-        'youth-camp-time': '9:00 AM - 5:00 PM',
-        'youth-camp-text': '专为青少年设计的营会活动，包含敬拜、游戏和小组讨论，地点在美丽的安大略湖畔。',
-        
-        // 社区服务日
-        'service-day-title': '社区服务日',
-        'month-june2': '六月',
-        'service-day-time': '10:00 AM - 2:00 PM',
-        'service-day-text': '与我们一起服务多伦多密西沙加市社区，分享基督的爱，为有需要的人提供帮助。',
-        
-        // 婚姻讲座
-        'marriage-seminar-title': '婚姻讲座',
-        'month-june3': '六月',
-        'marriage-seminar-time': '2:00 PM - 4:00 PM',
-        'marriage-seminar-text': '学习如何在基督里建立坚固的婚姻关系，由经验丰富的婚姻辅导导师主讲。',
-        
-        // 多伦多区域
-        'toronto-title': '我们在多伦多密西沙加',
-        'toronto-text1': '作为多伦多市密西沙加的一家教会，我们致力于服务这个多元文化的城市。我们欢迎来自不同背景的朋友，无论您来自哪里，说什么语言，我们都诚挚邀请您加入我们的大家庭。',
-        'toronto-text2': '我们位于多伦多市密西沙加，交通便利，附近有地铁站和公交车站。🍁 让我们一起在这个美丽的加拿大城市中见证神的恩典与慈爱！🍁',
-        'toronto-btn': '如何找到我们',
-        
-        // 页脚
-        'footer-about': '多伦多生命河灵粮堂教会',
-        'footer-about-text': '我们是一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。',
-        'footer-links-title': '快速链接',
-        'footer-link1': '首页',
-        'footer-link2': '聚会时间',
-        'footer-link3': '小组生活',
-        'footer-link4': '信仰见证',
-        'footer-link5': '资源中心',
-        'footer-contact-title': '联系我们',
-        'footer-address': '📍 2460 The Collegeway, Mississauga, ON L5L 1V3',
-        'footer-phone': '📞 (416) 123-4567',
-        'footer-email': '✉️ info@trolcc.ca',
-        'footer-hours': '🕒 周一至周五: 9:00 AM - 5:00 PM',
-        'copyright-text': '© 2023 多伦多生命河灵粮堂教会. 保留所有权利. 🍁 为基督爱多伦多 🍁'   
-    },
-    en: {
-        // Navigation
-        'nav-home-link': 'Home',
-        'nav-meetings-link': 'Service Times',
-        'nav-groups-link': 'Small Groups',
-        'nav-testimonies-link': 'Testimonies',
-        'nav-resources-link': 'Resources',
-        'nav-prayer-link': '🙏 Prayer AI',
-        'nav-mother-church-link': 'Mother Church ▼',
-        'nav-about-link': 'About Us',
-        'nav-contact-link': 'Contact',
-        
-        // Mother Church Dropdown
-        'mother-home': 'Mother Church Home',
-        'mother-bulletin': 'E-Bulletin',
-        'mother-sunday': 'Sunday Media',
-        'mother-online': 'Online Zone',
-        'mother-ministries': 'Church Ministries',
-        'mother-equip': 'Believer Training',
-        'mother-app': 'ROLCC APP',
-        
-        // Hero Section
-        'hero-title': 'Welcome to Toronto River of Life',
-        'hero-text': 'We have built a loving Christian community in Mississauga, dedicated to spreading the gospel and serving people.',
-        'hero-btn1': 'Learn More',
-        'hero-btn2': 'Service Times',
-        
-        // Church Ministries Section
-        'ministries-title': 'Church Ministries',
-        'sunday-service-title': 'Sunday Service',
-        'sunday-service-text': 'Every Sunday we gather to worship God, listen to His word, and receive strength and guidance in truth. Our worship blends traditional and contemporary elements suitable for all ages.',
-        'prayer-meeting-title': 'Prayer Meeting',
-        'prayer-meeting-text': 'Every Wednesday evening we pray together for personal, church, and global needs. We believe in the power of prayer and witness how God answers our petitions.',
-        'small-groups-title': 'Small Groups',
-        'small-groups-text': 'Join our small groups for mutual support and growth in intimate relationships. We have English and Mandarin groups to meet the needs of different members.',
-        
-        // Events Section
-        'events-title': 'Upcoming Events',
-        
-        // Youth Camp
-        'youth-camp-title': 'Youth Camp',
-        'month-june1': 'June',
-        'youth-camp-time': '9:00 AM - 5:00 PM',
-        'youth-camp-text': 'Designed specifically for teenagers, this camp includes worship, games, and small group discussions at the beautiful Ontario lakeside.',
-        
-        // Community Service Day
-        'service-day-title': 'Community Service Day',
-        'month-june2': 'June',
-        'service-day-time': '10:00 AM - 2:00 PM',
-        'service-day-text': 'Join us in serving the Mississauga community, sharing Christ\'s love, and providing help to those in need.',
-        
-        // Marriage Seminar
-        'marriage-seminar-title': 'Marriage Seminar',
-        'month-june3': 'June',
-        'marriage-seminar-time': '2:00 PM - 4:00 PM',
-        'marriage-seminar-text': 'Learn how to build strong marital relationships in Christ, led by experienced marriage counseling mentors.',
-        
-        // Toronto Section
-        'toronto-title': 'We\'re in Mississauga, Toronto',
-        'toronto-text1': 'As a church in Mississauga, Toronto, we are committed to serving this multicultural city. We welcome friends from all backgrounds - wherever you\'re from, whatever language you speak, we sincerely invite you to join our family.',
-        'toronto-text2': 'We are located in Mississauga, Toronto with convenient transportation and nearby subway and bus stations. 🍁 Let\'s witness God\'s grace and love together in this beautiful Canadian city! 🍁',
-        'toronto-btn': 'Find Us',
-        
-        // Footer
-        'footer-about': 'Toronto River of Life',
-        'footer-about-text': 'We are a loving and faithful community dedicated to spreading the gospel, serving people, and growing together in Christ\'s love.',
-        'footer-links-title': 'Quick Links',
-        'footer-link1': 'Home',
-        'footer-link2': 'Service Times',
-        'footer-link3': 'Small Groups',
-        'footer-link4': 'Testimonies',
-        'footer-link5': 'Resources',
-        'footer-contact-title': 'Contact Us',
-        'footer-address': '📍 2460 The Collegeway, Mississauga, ON L5L 1V3',
-        'footer-phone': '📞 (416) 123-4567',
-        'footer-email': '✉️ info@trolcc.ca',
-        'footer-hours': '🕒 Mon-Fri: 9:00 AM - 5:00 PM',
-        'copyright-text': '© 2023 Toronto River of Life Christian Church. All rights reserved. 🍁 Loving Toronto for Christ 🍁'
-    }
-};
-    // 切换语言函数
-    function toggleLanguage() {
-        const isEnglish = langSwitch.checked;
-        const targetLang = isEnglish ? 'en' : 'zh';
-        
-        console.log('切换到语言:', targetLang);
-        
-        // 更新文本内容
-        for (const [elementId, text] of Object.entries(content[targetLang])) {
-            const element = document.getElementById(elementId);
-            if (element) {
-                element.textContent = text;
-            } else {
-                console.log('未找到元素:', elementId);
+        // 完整双语内容库 - 移入函数内部确保正确作用域
+        const content = {
+            zh: {
+                // 导航
+                'nav-home-link': '首页',
+                'nav-meetings-link': '聚会时间',
+                'nav-groups-link': '小组生活',
+                'nav-testimonies-link': '信仰见证', 
+                'nav-resources-link': '资源中心',
+                'nav-prayer-link': '🙏 祷告AI',
+                'nav-mother-church-link': '母堂资源 ▼',
+                'nav-about-link': '关于我们',
+                'nav-contact-link': '联系我们',
+                
+                // 母堂资源下拉菜单
+                'mother-home': '母堂主页',
+                'mother-bulletin': '电子周报',
+                'mother-sunday': '主日影音',
+                'mother-online': '网络牧区',
+                'mother-ministries': '母堂教会事工',
+                'mother-equip': '信徒装备',
+                'mother-app': 'ROLCC APP',
+                
+                // 英雄区域
+                'hero-title': '欢迎来到多伦多生命河灵粮堂教会',
+                'hero-text': '我们在多伦多密西沙加建立了一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。',
+                'hero-btn1': '了解更多',
+                'hero-btn2': '聚会时间',
+                
+                // 教会事工区域
+                'ministries-title': '教会事工',
+                'sunday-service-title': '主日崇拜',
+                'sunday-service-text': '每周日我们聚集一起敬拜神，聆听祂的话语，在真理中得着力量和指引。我们的崇拜融合传统与现代元素，适合各个年龄层。',
+                'prayer-meeting-title': '祷告会',
+                'prayer-meeting-text': '每周三晚上我们一同祷告，为个人、教会和世界的需要向神祈求。我们相信祷告的力量，并见证神如何回应我们的祈求。',
+                'small-groups-title': '小组团契',
+                'small-groups-text': '加入我们的小组，在亲密的关系中彼此扶持，共同成长。我们有英语、普通话小组，满足不同会友的需要。',
+                
+                // 活动区域
+                'events-title': '近期活动',
+                
+                // 青年营会
+                'youth-camp-title': '青年营会',
+                'month-june1': '六月',
+                'youth-camp-time': '9:00 AM - 5:00 PM',
+                'youth-camp-text': '专为青少年设计的营会活动，包含敬拜、游戏和小组讨论，地点在美丽的安大略湖畔。',
+                
+                // 社区服务日
+                'service-day-title': '社区服务日',
+                'month-june2': '六月',
+                'service-day-time': '10:00 AM - 2:00 PM',
+                'service-day-text': '与我们一起服务多伦多密西沙加市社区，分享基督的爱，为有需要的人提供帮助。',
+                
+                // 婚姻讲座
+                'marriage-seminar-title': '婚姻讲座',
+                'month-june3': '六月',
+                'marriage-seminar-time': '2:00 PM - 4:00 PM',
+                'marriage-seminar-text': '学习如何在基督里建立坚固的婚姻关系，由经验丰富的婚姻辅导导师主讲。',
+                
+                // 多伦多区域
+                'toronto-title': '我们在多伦多密西沙加',
+                'toronto-text1': '作为多伦多市密西沙加的一家教会，我们致力于服务这个多元文化的城市。我们欢迎来自不同背景的朋友，无论您来自哪里，说什么语言，我们都诚挚邀请您加入我们的大家庭。',
+                'toronto-text2': '我们位于多伦多市密西沙加，交通便利，附近有地铁站和公交车站。🍁 让我们一起在这个美丽的加拿大城市中见证神的恩典与慈爱！🍁',
+                'toronto-btn': '如何找到我们',
+                
+                // 页脚
+                'footer-about': '多伦多生命河灵粮堂教会',
+                'footer-about-text': '我们是一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。',
+                'footer-links-title': '快速链接',
+                'footer-link1': '首页',
+                'footer-link2': '聚会时间',
+                'footer-link3': '小组生活',
+                'footer-link4': '信仰见证',
+                'footer-link5': '资源中心',
+                'footer-contact-title': '联系我们',
+                'footer-address': '📍 2460 The Collegeway, Mississauga, ON L5L 1V3',
+                'footer-phone': '📞 (416) 123-4567',
+                'footer-email': '✉️ info@trolcc.ca',
+                'footer-hours': '🕒 周一至周五: 9:00 AM - 5:00 PM',
+                'copyright-text': '© 2023 多伦多生命河灵粮堂教会. 保留所有权利. 🍁 为基督爱多伦多 🍁'   
+            },
+            en: {
+                // Navigation
+                'nav-home-link': 'Home',
+                'nav-meetings-link': 'Service Times',
+                'nav-groups-link': 'Small Groups',
+                'nav-testimonies-link': 'Testimonies',
+                'nav-resources-link': 'Resources',
+                'nav-prayer-link': '🙏 Prayer AI',
+                'nav-mother-church-link': 'Mother Church ▼',
+                'nav-about-link': 'About Us',
+                'nav-contact-link': 'Contact',
+                
+                // Mother Church Dropdown
+                'mother-home': 'Mother Church Home',
+                'mother-bulletin': 'E-Bulletin',
+                'mother-sunday': 'Sunday Media',
+                'mother-online': 'Online Zone',
+                'mother-ministries': 'Church Ministries',
+                'mother-equip': 'Believer Training',
+                'mother-app': 'ROLCC APP',
+                
+                // Hero Section
+                'hero-title': 'Welcome to Toronto River of Life',
+                'hero-text': 'We have built a loving Christian community in Mississauga, dedicated to spreading the gospel and serving people.',
+                'hero-btn1': 'Learn More',
+                'hero-btn2': 'Service Times',
+                
+                // Church Ministries Section
+                'ministries-title': 'Church Ministries',
+                'sunday-service-title': 'Sunday Service',
+                'sunday-service-text': 'Every Sunday we gather to worship God, listen to His word, and receive strength and guidance in truth. Our worship blends traditional and contemporary elements suitable for all ages.',
+                'prayer-meeting-title': 'Prayer Meeting',
+                'prayer-meeting-text': 'Every Wednesday evening we pray together for personal, church, and global needs. We believe in the power of prayer and witness how God answers our petitions.',
+                'small-groups-title': 'Small Groups',
+                'small-groups-text': 'Join our small groups for mutual support and growth in intimate relationships. We have English and Mandarin groups to meet the needs of different members.',
+                
+                // Events Section
+                'events-title': 'Upcoming Events',
+                
+                // Youth Camp
+                'youth-camp-title': 'Youth Camp',
+                'month-june1': 'June',
+                'youth-camp-time': '9:00 AM - 5:00 PM',
+                'youth-camp-text': 'Designed specifically for teenagers, this camp includes worship, games, and small group discussions at the beautiful Ontario lakeside.',
+                
+                // Community Service Day
+                'service-day-title': 'Community Service Day',
+                'month-june2': 'June',
+                'service-day-time': '10:00 AM - 2:00 PM',
+                'service-day-text': 'Join us in serving the Mississauga community, sharing Christ\'s love, and providing help to those in need.',
+                
+                // Marriage Seminar
+                'marriage-seminar-title': 'Marriage Seminar',
+                'month-june3': 'June',
+                'marriage-seminar-time': '2:00 PM - 4:00 PM',
+                'marriage-seminar-text': 'Learn how to build strong marital relationships in Christ, led by experienced marriage counseling mentors.',
+                
+                // Toronto Section
+                'toronto-title': 'We\'re in Mississauga, Toronto',
+                'toronto-text1': 'As a church in Mississauga, Toronto, we are committed to serving this multicultural city. We welcome friends from all backgrounds - wherever you\'re from, whatever language you speak, we sincerely invite you to join our family.',
+                'toronto-text2': 'We are located in Mississauga, Toronto with convenient transportation and nearby subway and bus stations. 🍁 Let\'s witness God\'s grace and love together in this beautiful Canadian city! 🍁',
+                'toronto-btn': 'Find Us',
+                
+                // Footer
+                'footer-about': 'Toronto River of Life',
+                'footer-about-text': 'We are a loving and faithful community dedicated to spreading the gospel, serving people, and growing together in Christ\'s love.',
+                'footer-links-title': 'Quick Links',
+                'footer-link1': 'Home',
+                'footer-link2': 'Service Times',
+                'footer-link3': 'Small Groups',
+                'footer-link4': 'Testimonies',
+                'footer-link5': 'Resources',
+                'footer-contact-title': 'Contact Us',
+                'footer-address': '📍 2460 The Collegeway, Mississauga, ON L5L 1V3',
+                'footer-phone': '📞 (416) 123-4567',
+                'footer-email': '✉️ info@trolcc.ca',
+                'footer-hours': '🕒 Mon-Fri: 9:00 AM - 5:00 PM',
+                'copyright-text': '© 2023 Toronto River of Life Christian Church. All rights reserved. 🍁 Loving Toronto for Christ 🍁'
+            }
+        };
+
+        // 切换语言函数
+        function toggleLanguage() {
+            const isEnglish = langSwitch.checked;
+            const targetLang = isEnglish ? 'en' : 'zh';
+            
+            console.log('切换到语言:', targetLang);
+            
+            // 保存语言偏好
+            localStorage.setItem('preferred-language', targetLang);
+            
+            // 更新文本内容
+            for (const [elementId, text] of Object.entries(content[targetLang])) {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    element.textContent = text;
+                } else {
+                    console.log('未找到元素:', elementId);
+                }
             }
         }
-    }
 
-    // 添加事件监听
-    langSwitch.addEventListener('change', toggleLanguage);
-    
-    // 初始化：检查是否有保存的语言偏好
-    const savedLang = localStorage.getItem('preferred-language');
-    if (savedLang === 'en') {
-        langSwitch.checked = true;
-        toggleLanguage();
-    }
-    
-    console.log('语言切换功能初始化完成');
-});
-// 在 toggleLanguage 函数中添加本地存储
-function toggleLanguage() {
-    const isEnglish = langSwitch.checked;
-    const targetLang = isEnglish ? 'en' : 'zh';
-    
-    console.log('切换到语言:', targetLang);
-    
-    // 保存语言偏好
-    localStorage.setItem('preferred-language', targetLang);
-    
-    // 更新文本内容
-    for (const [elementId, text] of Object.entries(content[targetLang])) {
-        const element = document.getElementById(elementId);
-        if (element) {
-            element.textContent = text;
+        // 添加事件监听
+        langSwitch.addEventListener('change', toggleLanguage);
+        
+        // 初始化：检查是否有保存的语言偏好
+        const savedLang = localStorage.getItem('preferred-language');
+        if (savedLang === 'en') {
+            langSwitch.checked = true;
+            toggleLanguage(); // 立即应用英文
         }
+        
+        console.log('语言切换功能初始化完成');
     }
-}
-
-// 在初始化时检查保存的语言偏好
-const savedLang = localStorage.getItem('preferred-language');
-if (savedLang === 'en') {
-    langSwitch.checked = true;
-    toggleLanguage(); // 立即应用英文
-}    
-    </script>
+</script>
 </body>
 </html>
