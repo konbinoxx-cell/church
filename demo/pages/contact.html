@@ -550,47 +550,58 @@
 </head>
 <body>
     <!-- 头部导航 -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <img src="../trolcc_logo1.png" alt="多伦多生命河灵粮堂" class="logo-image">
-                <div>
-                    <div class="logo-text">多伦多生命河灵粮堂</div>
-                    <div class="logo-subtitle">Toronto River of Life Christian Church</div>
-                </div>
+<header>
+    <div class="container header-container">
+        <div class="logo">
+            <img src="../trolcc_logo1.png" alt="多伦多生命河灵粮堂" class="logo-image">
+            <div>
+                <div class="logo-text">多伦多生命河灵粮堂</div>
+                <div class="logo-subtitle">Toronto River of Life Christian Church</div>
             </div>
-            
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="../index.html" class="nav-link">首页</a></li>
-                    <li><a href="meetings.html" class="nav-link">聚会时间</a></li>
-                    <li><a href="groups.html" class="nav-link">小组生活</a></li>
-                    <li><a href="testimonies.html" class="nav-link">信仰见证</a></li>
-                    <li><a href="resources.html" class="nav-link">资源中心</a></li>
-                    <li><a href="../prayer-ai.html" class="nav-link">🙏 祷告AI & 生成器</a></li>
-                    
-                    <!-- 母堂资源下拉菜单 -->
-                    <li class="dropdown">
-                        <a href="#" class="nav-link">母堂资源 ▼</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="https://rolcc.net/rolcc2/" target="_blank">母堂主页</a></li>
-                            <li><a href="https://rolcc.net/bulletin/" target="_blank">电子周报</a></li>
-                            <li><a href="https://rolcc.net/rolcc2/sunday-media/" target="_blank">主日影音</a></li>
-                            <li><a href="https://myrolcc.net/onlinezone/" target="_blank">网络牧区</a></li>
-                            <li><a href="https://rolcc.net/rolcc2/church/#" target="_blank">母堂教会事工</a></li>
-                            <li><a href="https://rolcc.net/rolcc2/equip/" target="_blank">信徒装备</a></li>
-                            <li><a href="https://rolcc.net/rolcc2/rolcc-apps/" target="_blank">ROLCC APP</a></li>
-                        </ul>
-                    </li>
-                    
-                    <li><a href="about.html" class="nav-link">关于我们</a></li>
-                    <li><a href="contact.html" class="nav-link active">联系我们</a></li>
-                </ul>
-            </nav>
-            
-            <div class="mobile-toggle">☰</div>
         </div>
-    </header>
+        
+        <!-- 语言切换器 -->
+        <div class="language-switcher">
+            <label class="lang-toggle">
+                <input type="checkbox" id="lang-switch">
+                <span class="lang-slider">
+                    <span class="zh">中</span>
+                    <span class="en">EN</span>
+                </span>
+            </label>
+        </div>
+        
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link" id="nav-home-link">首页</a></li>
+                <li><a href="meetings.html" class="nav-link" id="nav-meetings-link">聚会时间</a></li>
+                <li><a href="groups.html" class="nav-link" id="nav-groups-link">小组生活</a></li>
+                <li><a href="testimonies.html" class="nav-link" id="nav-testimonies-link">信仰见证</a></li>
+                <li><a href="resources.html" class="nav-link" id="nav-resources-link">资源中心</a></li>
+                <li><a href="../prayer-ai.html" class="nav-link" id="nav-prayer-link">🙏 祷告AI</a></li>
+                
+                <!-- 母堂资源下拉菜单 -->
+                <li class="dropdown">
+                    <a href="#" class="nav-link" id="nav-mother-church-link">母堂资源 ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://rolcc.net/rolcc2/" target="_blank" id="mother-home">母堂主页</a></li>
+                        <li><a href="https://rolcc.net/bulletin/" target="_blank" id="mother-bulletin">电子周报</a></li>
+                        <li><a href="https://rolcc.net/rolcc2/sunday-media/" target="_blank" id="mother-sunday">主日影音</a></li>
+                        <li><a href="https://myrolcc.net/onlinezone/" target="_blank" id="mother-online">网络牧区</a></li>
+                        <li><a href="https://rolcc.net/rolcc2/church/#" target="_blank" id="mother-ministries">母堂教会事工</a></li>
+                        <li><a href="https://rolcc.net/rolcc2/equip/" target="_blank" id="mother-equip">信徒装备</a></li>
+                        <li><a href="https://rolcc.net/rolcc2/rolcc-apps/" target="_blank" id="mother-app">ROLCC APP</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="about.html" class="nav-link" id="nav-about-link">关于我们</a></li>
+                <li><a href="contact.html" class="nav-link" id="nav-contact-link">联系我们</a></li>
+            </ul>
+        </nav>
+        
+        <div class="mobile-toggle">☰</div>
+    </div>
+</header>
 
     <!-- 页面内容 -->
     <section class="page-hero">
@@ -770,13 +781,46 @@
     </section>
 
     <!-- 页脚 -->
-    <footer style="background: linear-gradient(135deg, var(--primary), var(--dark)); color: white; padding: 60px 0 20px;">
-        <div class="container">
-            <div class="copyright" style="text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-                <p>&copy; 2023 多伦多生命河灵粮堂教会. 保留所有权利. 🍁 为基督爱多伦多 🍁</p>
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 id="footer-about">多伦多生命河灵粮堂教会</h3>
+                <p id="footer-about-text">我们是一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon">📘</a>
+                    <a href="#" class="social-icon">📷</a>
+                    <a href="#" class="social-icon">📺</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3 id="footer-links-title">快速链接</h3>
+                <ul class="footer-links">
+                    <li><a href="../index.html" id="footer-link1">首页</a></li>
+                    <li><a href="meetings.html" id="footer-link2">聚会时间</a></li>
+                    <li><a href="groups.html" id="footer-link3">小组生活</a></li>
+                    <li><a href="testimonies.html" id="footer-link4">信仰见证</a></li>
+                    <li><a href="resources.html" id="footer-link5">资源中心</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 id="footer-contact-title">联系我们</h3>
+                <ul class="contact-info">
+                    <li id="footer-address">📍 2460 The Collegeway, Mississauga, ON L5L 1V3</li>
+                    <li id="footer-phone">📞 (416) 123-4567</li>
+                    <li id="footer-email">✉️ info@trolcc.ca</li>
+                    <li id="footer-hours">🕒 周一至周五: 9:00 AM - 5:00 PM</li>
+                </ul>
             </div>
         </div>
-    </footer>
+        
+        <div class="copyright">
+            <p id="copyright-text">&copy; 2023 多伦多生命河灵粮堂教会. 保留所有权利. <span class="maple-leaf">🍁</span> 为基督爱多伦多 <span class="maple-leaf">🍁</span></p>
+        </div>
+    </div>
+</footer>
 
     <script>
         // 移动端菜单切换
