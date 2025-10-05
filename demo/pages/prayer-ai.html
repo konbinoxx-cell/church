@@ -370,6 +370,87 @@
                 flex-direction: column;
             }
         }
+        /* ========== 语言切换器样式 ========== */
+.language-switcher {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.lang-toggle {
+    position: relative;
+    width: 70px;
+    height: 32px;
+}
+
+.lang-toggle input {
+    display: none;
+}
+
+.lang-slider {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #e67e22; /* 默认橙色 - 中文状态 */
+    border-radius: 25px;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.lang-slider:before {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* 中文文字 - 默认显示 */
+.lang-slider .zh {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    font-weight: bold;
+    color: #1a5276; /* 深蓝色 */
+}
+
+/* 英文文字 - 默认隐藏 */
+.lang-slider .en {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    font-weight: bold;
+    color: #1a5276; /* 深蓝色 */
+    opacity: 0; /* 默认隐藏 */
+}
+
+/* 切换到英文状态 */
+.lang-toggle input:checked + .lang-slider {
+    background: rgba(255,255,255,0.9); /* 浅色背景 */
+}
+
+.lang-toggle input:checked + .lang-slider:before {
+    transform: translateX(38px);
+}
+
+.lang-toggle input:checked + .lang-slider .zh {
+    opacity: 0; /* 隐藏中文 */
+}
+
+.lang-toggle input:checked + .lang-slider .en {
+    opacity: 1; /* 显示英文 */
+    color: #1a5276; /* 深蓝色 */
+}
     </style>
 </head>
 <body>
@@ -837,4 +918,5 @@
 </body>
 
 </html>
+
 
