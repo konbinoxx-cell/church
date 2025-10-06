@@ -518,6 +518,100 @@
     opacity: 1; /* 显示英文 */
     color: #1a5276; /* 深蓝色 */
 }
+
+        /* 页脚样式 */
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+        
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-icon:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .maple-leaf {
+            color: var(--toronto-red);
+            font-size: 1.2rem;
+            margin: 0 2px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* 添加淡入淡出动画 */
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .fade-in {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
     </style>
 </head>
 <body>
@@ -528,8 +622,8 @@
             <a href="../index.html" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit;">
                 <img src="../trolcc_logo1.png" alt="多伦多生命河灵粮堂" class="logo-image">
                 <div>
-                    <div class="logo-text">多伦多生命河灵粮堂</div>
-                    <div class="logo-subtitle">Toronto River of Life Christian Church</div>
+                    <div class="logo-text" id="logo-text">多伦多生命河灵粮堂</div>
+                    <div class="logo-subtitle" id="logo-subtitle">Toronto River of Life Christian Church</div>
                 </div>
             </a>
         </div>
@@ -580,168 +674,174 @@
     <!-- 页面内容 -->
     <section class="page-hero">
         <div class="container">
-            <h1>信仰见证</h1>
-            <p>见证神的恩典与大能，分享生命改变的奇迹</p>
+            <h1 id="page-title">信仰见证</h1>
+            <p id="page-subtitle">见证神的恩典与大能，分享生命改变的奇迹</p>
         </div>
     </section>
 
     <section class="page-content">
         <div class="container">
             <div class="section-title">
-                <h2>生命见证</h2>
-                <p>真实的故事，见证神的信实与慈爱</p>
+                <h2 id="section-title">生命见证</h2>
+                <p id="section-description">真实的故事，见证神的信实与慈爱</p>
             </div>
             
             <div class="testimonies-grid">
+                <!-- 见证1 -->
                 <div class="testimony-card">
                     <div class="testimony-header">
-                        <div class="testimony-category">医治见证</div>
-                        <h3 class="testimony-title">从重病到完全康复</h3>
+                        <div class="testimony-category" id="category1">医治见证</div>
+                        <h3 class="testimony-title" id="testimony1-title">从重病到完全康复</h3>
                         <div class="testimony-author">
                             <div class="author-avatar">张</div>
                             <div class="author-info">
-                                <div class="author-name">张弟兄</div>
-                                <div class="author-details">45岁 · 工程师</div>
+                                <div class="author-name" id="author1-name">张弟兄</div>
+                                <div class="author-details" id="author1-details">45岁 · 工程师</div>
                             </div>
                         </div>
                     </div>
                     <div class="testimony-content">
-                        <p class="testimony-excerpt">
+                        <p class="testimony-excerpt" id="testimony1-excerpt">
                             "去年我被诊断出患有严重的疾病，医生说我需要立即手术且预后不佳。在教会弟兄姐妹的祷告支持下，我经历了神的奇妙医治。三个月后的复查显示，我的病情完全好转，医生都感到惊讶..."
                         </p>
-                        <button class="btn">阅读完整见证</button>
+                        <button class="btn" id="btn-read">阅读完整见证</button>
                         <div class="testimony-stats">
-                            <span>👍 24人感动</span>
-                            <span>📅 2023年10月</span>
+                            <span id="stats-likes">👍 24人感动</span>
+                            <span id="stats-date">📅 2023年10月</span>
                         </div>
                     </div>
                 </div>
                 
+                <!-- 见证2 -->
                 <div class="testimony-card">
                     <div class="testimony-header">
-                        <div class="testimony-category">家庭见证</div>
-                        <h3 class="testimony-title">破碎家庭的复原</h3>
+                        <div class="testimony-category" id="category2">家庭见证</div>
+                        <h3 class="testimony-title" id="testimony2-title">破碎家庭的复原</h3>
                         <div class="testimony-author">
                             <div class="author-avatar">李</div>
                             <div class="author-info">
-                                <div class="author-name">李姐妹</div>
-                                <div class="author-details">38岁 · 教师</div>
+                                <div class="author-name" id="author2-name">李姐妹</div>
+                                <div class="author-details" id="author2-details">38岁 · 教师</div>
                             </div>
                         </div>
                     </div>
                     <div class="testimony-content">
-                        <p class="testimony-excerpt">
+                        <p class="testimony-excerpt" id="testimony2-excerpt">
                             "我们的婚姻曾经濒临破裂，争吵和冷漠充斥着家庭。通过参加教会的小组和婚姻辅导，我们学会了在基督里彼此饶恕。现在我们的关系比婚前还要甜蜜，孩子们也在健康的家庭环境中成长..."
                         </p>
-                        <button class="btn">阅读完整见证</button>
+                        <button class="btn" id="btn-read">阅读完整见证</button>
                         <div class="testimony-stats">
-                            <span>👍 31人感动</span>
-                            <span>📅 2023年8月</span>
+                            <span id="stats-likes">👍 31人感动</span>
+                            <span id="stats-date">📅 2023年8月</span>
                         </div>
                     </div>
                 </div>
                 
+                <!-- 见证3 -->
                 <div class="testimony-card">
                     <div class="testimony-header">
-                        <div class="testimony-category">职场见证</div>
-                        <h3 class="testimony-title">失业后的恩典之路</h3>
+                        <div class="testimony-category" id="category3">职场见证</div>
+                        <h3 class="testimony-title" id="testimony3-title">失业后的恩典之路</h3>
                         <div class="testimony-author">
                             <div class="author-avatar">王</div>
                             <div class="author-info">
-                                <div class="author-name">王弟兄</div>
-                                <div class="author-details">32岁 · 项目经理</div>
+                                <div class="author-name" id="author3-name">王弟兄</div>
+                                <div class="author-details" id="author3-details">32岁 · 项目经理</div>
                             </div>
                         </div>
                     </div>
                     <div class="testimony-content">
-                        <p class="testimony-excerpt">
+                        <p class="testimony-excerpt" id="testimony3-excerpt">
                             "疫情期间我失去了工作，投了上百份简历都石沉大海。在最绝望的时候，教会弟兄姐妹为我祷告，神为我开路。不仅找到了更好的工作，薪水还比之前高出30%。我深深体会到神的供应从不迟到..."
                         </p>
-                        <button class="btn">阅读完整见证</button>
+                        <button class="btn" id="btn-read">阅读完整见证</button>
                         <div class="testimony-stats">
-                            <span>👍 19人感动</span>
-                            <span>📅 2023年6月</span>
+                            <span id="stats-likes">👍 19人感动</span>
+                            <span id="stats-date">📅 2023年6月</span>
                         </div>
                     </div>
                 </div>
                 
+                <!-- 见证4 -->
                 <div class="testimony-card">
                     <div class="testimony-header">
-                        <div class="testimony-category">信仰历程</div>
-                        <h3 class="testimony-title">从无神论到虔诚信徒</h3>
+                        <div class="testimony-category" id="category4">信仰历程</div>
+                        <h3 class="testimony-title" id="testimony4-title">从无神论到虔诚信徒</h3>
                         <div class="testimony-author">
                             <div class="author-avatar">陈</div>
                             <div class="author-info">
-                                <div class="author-name">陈博士</div>
-                                <div class="author-details">50岁 · 大学教授</div>
+                                <div class="author-name" id="author4-name">陈博士</div>
+                                <div class="author-details" id="author4-details">50岁 · 大学教授</div>
                             </div>
                         </div>
                     </div>
                     <div class="testimony-content">
-                        <p class="testimony-excerpt">
+                        <p class="testimony-excerpt" id="testimony4-excerpt">
                             "作为一名科研工作者，我曾经坚信科学可以解释一切。直到一次重病让我重新思考生命的意义。通过系统地研究圣经和与基督徒朋友的交流，我发现了超越科学的真理。现在我在大学里也带领查经小组..."
                         </p>
-                        <button class="btn">阅读完整见证</button>
+                        <button class="btn" id="btn-read">阅读完整见证</button>
                         <div class="testimony-stats">
-                            <span>👍 42人感动</span>
-                            <span>📅 2023年4月</span>
+                            <span id="stats-likes">👍 42人感动</span>
+                            <span id="stats-date">📅 2023年4月</span>
                         </div>
                     </div>
                 </div>
                 
+                <!-- 见证5 -->
                 <div class="testimony-card">
                     <div class="testimony-header">
-                        <div class="testimony-category">青年见证</div>
-                        <h3 class="testimony-title">迷途知返的年轻人</h3>
+                        <div class="testimony-category" id="category5">青年见证</div>
+                        <h3 class="testimony-title" id="testimony5-title">迷途知返的年轻人</h3>
                         <div class="testimony-author">
                             <div class="author-avatar">刘</div>
                             <div class="author-info">
-                                <div class="author-name">刘弟兄</div>
-                                <div class="author-details">25岁 · 留学生</div>
+                                <div class="author-name" id="author5-name">刘弟兄</div>
+                                <div class="author-details" id="author5-details">25岁 · 留学生</div>
                             </div>
                         </div>
                     </div>
                     <div class="testimony-content">
-                        <p class="testimony-excerpt">
+                        <p class="testimony-excerpt" id="testimony5-excerpt">
                             "刚来加拿大时，我被自由的生活冲昏了头脑，沉迷游戏，学业一落千丈。在教会青年小组的关爱下，我重新找到了人生的方向。现在不仅顺利毕业，还成为了小组的同工，帮助其他留学生..."
                         </p>
-                        <button class="btn">阅读完整见证</button>
+                        <button class="btn" id="btn-read">阅读完整见证</button>
                         <div class="testimony-stats">
-                            <span>👍 28人感动</span>
-                            <span>📅 2023年2月</span>
+                            <span id="stats-likes">👍 28人感动</span>
+                            <span id="stats-date">📅 2023年2月</span>
                         </div>
                     </div>
                 </div>
                 
+                <!-- 见证6 -->
                 <div class="testimony-card">
                     <div class="testimony-header">
-                        <div class="testimony-category">事奉见证</div>
-                        <h3 class="testimony-title">在服事中经历成长</h3>
+                        <div class="testimony-category" id="category6">事奉见证</div>
+                        <h3 class="testimony-title" id="testimony6-title">在服事中经历成长</h3>
                         <div class="testimony-author">
                             <div class="author-avatar">黄</div>
                             <div class="author-info">
-                                <div class="author-name">黄姐妹</div>
-                                <div class="author-details">29岁 · 音乐老师</div>
+                                <div class="author-name" id="author6-name">黄姐妹</div>
+                                <div class="author-details" id="author6-details">29岁 · 音乐老师</div>
                             </div>
                         </div>
                     </div>
                     <div class="testimony-content">
-                        <p class="testimony-excerpt">
+                        <p class="testimony-excerpt" id="testimony6-excerpt">
                             "刚开始在教会司琴时，我总是紧张害怕出错。通过祷告和操练，神不仅提升了我的音乐技巧，更让我明白事奉的真谛。现在带领敬拜团队，看到会众在敬拜中遇见神，是我最大的喜乐..."
                         </p>
-                        <button class="btn">阅读完整见证</button>
+                        <button class="btn" id="btn-read">阅读完整见证</button>
                         <div class="testimony-stats">
-                            <span>👍 35人感动</span>
-                            <span>📅 2023年1月</span>
+                            <span id="stats-likes">👍 35人感动</span>
+                            <span id="stats-date">📅 2023年1月</span>
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="share-testimony">
-                <h3>分享你的见证</h3>
-                <p>神在你生命中的作为值得被传扬！分享你的见证可以鼓励更多的人。</p>
-                <button class="btn" style="background-color: var(--accent); box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);">
+                <h3 id="share-title">分享你的见证</h3>
+                <p id="share-description">神在你生命中的作为值得被传扬！分享你的见证可以鼓励更多的人。</p>
+                <button class="btn" id="share-btn" style="background-color: var(--accent); box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);">
                     我要分享见证
                 </button>
             </div>
@@ -819,6 +919,241 @@
                     menu.classList.remove('active');
                 });
             }
+        });
+
+        // 初始化语言切换功能
+        function initializeLanguageSwitcher() {
+            const langSwitch = document.getElementById('lang-switch');
+            if (!langSwitch) {
+                console.log('未找到语言切换开关');
+                return;
+            }
+            
+            console.log('语言切换功能加载成功');
+            
+            // 完整双语内容库
+            const content = {
+                zh: {
+                    // 导航
+                    'nav-home-link': '首页',
+                    'nav-meetings-link': '聚会时间',
+                    'nav-groups-link': '小组生活',
+                    'nav-testimonies-link': '信仰见证', 
+                    'nav-resources-link': '资源中心',
+                    'nav-prayer-link': '🙏 祷告AI',
+                    'nav-mother-church-link': '母堂资源 ▼',
+                    'nav-about-link': '关于我们',
+                    'nav-contact-link': '联系我们',
+                    
+                    // 母堂资源下拉菜单
+                    'mother-home': '母堂主页',
+                    'mother-bulletin': '电子周报',
+                    'mother-sunday': '主日影音',
+                    'mother-online': '网络牧区',
+                    'mother-ministries': '母堂教会事工',
+                    'mother-equip': '信徒装备',
+                    'mother-app': 'ROLCC APP',
+                    
+                    // 页面标题区域
+                    'page-title': '信仰见证',
+                    'page-subtitle': '见证神的恩典与大能，分享生命改变的奇迹',
+                    'section-title': '生命见证',
+                    'section-description': '真实的故事，见证神的信实与慈爱',
+                    
+                    // 见证分类
+                    'category1': '医治见证',
+                    'category2': '家庭见证',
+                    'category3': '职场见证',
+                    'category4': '信仰历程',
+                    'category5': '青年见证',
+                    'category6': '事奉见证',
+                    
+                    // 见证标题
+                    'testimony1-title': '从重病到完全康复',
+                    'testimony2-title': '破碎家庭的复原',
+                    'testimony3-title': '失业后的恩典之路',
+                    'testimony4-title': '从无神论到虔诚信徒',
+                    'testimony5-title': '迷途知返的年轻人',
+                    'testimony6-title': '在服事中经历成长',
+                    
+                    // 作者信息
+                    'author1-name': '张弟兄',
+                    'author1-details': '45岁 · 工程师',
+                    'author2-name': '李姐妹',
+                    'author2-details': '38岁 · 教师',
+                    'author3-name': '王弟兄',
+                    'author3-details': '32岁 · 项目经理',
+                    'author4-name': '陈博士',
+                    'author4-details': '50岁 · 大学教授',
+                    'author5-name': '刘弟兄',
+                    'author5-details': '25岁 · 留学生',
+                    'author6-name': '黄姐妹',
+                    'author6-details': '29岁 · 音乐老师',
+                    
+                    // 见证摘要
+                    'testimony1-excerpt': '"去年我被诊断出患有严重的疾病，医生说我需要立即手术且预后不佳。在教会弟兄姐妹的祷告支持下，我经历了神的奇妙医治。三个月后的复查显示，我的病情完全好转，医生都感到惊讶..."',
+                    'testimony2-excerpt': '"我们的婚姻曾经濒临破裂，争吵和冷漠充斥着家庭。通过参加教会的小组和婚姻辅导，我们学会了在基督里彼此饶恕。现在我们的关系比婚前还要甜蜜，孩子们也在健康的家庭环境中成长..."',
+                    'testimony3-excerpt': '"疫情期间我失去了工作，投了上百份简历都石沉大海。在最绝望的时候，教会弟兄姐妹为我祷告，神为我开路。不仅找到了更好的工作，薪水还比之前高出30%。我深深体会到神的供应从不迟到..."',
+                    'testimony4-excerpt': '"作为一名科研工作者，我曾经坚信科学可以解释一切。直到一次重病让我重新思考生命的意义。通过系统地研究圣经和与基督徒朋友的交流，我发现了超越科学的真理。现在我在大学里也带领查经小组..."',
+                    'testimony5-excerpt': '"刚来加拿大时，我被自由的生活冲昏了头脑，沉迷游戏，学业一落千丈。在教会青年小组的关爱下，我重新找到了人生的方向。现在不仅顺利毕业，还成为了小组的同工，帮助其他留学生..."',
+                    'testimony6-excerpt': '"刚开始在教会司琴时，我总是紧张害怕出错。通过祷告和操练，神不仅提升了我的音乐技巧，更让我明白事奉的真谛。现在带领敬拜团队，看到会众在敬拜中遇见神，是我最大的喜乐..."',
+                    
+                    // 按钮和统计
+                    'btn-read': '阅读完整见证',
+                    'stats-likes': '👍 24人感动',
+                    'stats-date': '📅 2023年10月',
+                    
+                    // 分享见证区域
+                    'share-title': '分享你的见证',
+                    'share-description': '神在你生命中的作为值得被传扬！分享你的见证可以鼓励更多的人。',
+                    'share-btn': '我要分享见证',
+                    
+                    // 页脚
+                    'footer-about': '多伦多生命河灵粮堂教会',
+                    'footer-about-text': '我们是一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。',
+                    'footer-links-title': '快速链接',
+                    'footer-link1': '首页',
+                    'footer-link2': '聚会时间',
+                    'footer-link3': '小组生活',
+                    'footer-link4': '信仰见证',
+                    'footer-link5': '资源中心',
+                    'footer-contact-title': '联系我们',
+                    'footer-address': '📍 2460 The Collegeway, Mississauga, ON L5L 1V3',
+                    'footer-phone': '📞 (416) 123-4567',
+                    'footer-email': '✉️ info@trolcc.ca',
+                    'footer-hours': '🕒 周一至周五: 9:00 AM - 5:00 PM',
+                    'copyright-text': '© 2023 多伦多生命河灵粮堂教会. 保留所有权利. 🍁 为基督爱多伦多 🍁'   
+                },
+                en: {
+                    // Navigation
+                    'nav-home-link': 'Home',
+                    'nav-meetings-link': 'Service Times',
+                    'nav-groups-link': 'Small Groups',
+                    'nav-testimonies-link': 'Testimonies',
+                    'nav-resources-link': 'Resources',
+                    'nav-prayer-link': '🙏 Prayer AI',
+                    'nav-mother-church-link': 'Mother Church ▼',
+                    'nav-about-link': 'About Us',
+                    'nav-contact-link': 'Contact',
+                    
+                    // Mother Church Dropdown
+                    'mother-home': 'Mother Church Home',
+                    'mother-bulletin': 'E-Bulletin',
+                    'mother-sunday': 'Sunday Media',
+                    'mother-online': 'Online Zone',
+                    'mother-ministries': 'Church Ministries',
+                    'mother-equip': 'Believer Training',
+                    'mother-app': 'ROLCC APP',
+                    
+                    // Page Title Area
+                    'page-title': 'Faith Testimonies',
+                    'page-subtitle': 'Witness God\'s grace and power, share miracles of life transformation',
+                    'section-title': 'Life Testimonies',
+                    'section-description': 'Real stories testifying to God\'s faithfulness and love',
+                    
+                    // Testimony Categories
+                    'category1': 'Healing Testimony',
+                    'category2': 'Family Testimony',
+                    'category3': 'Workplace Testimony',
+                    'category4': 'Faith Journey',
+                    'category5': 'Youth Testimony',
+                    'category6': 'Service Testimony',
+                    
+                    // Testimony Titles
+                    'testimony1-title': 'From Serious Illness to Complete Recovery',
+                    'testimony2-title': 'Restoration of a Broken Family',
+                    'testimony3-title': 'Grace in Unemployment Journey',
+                    'testimony4-title': 'From Atheism to Devout Believer',
+                    'testimony5-title': 'A Lost Youth Returns',
+                    'testimony6-title': 'Growth Through Service',
+                    
+                    // Author Information
+                    'author1-name': 'Brother Zhang',
+                    'author1-details': '45 years · Engineer',
+                    'author2-name': 'Sister Li',
+                    'author2-details': '38 years · Teacher',
+                    'author3-name': 'Brother Wang',
+                    'author3-details': '32 years · Project Manager',
+                    'author4-name': 'Dr. Chen',
+                    'author4-details': '50 years · Professor',
+                    'author5-name': 'Brother Liu',
+                    'author5-details': '25 years · International Student',
+                    'author6-name': 'Sister Huang',
+                    'author6-details': '29 years · Music Teacher',
+                    
+                    // Testimony Excerpts
+                    'testimony1-excerpt': '"Last year I was diagnosed with a serious illness, and doctors said I needed immediate surgery with poor prognosis. With the prayer support of church brothers and sisters, I experienced God\'s miraculous healing. Three months later, follow-up tests showed complete recovery, amazing the doctors..."',
+                    'testimony2-excerpt': '"Our marriage was on the verge of collapse, filled with arguments and indifference. Through church small groups and marriage counseling, we learned to forgive each other in Christ. Now our relationship is sweeter than before marriage, and our children are growing up in a healthy family environment..."',
+                    'testimony3-excerpt': '"During the pandemic, I lost my job and sent out hundreds of resumes with no response. At my most desperate moment, church brothers and sisters prayed for me, and God opened doors. Not only did I find a better job, but the salary was 30% higher than before. I deeply experienced that God\'s provision is never late..."',
+                    'testimony4-excerpt': '"As a scientific researcher, I once believed science could explain everything. Until a serious illness made me reconsider the meaning of life. Through systematic Bible study and conversations with Christian friends, I discovered truth beyond science. Now I also lead Bible study groups at the university..."',
+                    'testimony5-excerpt': '"When I first came to Canada, I was overwhelmed by the freedom and became addicted to gaming, my studies plummeted. Through the care of the church youth group, I rediscovered my life direction. Now not only have I graduated successfully, but I\'ve also become a group leader helping other international students..."',
+                    'testimony6-excerpt': '"When I first started playing piano at church, I was always nervous and afraid of making mistakes. Through prayer and practice, God not only improved my musical skills but helped me understand the true meaning of service. Now leading the worship team and seeing the congregation encounter God in worship is my greatest joy..."',
+                    
+                    // Buttons and Stats
+                    'btn-read': 'Read Full Testimony',
+                    'stats-likes': '👍 24 touched',
+                    'stats-date': '📅 Oct 2023',
+                    
+                    // Share Testimony Section
+                    'share-title': 'Share Your Testimony',
+                    'share-description': 'What God has done in your life is worth sharing! Your testimony can encourage many others.',
+                    'share-btn': 'Share My Testimony',
+                    
+                    // Footer
+                    'footer-about': 'Toronto River of Life',
+                    'footer-about-text': 'We are a loving and faithful community dedicated to spreading the gospel, serving people, and growing together in Christ\'s love.',
+                    'footer-links-title': 'Quick Links',
+                    'footer-link1': 'Home',
+                    'footer-link2': 'Service Times',
+                    'footer-link3': 'Small Groups',
+                    'footer-link4': 'Testimonies',
+                    'footer-link5': 'Resources',
+                    'footer-contact-title': 'Contact Us',
+                    'footer-address': '📍 2460 The Collegeway, Mississauga, ON L5L 1V3',
+                    'footer-phone': '📞 (416) 123-4567',
+                    'footer-email': '✉️ info@trolcc.ca',
+                    'footer-hours': '🕒 Mon-Fri: 9:00 AM - 5:00 PM',
+                    'copyright-text': '© 2023 Toronto River of Life Christian Church. All rights reserved. 🍁 Loving Toronto for Christ 🍁'
+                }
+            };
+
+            // 切换语言函数
+            function toggleLanguage() {
+                const isEnglish = langSwitch.checked;
+                const targetLang = isEnglish ? 'en' : 'zh';
+                
+                console.log('切换到语言:', targetLang);
+                
+                // 保存语言偏好
+                localStorage.setItem('preferred-language', targetLang);
+                
+                // 更新文本内容
+                for (const [elementId, text] of Object.entries(content[targetLang])) {
+                    const element = document.getElementById(elementId);
+                    if (element) {
+                        element.textContent = text;
+                    } else {
+                        console.log('未找到元素:', elementId);
+                    }
+                }
+            }
+
+            // 添加事件监听
+            langSwitch.addEventListener('change', toggleLanguage);
+            
+            // 初始化：检查是否有保存的语言偏好
+            const savedLang = localStorage.getItem('preferred-language');
+            if (savedLang === 'en') {
+                langSwitch.checked = true;
+                toggleLanguage(); // 立即应用英文
+            }
+            
+            console.log('语言切换功能初始化完成');
+        }
+
+        // 页面加载时初始化语言切换
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeLanguageSwitcher();
         });
     </script>
 </body>
