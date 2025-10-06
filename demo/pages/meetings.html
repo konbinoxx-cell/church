@@ -547,6 +547,100 @@
     opacity: 1; /* 显示英文 */
     color: #1a5276; /* 深蓝色 */
 }
+
+        /* 页脚样式 */
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+        
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-icon:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .maple-leaf {
+            color: var(--toronto-red);
+            font-size: 1.2rem;
+            margin: 0 2px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* 添加淡入淡出动画 */
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .fade-in {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
     </style>
 </head>
 <body>
@@ -609,8 +703,8 @@
     <!-- 页面英雄区域 -->
     <section class="page-hero">
         <div class="container">
-            <h1>教会聚会时间</h1>
-            <p>欢迎参加我们的各类聚会，在基督的爱中一同成长</p>
+            <h1 id="page-title">教会聚会时间</h1>
+            <p id="page-subtitle">欢迎参加我们的各类聚会，在基督的爱中一同成长</p>
         </div>
     </section>
 
@@ -618,71 +712,71 @@
     <section class="meetings-section">
         <div class="container">
             <div class="section-title">
-                <h2>主要聚会安排</h2>
+                <h2 id="main-meetings-title">主要聚会安排</h2>
             </div>
             
             <div class="meeting-schedule">
                 <!-- 主日崇拜 -->
                 <div class="meeting-card">
                     <div class="meeting-icon">⛪</div>
-                    <h3 class="meeting-title">主日崇拜</h3>
+                    <h3 class="meeting-title" id="sunday-service-title">主日崇拜</h3>
                     <div class="meeting-time">
-                        <div class="day">星期日</div>
-                        <div class="time">上午 10:00 - 12:00</div>
-                        <div class="location">教会大堂 & 线上直播</div>
+                        <div class="day" id="sunday-day">星期日</div>
+                        <div class="time" id="sunday-time">上午 10:00 - 12:00</div>
+                        <div class="location" id="sunday-location">教会大堂 & 线上直播</div>
                     </div>
-                    <p class="meeting-description">
+                    <p class="meeting-description" id="sunday-description">
                         我们每周日聚集敬拜神，通过诗歌敬拜、祷告和神的话语，在真理中得着力量和指引。
                     </p>
                     <ul class="meeting-features">
-                        <li>中英文双语崇拜</li>
-                        <li>儿童主日学同步进行</li>
-                        <li>圣餐每月第一主日</li>
-                        <li>新朋友欢迎茶会</li>
+                        <li id="sunday-feature1">中英文双语崇拜</li>
+                        <li id="sunday-feature2">儿童主日学同步进行</li>
+                        <li id="sunday-feature3">圣餐每月第一主日</li>
+                        <li id="sunday-feature4">新朋友欢迎茶会</li>
                     </ul>
-                    <button class="btn" onclick="location.href='#online'">参加线上崇拜</button>
+                    <button class="btn" id="sunday-btn" onclick="location.href='#online'">参加线上崇拜</button>
                 </div>
                 
                 <!-- 祷告会 -->
                 <div class="meeting-card">
                     <div class="meeting-icon">🙏</div>
-                    <h3 class="meeting-title">周三祷告会</h3>
+                    <h3 class="meeting-title" id="prayer-meeting-title">周三祷告会</h3>
                     <div class="meeting-time">
-                        <div class="day">星期三</div>
-                        <div class="time">晚上 7:30 - 9:00</div>
-                        <div class="location">教会副堂 & Zoom会议</div>
+                        <div class="day" id="prayer-day">星期三</div>
+                        <div class="time" id="prayer-time">晚上 7:30 - 9:00</div>
+                        <div class="location" id="prayer-location">教会副堂 & Zoom会议</div>
                     </div>
-                    <p class="meeting-description">
+                    <p class="meeting-description" id="prayer-description">
                         每周三晚上我们一同为个人、教会和世界的需要祷告，经历神垂听祷告的大能。
                     </p>
                     <ul class="meeting-features">
-                        <li>分组祷告时间</li>
-                        <li>经文分享与默想</li>
-                        <li>代祷事项分享</li>
-                        <li>见证分享环节</li>
+                        <li id="prayer-feature1">分组祷告时间</li>
+                        <li id="prayer-feature2">经文分享与默想</li>
+                        <li id="prayer-feature3">代祷事项分享</li>
+                        <li id="prayer-feature4">见证分享环节</li>
                     </ul>
-                    <button class="btn" onclick="location.href='#online'">参加祷告会</button>
+                    <button class="btn" id="prayer-btn" onclick="location.href='#online'">参加祷告会</button>
                 </div>
                 
                 <!-- 小组团契 -->
                 <div class="meeting-card">
                     <div class="meeting-icon">👥</div>
-                    <h3 class="meeting-title">小组团契</h3>
+                    <h3 class="meeting-title" id="small-group-title">小组团契</h3>
                     <div class="meeting-time">
-                        <div class="day">周五晚上 / 周六下午</div>
-                        <div class="time">不同时段安排</div>
-                        <div class="location">各小组长家中 & 线上</div>
+                        <div class="day" id="group-day">周五晚上 / 周六下午</div>
+                        <div class="time" id="group-time">不同时段安排</div>
+                        <div class="location" id="group-location">各小组长家中 & 线上</div>
                     </div>
-                    <p class="meeting-description">
+                    <p class="meeting-description" id="group-description">
                         在亲密的小组环境中彼此扶持，学习神的话语，建立深厚的属灵友谊。
                     </p>
                     <ul class="meeting-features">
-                        <li>分年龄层小组</li>
-                        <li>圣经学习与讨论</li>
-                        <li>生活分享与代祷</li>
-                        <li>社交活动与服事</li>
+                        <li id="group-feature1">分年龄层小组</li>
+                        <li id="group-feature2">圣经学习与讨论</li>
+                        <li id="group-feature3">生活分享与代祷</li>
+                        <li id="group-feature4">社交活动与服事</li>
                     </ul>
-                    <button class="btn" onclick="location.href='groups.html'">了解小组详情</button>
+                    <button class="btn" id="group-btn" onclick="location.href='groups.html'">了解小组详情</button>
                 </div>
             </div>
         </div>
@@ -692,11 +786,11 @@
     <section class="online-meeting" id="online">
         <div class="container">
             <div class="section-title">
-                <h2>线上聚会参与</h2>
+                <h2 id="online-meetings-title">线上聚会参与</h2>
             </div>
             
             <div style="text-align: center; margin-bottom: 30px;">
-                <p style="font-size: 1.1rem; color: var(--text); max-width: 800px; margin: 0 auto 20px;">
+                <p style="font-size: 1.1rem; color: var(--text); max-width: 800px; margin: 0 auto 20px;" id="online-description">
                     无法亲自来到教会？欢迎通过以下平台参与我们的线上聚会：
                 </p>
             </div>
@@ -704,23 +798,23 @@
             <div class="online-platforms">
                 <div class="platform-card">
                     <div class="platform-icon">📹</div>
-                    <div class="platform-name">YouTube直播</div>
-                    <p>主日崇拜实时直播</p>
-                    <button class="btn" style="margin-top: 15px; padding: 8px 20px;">观看直播</button>
+                    <div class="platform-name" id="platform1-name">YouTube直播</div>
+                    <p id="platform1-desc">主日崇拜实时直播</p>
+                    <button class="btn" id="platform1-btn" style="margin-top: 15px; padding: 8px 20px;">观看直播</button>
                 </div>
                 
                 <div class="platform-card">
                     <div class="platform-icon">💻</div>
-                    <div class="platform-name">Zoom会议</div>
-                    <p>祷告会、小组聚会</p>
-                    <button class="btn" style="margin-top: 15px; padding: 8px 20px;">加入会议</button>
+                    <div class="platform-name" id="platform2-name">Zoom会议</div>
+                    <p id="platform2-desc">祷告会、小组聚会</p>
+                    <button class="btn" id="platform2-btn" style="margin-top: 15px; padding: 8px 20px;">加入会议</button>
                 </div>
                 
                 <div class="platform-card">
                     <div class="platform-icon">📱</div>
-                    <div class="platform-name">教会APP</div>
-                    <p>最新通知和资源</p>
-                    <button class="btn" style="margin-top: 15px; padding: 8px 20px;">下载APP</button>
+                    <div class="platform-name" id="platform3-name">教会APP</div>
+                    <p id="platform3-desc">最新通知和资源</p>
+                    <button class="btn" id="platform3-btn" style="margin-top: 15px; padding: 8px 20px;">下载APP</button>
                 </div>
             </div>
         </div>
@@ -767,6 +861,7 @@
         </div>
     </div>
 </footer>
+
     <script>
         // 移动端菜单切换
         document.querySelector('.mobile-toggle').addEventListener('click', function() {
@@ -794,6 +889,241 @@
                     menu.classList.remove('active');
                 });
             }
+        });
+
+        // 初始化语言切换功能
+        function initializeLanguageSwitcher() {
+            const langSwitch = document.getElementById('lang-switch');
+            if (!langSwitch) {
+                console.log('未找到语言切换开关');
+                return;
+            }
+            
+            console.log('语言切换功能加载成功');
+            
+            // 完整双语内容库
+            const content = {
+                zh: {
+                    // 导航
+                    'nav-home-link': '首页',
+                    'nav-meetings-link': '聚会时间',
+                    'nav-groups-link': '小组生活',
+                    'nav-testimonies-link': '信仰见证', 
+                    'nav-resources-link': '资源中心',
+                    'nav-prayer-link': '🙏 祷告AI',
+                    'nav-mother-church-link': '母堂资源 ▼',
+                    'nav-about-link': '关于我们',
+                    'nav-contact-link': '联系我们',
+                    
+                    // 母堂资源下拉菜单
+                    'mother-home': '母堂主页',
+                    'mother-bulletin': '电子周报',
+                    'mother-sunday': '主日影音',
+                    'mother-online': '网络牧区',
+                    'mother-ministries': '母堂教会事工',
+                    'mother-equip': '信徒装备',
+                    'mother-app': 'ROLCC APP',
+                    
+                    // 页面标题区域
+                    'page-title': '教会聚会时间',
+                    'page-subtitle': '欢迎参加我们的各类聚会，在基督的爱中一同成长',
+                    'main-meetings-title': '主要聚会安排',
+                    
+                    // 主日崇拜
+                    'sunday-service-title': '主日崇拜',
+                    'sunday-day': '星期日',
+                    'sunday-time': '上午 10:00 - 12:00',
+                    'sunday-location': '教会大堂 & 线上直播',
+                    'sunday-description': '我们每周日聚集敬拜神，通过诗歌敬拜、祷告和神的话语，在真理中得着力量和指引。',
+                    'sunday-feature1': '中英文双语崇拜',
+                    'sunday-feature2': '儿童主日学同步进行',
+                    'sunday-feature3': '圣餐每月第一主日',
+                    'sunday-feature4': '新朋友欢迎茶会',
+                    'sunday-btn': '参加线上崇拜',
+                    
+                    // 祷告会
+                    'prayer-meeting-title': '周三祷告会',
+                    'prayer-day': '星期三',
+                    'prayer-time': '晚上 7:30 - 9:00',
+                    'prayer-location': '教会副堂 & Zoom会议',
+                    'prayer-description': '每周三晚上我们一同为个人、教会和世界的需要祷告，经历神垂听祷告的大能。',
+                    'prayer-feature1': '分组祷告时间',
+                    'prayer-feature2': '经文分享与默想',
+                    'prayer-feature3': '代祷事项分享',
+                    'prayer-feature4': '见证分享环节',
+                    'prayer-btn': '参加祷告会',
+                    
+                    // 小组团契
+                    'small-group-title': '小组团契',
+                    'group-day': '周五晚上 / 周六下午',
+                    'group-time': '不同时段安排',
+                    'group-location': '各小组长家中 & 线上',
+                    'group-description': '在亲密的小组环境中彼此扶持，学习神的话语，建立深厚的属灵友谊。',
+                    'group-feature1': '分年龄层小组',
+                    'group-feature2': '圣经学习与讨论',
+                    'group-feature3': '生活分享与代祷',
+                    'group-feature4': '社交活动与服事',
+                    'group-btn': '了解小组详情',
+                    
+                    // 线上聚会
+                    'online-meetings-title': '线上聚会参与',
+                    'online-description': '无法亲自来到教会？欢迎通过以下平台参与我们的线上聚会：',
+                    'platform1-name': 'YouTube直播',
+                    'platform1-desc': '主日崇拜实时直播',
+                    'platform1-btn': '观看直播',
+                    'platform2-name': 'Zoom会议',
+                    'platform2-desc': '祷告会、小组聚会',
+                    'platform2-btn': '加入会议',
+                    'platform3-name': '教会APP',
+                    'platform3-desc': '最新通知和资源',
+                    'platform3-btn': '下载APP',
+                    
+                    // 页脚
+                    'footer-about': '多伦多生命河灵粮堂教会',
+                    'footer-about-text': '我们是一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。',
+                    'footer-links-title': '快速链接',
+                    'footer-link1': '首页',
+                    'footer-link2': '聚会时间',
+                    'footer-link3': '小组生活',
+                    'footer-link4': '信仰见证',
+                    'footer-link5': '资源中心',
+                    'footer-contact-title': '联系我们',
+                    'footer-address': '📍 2460 The Collegeway, Mississauga, ON L5L 1V3',
+                    'footer-phone': '📞 (416) 123-4567',
+                    'footer-email': '✉️ info@trolcc.ca',
+                    'footer-hours': '🕒 周一至周五: 9:00 AM - 5:00 PM',
+                    'copyright-text': '© 2023 多伦多生命河灵粮堂教会. 保留所有权利. 🍁 为基督爱多伦多 🍁'   
+                },
+                en: {
+                    // Navigation
+                    'nav-home-link': 'Home',
+                    'nav-meetings-link': 'Service Times',
+                    'nav-groups-link': 'Small Groups',
+                    'nav-testimonies-link': 'Testimonies',
+                    'nav-resources-link': 'Resources',
+                    'nav-prayer-link': '🙏 Prayer AI',
+                    'nav-mother-church-link': 'Mother Church ▼',
+                    'nav-about-link': 'About Us',
+                    'nav-contact-link': 'Contact',
+                    
+                    // Mother Church Dropdown
+                    'mother-home': 'Mother Church Home',
+                    'mother-bulletin': 'E-Bulletin',
+                    'mother-sunday': 'Sunday Media',
+                    'mother-online': 'Online Zone',
+                    'mother-ministries': 'Church Ministries',
+                    'mother-equip': 'Believer Training',
+                    'mother-app': 'ROLCC APP',
+                    
+                    // Page Title Area
+                    'page-title': 'Church Service Times',
+                    'page-subtitle': 'Welcome to join our various gatherings and grow together in Christ\'s love',
+                    'main-meetings-title': 'Main Service Schedule',
+                    
+                    // Sunday Service
+                    'sunday-service-title': 'Sunday Service',
+                    'sunday-day': 'Sunday',
+                    'sunday-time': '10:00 AM - 12:00 PM',
+                    'sunday-location': 'Main Sanctuary & Online Live',
+                    'sunday-description': 'We gather every Sunday to worship God, gaining strength and guidance in truth through worship songs, prayer, and God\'s word.',
+                    'sunday-feature1': 'Bilingual Service (Chinese/English)',
+                    'sunday-feature2': 'Children\'s Sunday School',
+                    'sunday-feature3': 'Communion on First Sunday',
+                    'sunday-feature4': 'Welcome Tea for New Friends',
+                    'sunday-btn': 'Join Online Service',
+                    
+                    // Prayer Meeting
+                    'prayer-meeting-title': 'Wednesday Prayer',
+                    'prayer-day': 'Wednesday',
+                    'prayer-time': '7:30 PM - 9:00 PM',
+                    'prayer-location': 'Side Chapel & Zoom Meeting',
+                    'prayer-description': 'Every Wednesday evening we pray together for personal, church, and global needs, experiencing God\'s power in answering prayers.',
+                    'prayer-feature1': 'Small Group Prayer Time',
+                    'prayer-feature2': 'Scripture Sharing & Meditation',
+                    'prayer-feature3': 'Prayer Request Sharing',
+                    'prayer-feature4': 'Testimony Sharing Session',
+                    'prayer-btn': 'Join Prayer Meeting',
+                    
+                    // Small Groups
+                    'small-group-title': 'Small Groups',
+                    'group-day': 'Friday Evening / Saturday Afternoon',
+                    'group-time': 'Various Time Slots',
+                    'group-location': 'Group Leaders\' Homes & Online',
+                    'group-description': 'Support each other in intimate group settings, study God\'s word, and build deep spiritual friendships.',
+                    'group-feature1': 'Age-specific Groups',
+                    'group-feature2': 'Bible Study & Discussion',
+                    'group-feature3': 'Life Sharing & Prayer',
+                    'group-feature4': 'Social Activities & Service',
+                    'group-btn': 'Learn About Groups',
+                    
+                    // Online Meetings
+                    'online-meetings-title': 'Online Participation',
+                    'online-description': 'Unable to come to church in person? Welcome to join our online gatherings through the following platforms:',
+                    'platform1-name': 'YouTube Live',
+                    'platform1-desc': 'Sunday Service Live Stream',
+                    'platform1-btn': 'Watch Live',
+                    'platform2-name': 'Zoom Meeting',
+                    'platform2-desc': 'Prayer Meetings, Small Groups',
+                    'platform2-btn': 'Join Meeting',
+                    'platform3-name': 'Church App',
+                    'platform3-desc': 'Latest Notices & Resources',
+                    'platform3-btn': 'Download App',
+                    
+                    // Footer
+                    'footer-about': 'Toronto River of Life',
+                    'footer-about-text': 'We are a loving and faithful community dedicated to spreading the gospel, serving people, and growing together in Christ\'s love.',
+                    'footer-links-title': 'Quick Links',
+                    'footer-link1': 'Home',
+                    'footer-link2': 'Service Times',
+                    'footer-link3': 'Small Groups',
+                    'footer-link4': 'Testimonies',
+                    'footer-link5': 'Resources',
+                    'footer-contact-title': 'Contact Us',
+                    'footer-address': '📍 2460 The Collegeway, Mississauga, ON L5L 1V3',
+                    'footer-phone': '📞 (416) 123-4567',
+                    'footer-email': '✉️ info@trolcc.ca',
+                    'footer-hours': '🕒 Mon-Fri: 9:00 AM - 5:00 PM',
+                    'copyright-text': '© 2023 Toronto River of Life Christian Church. All rights reserved. 🍁 Loving Toronto for Christ 🍁'
+                }
+            };
+
+            // 切换语言函数
+            function toggleLanguage() {
+                const isEnglish = langSwitch.checked;
+                const targetLang = isEnglish ? 'en' : 'zh';
+                
+                console.log('切换到语言:', targetLang);
+                
+                // 保存语言偏好
+                localStorage.setItem('preferred-language', targetLang);
+                
+                // 更新文本内容
+                for (const [elementId, text] of Object.entries(content[targetLang])) {
+                    const element = document.getElementById(elementId);
+                    if (element) {
+                        element.textContent = text;
+                    } else {
+                        console.log('未找到元素:', elementId);
+                    }
+                }
+            }
+
+            // 添加事件监听
+            langSwitch.addEventListener('change', toggleLanguage);
+            
+            // 初始化：检查是否有保存的语言偏好
+            const savedLang = localStorage.getItem('preferred-language');
+            if (savedLang === 'en') {
+                langSwitch.checked = true;
+                toggleLanguage(); // 立即应用英文
+            }
+            
+            console.log('语言切换功能初始化完成');
+        }
+
+        // 页面加载时初始化语言切换
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeLanguageSwitcher();
         });
     </script>
 </body>
