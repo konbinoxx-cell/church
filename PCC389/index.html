@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-key="title">PCC389 Resident Guide & Community Info</title>
+    <style>
+        /* CSS (Styles) - Same modern and clean design as before */
+        :root {
+            --primary-color: #004d40; /* Dark Teal */
+            --secondary-color: #ffb300; /* Amber */
+            --background-light: #f4f6f9;
+            --text-dark: #333;
+            --shadow: 0 4px 10px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        /* Language Switcher */
+        .language-switcher select {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .language-switcher select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--secondary-color);
+        }
+
+        .hero {
+            background: var(--primary-color);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .section-card {
+            background-color: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-card h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .rules-list {
+            list-style: disc;
+            margin-left: 20px;
+            padding-left: 10px;
+        }
+
+        .rules-list li {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+        
+        .rules-list strong {
+            color: var(--secondary-color);
+        }
+        
+        .contact-form label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+
+        .submit-btn {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 15px;
+        }
+
+        .submit-btn:hover {
+            background-color: #e69a00;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            nav ul {
+                padding: 10px 0;
+            }
+            .language-switcher {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <nav>
+                <ul>
+                    <li><a href="#welcome" data-key="nav_welcome">Welcome</a></li>
+                    <li><a href="#rules" data-key="nav_rules">Rules & Guide</a></li>
+                    <li><a href="#contact" data-key="nav_contact">Contact/Message</a></li>
+                </ul>
+            </nav>
+            <div class="language-switcher">
+                <select id="language-select">
+                    <option value="en">English (EN)</option>
+                    <option value="es">Español (ES)</option>
+                    <option value="zh">中文 (ZH)</option>
+                    <option value="ar">العربية (AR)</option>
+                    <option value="fr">Français (FR)</option>
+                    <option value="sr">Српски (SR)</option>
+                    </select>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="welcome">
+        <div class="container">
+            <h1 data-key="hero_h1">Welcome to the PCC389 Community!</h1>
+            <p data-key="hero_p">We are committed to providing a safe, comfortable, and pleasant living environment for you. Please take a moment to review this essential information.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        
+        <section class="section-card">
+            <h2 data-key="info_h2">🏠 Key Contact Information</h2>
+            <ul class="rules-list">
+                <li data-key="info_super">**Superintendent/Management:** Your Super is **[Your Name/Team]**.</li>
+                <li data-key="info_tel_emergency">**Emergency Phone (Fire, Flood):** <a href="tel:416-555-1234">416-555-1234</a> (Immediate attention required)</li>
+                <li data-key="info_tel_routine">**Routine Phone (Maintenance):** <a href="tel:416-555-4321">416-555-4321</a> (General assistance, non-urgent requests)</li>
+                <li data-key="info_email">**Email:** <a href="mailto:super@pcc389.com">super@pcc389.com</a></li>
+                <li data-key="info_address">**Address:** PCC389, [Your Specific Address, e.g., 389 Mavis Rd, Mississauga, ON]</li>
+            </ul>
+        </section>
+
+        <section class="section-card" id="rules">
+            <h2 data-key="rules_h2">📜 Important Resident Rules and Guidelines</h2>
+            <ul class="rules-list">
+                <li data-key="rule_emergency">**Emergencies**: In case of fire, please **CALL 911 immediately**, then notify the Super.</li>
+                <li data-key="rule_garbage">**Garbage & Recycling**: **Drop-off hours** are daily **[TIME]**. You must use the correct **Green** (Organics), **Blue** (Recycling), and **Black** (Garbage) bins.</li>
+                <li data-key="rule_parking">**Visitor Parking**: Visitor vehicles must be registered at the **[Location/Online System]** and observe a **[Time Limit, e.g., 24-hour]** limit. Unregistered cars may be towed.</li>
+                <li data-key="rule_noise">**Noise Control**: **Quiet hours** are from **23:00 (11 PM) to 08:00 (8 AM)** daily. Please minimize noise during this period.</li>
+                <li data-key="rule_pets">**Pet Policy**: Pets require **written application and approval** prior to moving in. All pets must be leashed and owners must clean up droppings immediately.</li>
+                <li data-key="rule_balcony">**Balconies/Patios**: **NO Open Flame BBQs** are permitted. Please do not hang laundry, rugs, or towels over the railings.</li>
+                <li data-key="rule_maintenance">**Maintenance Requests**: For non-emergency repairs, please submit a request using the **Contact Form** below or via email.</li>
+            </ul>
+        </section>
+
+        <section class="section-card" id="contact">
+            <h2 data-key="contact_h2">💬 Contact Us / Maintenance & Messages</h2>
+            <p data-key="contact_p">Please use this form for **non-emergency maintenance requests** or **general questions**. We will respond as soon as possible.</p>
+            
+            <form class="contact-form" id="message-form">
+                <label for="name" data-key="form_name">Your Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="unit" data-key="form_unit">Unit Number:</label>
+                <input type="text" id="unit" name="unit" required>
+
+                <label for="email" data-key="form_contact">Email or Phone:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message" data-key="form_message">Your Message / Repair Details:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+
+                <button type="submit" class="submit-btn" id="submit-btn" data-key="form_submit">Submit Message</button>
+                <p id="submission-status" style="margin-top: 15px; font-weight: bold;"></p>
+            </form>
+
+            <p style="margin-top: 25px; border-top: 1px dashed #eee; padding-top: 20px;" data-key="contact_note">
+                **Important Note**: This form is for display only. Currently, submitted messages are NOT saved or sent. You MUST **copy the information** or **send us an email** directly.
+            </p>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p data-key="footer_text">&copy; 2024 PCC389 Condominium. Managed by Superintendent Team.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- MULTI-LANGUAGE (i18n) SETUP ---
+        // This is a placeholder structure. When you add a new language, you add a new object here.
+        const translations = {
+            en: {
+                title: "PCC389 Resident Guide & Community Info",
+                nav_welcome: "Welcome",
+                nav_rules: "Rules & Guide",
+                nav_contact: "Contact/Message",
+                hero_h1: "Welcome to the PCC389 Community!",
+                hero_p: "We are committed to providing a safe, comfortable, and pleasant living environment for you. Please take a moment to review this essential information.",
+                // ... more keys for other sections
+            },
+            // Future Languages:
+            // es: {
+            //     title: "Guía para Residentes de PCC389",
+            //     nav_welcome: "Bienvenida",
+            //     // ... and so on
+            // },
+            // zh: {
+            //     title: "PCC389 住户入门指南",
+            //     nav_welcome: "欢迎",
+            //     // ... and so on
+            // }
+        };
+
+        // This function will be called if you ever activate the language switcher
+        function setLanguage(lang) {
+            // If the requested language isn't supported, do nothing
+            if (!translations[lang]) return;
+
+            const elements = document.querySelectorAll('[data-key]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    // This handles all text elements
+                    el.textContent = translations[lang][key]; 
+                }
+            });
+
+            // Re-render complex lists or components if necessary
+            // For now, we only update simple text content (which is fine for this basic site)
+        }
+
+        // document.getElementById('language-select').addEventListener('change', (e) => {
+        //     setLanguage(e.target.value);
+        // });
+
+
+        // --- CONTACT FORM LOGIC ---
+        document.getElementById('message-form').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            const name = document.getElementById('name').value;
+            const unit = document.getElementById('unit').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            const statusElement = document.getElementById('submission-status');
+
+            // Success message displayed on the page
+            statusElement.innerHTML = `
+                <span style="color: #004d40; background-color: #d4edda; padding: 10px; border-radius: 5px; display: block;">
+                    Thank you, ${name}. Your message has been "received".
+                </span>
+                <div style="margin-top: 15px; border: 1px dashed #004d40; padding: 15px; background: #fff;">
+                    <strong>IMPORTANT: To send your message, please COPY the details below and EMAIL them to:</strong> <a href="mailto:super@pcc389.com">super@pcc389.com</a>
+                    <pre style="white-space: pre-wrap; word-wrap: break-word; background: #eee; padding: 10px; border-radius: 5px; color: #333; margin-top: 10px;">
+Name: ${name}
+Unit: ${unit}
+Contact: ${email}
+Details: ${message}
+                    </pre>
+                </div>
+            `;
+            
+            // Reset the form fields after a short delay
+            setTimeout(() => {
+                document.getElementById('message-form').reset();
+            }, 500); 
+        });
+    </script>
+</body>
+</html>
