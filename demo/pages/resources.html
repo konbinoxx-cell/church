@@ -518,6 +518,100 @@
     opacity: 1; /* 显示英文 */
     color: #1a5276; /* 深蓝色 */
 }
+
+        /* 页脚样式 */
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+        
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-icon:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .maple-leaf {
+            color: var(--toronto-red);
+            font-size: 1.2rem;
+            margin: 0 2px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* 添加淡入淡出动画 */
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .fade-in {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
     </style>
 </head>
 <body>
@@ -528,8 +622,8 @@
             <a href="../index.html" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit;">
                 <img src="../trolcc_logo1.png" alt="多伦多生命河灵粮堂" class="logo-image">
                 <div>
-                    <div class="logo-text">多伦多生命河灵粮堂</div>
-                    <div class="logo-subtitle">Toronto River of Life Christian Church</div>
+                    <div class="logo-text" id="logo-text">多伦多生命河灵粮堂</div>
+                    <div class="logo-subtitle" id="logo-subtitle">Toronto River of Life Christian Church</div>
                 </div>
             </a>
         </div>
@@ -579,230 +673,236 @@
     <!-- 页面内容 -->
     <section class="page-hero">
         <div class="container">
-            <h1>资源中心</h1>
-            <p>丰富的属灵资源，助您在信仰道路上不断成长</p>
+            <h1 id="page-title">资源中心</h1>
+            <p id="page-subtitle">丰富的属灵资源，助您在信仰道路上不断成长</p>
         </div>
     </section>
 
     <section class="page-content">
         <div class="container">
             <div class="section-title">
-                <h2>属灵资源库</h2>
-                <p>精选资源，满足您不同阶段的属灵需求</p>
+                <h2 id="section-title">属灵资源库</h2>
+                <p id="section-description">精选资源，满足您不同阶段的属灵需求</p>
             </div>
             
             <div class="resources-categories">
+                <!-- 圣经学习 -->
                 <div class="category-card">
                     <div class="category-icon">📖</div>
-                    <h3 class="category-title">圣经学习</h3>
-                    <p>系统学习神的话语，明白圣经真理</p>
+                    <h3 class="category-title" id="category1-title">圣经学习</h3>
+                    <p id="category1-description">系统学习神的话语，明白圣经真理</p>
                     <div class="resources-list">
                         <div class="resource-item">
-                            <div class="resource-name">《每日读经计划》</div>
+                            <div class="resource-name" id="resource1-1">《每日读经计划》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《圣经综览》讲义</div>
+                            <div class="resource-name" id="resource1-2">《圣经综览》讲义</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《新生命》初信课程</div>
+                            <div class="resource-name" id="resource1-3">《新生命》初信课程</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《圣经人物研究》</div>
+                            <div class="resource-name" id="resource1-4">《圣经人物研究》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 
+                <!-- 敬拜赞美 -->
                 <div class="category-card">
                     <div class="category-icon">🎵</div>
-                    <h3 class="category-title">敬拜赞美</h3>
-                    <p>诗歌、乐谱和敬拜资源</p>
+                    <h3 class="category-title" id="category2-title">敬拜赞美</h3>
+                    <p id="category2-description">诗歌、乐谱和敬拜资源</p>
                     <div class="resources-list">
                         <div class="resource-item">
-                            <div class="resource-name">《主日敬拜诗歌集》</div>
+                            <div class="resource-name" id="resource2-1">《主日敬拜诗歌集》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《司琴伴奏谱》</div>
+                            <div class="resource-name" id="resource2-2">《司琴伴奏谱》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《吉他弹唱谱》</div>
+                            <div class="resource-name" id="resource2-3">《吉他弹唱谱》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《敬拜带领指南》</div>
+                            <div class="resource-name" id="resource2-4">《敬拜带领指南》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 
+                <!-- 家庭事工 -->
                 <div class="category-card">
                     <div class="category-icon">👨‍👩‍👧‍👦</div>
-                    <h3 class="category-title">家庭事工</h3>
-                    <p>建立基督化家庭的实用资源</p>
+                    <h3 class="category-title" id="category3-title">家庭事工</h3>
+                    <p id="category3-description">建立基督化家庭的实用资源</p>
                     <div class="resources-list">
                         <div class="resource-item">
-                            <div class="resource-name">《家庭祭坛指南》</div>
+                            <div class="resource-name" id="resource3-1">《家庭祭坛指南》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《亲子灵修材料》</div>
+                            <div class="resource-name" id="resource3-2">《亲子灵修材料》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《婚姻辅导手册》</div>
+                            <div class="resource-name" id="resource3-3">《婚姻辅导手册》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《青少年信仰培育》</div>
+                            <div class="resource-name" id="resource3-4">《青少年信仰培育》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 
+                <!-- 祷告灵修 -->
                 <div class="category-card">
                     <div class="category-icon">🙏</div>
-                    <h3 class="category-title">祷告灵修</h3>
-                    <p>提升祷告生活和灵命成长的资源</p>
+                    <h3 class="category-title" id="category4-title">祷告灵修</h3>
+                    <p id="category4-description">提升祷告生活和灵命成长的资源</p>
                     <div class="resources-list">
                         <div class="resource-item">
-                            <div class="resource-name">《每日灵修指南》</div>
+                            <div class="resource-name" id="resource4-1">《每日灵修指南》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《祷告手册》</div>
+                            <div class="resource-name" id="resource4-2">《祷告手册》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《属灵操练指南》</div>
+                            <div class="resource-name" id="resource4-3">《属灵操练指南》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《禁食祷告指引》</div>
+                            <div class="resource-name" id="resource4-4">《禁食祷告指引》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 
+                <!-- 讲道信息 -->
                 <div class="category-card">
                     <div class="category-icon">📚</div>
-                    <h3 class="category-title">讲道信息</h3>
-                    <p>主日讲道录音和文字稿</p>
+                    <h3 class="category-title" id="category5-title">讲道信息</h3>
+                    <p id="category5-description">主日讲道录音和文字稿</p>
                     <div class="resources-list">
                         <div class="resource-item">
-                            <div class="resource-name">《2023年讲道集》</div>
+                            <div class="resource-name" id="resource5-1">《2023年讲道集》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《特别聚会信息》</div>
+                            <div class="resource-name" id="resource5-2">《特别聚会信息》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《节期讲道系列》</div>
+                            <div class="resource-name" id="resource5-3">《节期讲道系列》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《主题讲座录音》</div>
+                            <div class="resource-name" id="resource5-4">《主题讲座录音》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 
+                <!-- 培训材料 -->
                 <div class="category-card">
                     <div class="category-icon">🎓</div>
-                    <h3 class="category-title">培训材料</h3>
-                    <p>同工培训和信徒装备课程</p>
+                    <h3 class="category-title" id="category6-title">培训材料</h3>
+                    <p id="category6-description">同工培训和信徒装备课程</p>
                     <div class="resources-list">
                         <div class="resource-item">
-                            <div class="resource-name">《小组长培训手册》</div>
+                            <div class="resource-name" id="resource6-1">《小组长培训手册》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《初信造就课程》</div>
+                            <div class="resource-name" id="resource6-2">《初信造就课程》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《门徒训练材料》</div>
+                            <div class="resource-name" id="resource6-3">《门徒训练材料》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                         <div class="resource-item">
-                            <div class="resource-name">《事奉心志课程》</div>
+                            <div class="resource-name" id="resource6-4">《事奉心志课程》</div>
                             <div class="resource-actions">
-                                <button class="btn">查看</button>
-                                <button class="btn btn-outline">下载</button>
+                                <button class="btn" id="btn-view">查看</button>
+                                <button class="btn btn-outline" id="btn-download">下载</button>
                             </div>
                         </div>
                     </div>
@@ -810,27 +910,27 @@
             </div>
             
             <div class="quick-links">
-                <h3 style="text-align: center; margin-bottom: 30px;">快速链接</h3>
+                <h3 style="text-align: center; margin-bottom: 30px;" id="quick-links-title">快速链接</h3>
                 <div class="links-grid">
                     <div class="link-card">
                         <div style="font-size: 2rem; margin-bottom: 10px;">📻</div>
-                        <h4>在线广播</h4>
-                        <p>收听讲道录音</p>
+                        <h4 id="link1-title">在线广播</h4>
+                        <p id="link1-desc">收听讲道录音</p>
                     </div>
                     <div class="link-card">
                         <div style="font-size: 2rem; margin-bottom: 10px;">📺</div>
-                        <h4>视频频道</h4>
-                        <p>观看聚会直播</p>
+                        <h4 id="link2-title">视频频道</h4>
+                        <p id="link2-desc">观看聚会直播</p>
                     </div>
                     <div class="link-card">
                         <div style="font-size: 2rem; margin-bottom: 10px;">📰</div>
-                        <h4>教会周报</h4>
-                        <p>最新活动信息</p>
+                        <h4 id="link3-title">教会周报</h4>
+                        <p id="link3-desc">最新活动信息</p>
                     </div>
                     <div class="link-card">
                         <div style="font-size: 2rem; margin-bottom: 10px;">📅</div>
-                        <h4>活动日历</h4>
-                        <p>教会日程安排</p>
+                        <h4 id="link4-title">活动日历</h4>
+                        <p id="link4-desc">教会日程安排</p>
                     </div>
                 </div>
             </div>
@@ -908,6 +1008,255 @@
                     menu.classList.remove('active');
                 });
             }
+        });
+
+        // 初始化语言切换功能
+        function initializeLanguageSwitcher() {
+            const langSwitch = document.getElementById('lang-switch');
+            if (!langSwitch) {
+                console.log('未找到语言切换开关');
+                return;
+            }
+            
+            console.log('语言切换功能加载成功');
+            
+            // 完整双语内容库
+            const content = {
+                zh: {
+                    // 导航
+                    'nav-home-link': '首页',
+                    'nav-meetings-link': '聚会时间',
+                    'nav-groups-link': '小组生活',
+                    'nav-testimonies-link': '信仰见证', 
+                    'nav-resources-link': '资源中心',
+                    'nav-prayer-link': '🙏 祷告AI',
+                    'nav-mother-church-link': '母堂资源 ▼',
+                    'nav-about-link': '关于我们',
+                    'nav-contact-link': '联系我们',
+                    
+                    // 母堂资源下拉菜单
+                    'mother-home': '母堂主页',
+                    'mother-bulletin': '电子周报',
+                    'mother-sunday': '主日影音',
+                    'mother-online': '网络牧区',
+                    'mother-ministries': '母堂教会事工',
+                    'mother-equip': '信徒装备',
+                    'mother-app': 'ROLCC APP',
+                    
+                    // 页面标题区域
+                    'page-title': '资源中心',
+                    'page-subtitle': '丰富的属灵资源，助您在信仰道路上不断成长',
+                    'section-title': '属灵资源库',
+                    'section-description': '精选资源，满足您不同阶段的属灵需求',
+                    
+                    // 资源分类
+                    'category1-title': '圣经学习',
+                    'category1-description': '系统学习神的话语，明白圣经真理',
+                    'category2-title': '敬拜赞美',
+                    'category2-description': '诗歌、乐谱和敬拜资源',
+                    'category3-title': '家庭事工',
+                    'category3-description': '建立基督化家庭的实用资源',
+                    'category4-title': '祷告灵修',
+                    'category4-description': '提升祷告生活和灵命成长的资源',
+                    'category5-title': '讲道信息',
+                    'category5-description': '主日讲道录音和文字稿',
+                    'category6-title': '培训材料',
+                    'category6-description': '同工培训和信徒装备课程',
+                    
+                    // 资源项目
+                    'resource1-1': '《每日读经计划》',
+                    'resource1-2': '《圣经综览》讲义',
+                    'resource1-3': '《新生命》初信课程',
+                    'resource1-4': '《圣经人物研究》',
+                    'resource2-1': '《主日敬拜诗歌集》',
+                    'resource2-2': '《司琴伴奏谱》',
+                    'resource2-3': '《吉他弹唱谱》',
+                    'resource2-4': '《敬拜带领指南》',
+                    'resource3-1': '《家庭祭坛指南》',
+                    'resource3-2': '《亲子灵修材料》',
+                    'resource3-3': '《婚姻辅导手册》',
+                    'resource3-4': '《青少年信仰培育》',
+                    'resource4-1': '《每日灵修指南》',
+                    'resource4-2': '《祷告手册》',
+                    'resource4-3': '《属灵操练指南》',
+                    'resource4-4': '《禁食祷告指引》',
+                    'resource5-1': '《2023年讲道集》',
+                    'resource5-2': '《特别聚会信息》',
+                    'resource5-3': '《节期讲道系列》',
+                    'resource5-4': '《主题讲座录音》',
+                    'resource6-1': '《小组长培训手册》',
+                    'resource6-2': '《初信造就课程》',
+                    'resource6-3': '《门徒训练材料》',
+                    'resource6-4': '《事奉心志课程》',
+                    
+                    // 按钮文本
+                    'btn-view': '查看',
+                    'btn-download': '下载',
+                    
+                    // 快速链接
+                    'quick-links-title': '快速链接',
+                    'link1-title': '在线广播',
+                    'link1-desc': '收听讲道录音',
+                    'link2-title': '视频频道',
+                    'link2-desc': '观看聚会直播',
+                    'link3-title': '教会周报',
+                    'link3-desc': '最新活动信息',
+                    'link4-title': '活动日历',
+                    'link4-desc': '教会日程安排',
+                    
+                    // 页脚
+                    'footer-about': '多伦多生命河灵粮堂教会',
+                    'footer-about-text': '我们是一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。',
+                    'footer-links-title': '快速链接',
+                    'footer-link1': '首页',
+                    'footer-link2': '聚会时间',
+                    'footer-link3': '小组生活',
+                    'footer-link4': '信仰见证',
+                    'footer-link5': '资源中心',
+                    'footer-contact-title': '联系我们',
+                    'footer-address': '📍 2460 The Collegeway, Mississauga, ON L5L 1V3',
+                    'footer-phone': '📞 (416) 123-4567',
+                    'footer-email': '✉️ info@trolcc.ca',
+                    'footer-hours': '🕒 周一至周五: 9:00 AM - 5:00 PM',
+                    'copyright-text': '© 2023 多伦多生命河灵粮堂教会. 保留所有权利. 🍁 为基督爱多伦多 🍁'   
+                },
+                en: {
+                    // Navigation
+                    'nav-home-link': 'Home',
+                    'nav-meetings-link': 'Service Times',
+                    'nav-groups-link': 'Small Groups',
+                    'nav-testimonies-link': 'Testimonies',
+                    'nav-resources-link': 'Resources',
+                    'nav-prayer-link': '🙏 Prayer AI',
+                    'nav-mother-church-link': 'Mother Church ▼',
+                    'nav-about-link': 'About Us',
+                    'nav-contact-link': 'Contact',
+                    
+                    // Mother Church Dropdown
+                    'mother-home': 'Mother Church Home',
+                    'mother-bulletin': 'E-Bulletin',
+                    'mother-sunday': 'Sunday Media',
+                    'mother-online': 'Online Zone',
+                    'mother-ministries': 'Church Ministries',
+                    'mother-equip': 'Believer Training',
+                    'mother-app': 'ROLCC APP',
+                    
+                    // Page Title Area
+                    'page-title': 'Resource Center',
+                    'page-subtitle': 'Rich spiritual resources to help you grow continuously on your faith journey',
+                    'section-title': 'Spiritual Resource Library',
+                    'section-description': 'Selected resources to meet your spiritual needs at different stages',
+                    
+                    // Resource Categories
+                    'category1-title': 'Bible Study',
+                    'category1-description': 'Systematic study of God\'s Word, understanding biblical truths',
+                    'category2-title': 'Worship & Praise',
+                    'category2-description': 'Hymns, sheet music, and worship resources',
+                    'category3-title': 'Family Ministry',
+                    'category3-description': 'Practical resources for building Christian families',
+                    'category4-title': 'Prayer & Devotion',
+                    'category4-description': 'Resources to enhance prayer life and spiritual growth',
+                    'category5-title': 'Sermons & Messages',
+                    'category5-description': 'Sunday sermon recordings and transcripts',
+                    'category6-title': 'Training Materials',
+                    'category6-description': 'Worker training and believer equipping courses',
+                    
+                    // Resource Items
+                    'resource1-1': 'Daily Bible Reading Plan',
+                    'resource1-2': 'Bible Overview Notes',
+                    'resource1-3': 'New Life New Believer Course',
+                    'resource1-4': 'Bible Character Studies',
+                    'resource2-1': 'Sunday Worship Hymnal',
+                    'resource2-2': 'Piano Accompaniment Sheets',
+                    'resource2-3': 'Guitar Worship Sheets',
+                    'resource2-4': 'Worship Leading Guide',
+                    'resource3-1': 'Family Altar Guide',
+                    'resource3-2': 'Parent-Child Devotional Materials',
+                    'resource3-3': 'Marriage Counseling Handbook',
+                    'resource3-4': 'Youth Faith Development',
+                    'resource4-1': 'Daily Devotional Guide',
+                    'resource4-2': 'Prayer Handbook',
+                    'resource4-3': 'Spiritual Discipline Guide',
+                    'resource4-4': 'Fasting Prayer Guide',
+                    'resource5-1': '2023 Sermon Collection',
+                    'resource5-2': 'Special Meeting Messages',
+                    'resource5-3': 'Seasonal Sermon Series',
+                    'resource5-4': 'Theme Lecture Recordings',
+                    'resource6-1': 'Small Group Leader Training Manual',
+                    'resource6-2': 'New Believer Course',
+                    'resource6-3': 'Discipleship Training Materials',
+                    'resource6-4': 'Ministry Heart Course',
+                    
+                    // Button Text
+                    'btn-view': 'View',
+                    'btn-download': 'Download',
+                    
+                    // Quick Links
+                    'quick-links-title': 'Quick Links',
+                    'link1-title': 'Online Radio',
+                    'link1-desc': 'Listen to sermon recordings',
+                    'link2-title': 'Video Channel',
+                    'link2-desc': 'Watch live services',
+                    'link3-title': 'Church Bulletin',
+                    'link3-desc': 'Latest event information',
+                    'link4-title': 'Event Calendar',
+                    'link4-desc': 'Church schedule',
+                    
+                    // Footer
+                    'footer-about': 'Toronto River of Life',
+                    'footer-about-text': 'We are a loving and faithful community dedicated to spreading the gospel, serving people, and growing together in Christ\'s love.',
+                    'footer-links-title': 'Quick Links',
+                    'footer-link1': 'Home',
+                    'footer-link2': 'Service Times',
+                    'footer-link3': 'Small Groups',
+                    'footer-link4': 'Testimonies',
+                    'footer-link5': 'Resources',
+                    'footer-contact-title': 'Contact Us',
+                    'footer-address': '📍 2460 The Collegeway, Mississauga, ON L5L 1V3',
+                    'footer-phone': '📞 (416) 123-4567',
+                    'footer-email': '✉️ info@trolcc.ca',
+                    'footer-hours': '🕒 Mon-Fri: 9:00 AM - 5:00 PM',
+                    'copyright-text': '© 2023 Toronto River of Life Christian Church. All rights reserved. 🍁 Loving Toronto for Christ 🍁'
+                }
+            };
+
+            // 切换语言函数
+            function toggleLanguage() {
+                const isEnglish = langSwitch.checked;
+                const targetLang = isEnglish ? 'en' : 'zh';
+                
+                console.log('切换到语言:', targetLang);
+                
+                // 保存语言偏好
+                localStorage.setItem('preferred-language', targetLang);
+                
+                // 更新文本内容
+                for (const [elementId, text] of Object.entries(content[targetLang])) {
+                    const element = document.getElementById(elementId);
+                    if (element) {
+                        element.textContent = text;
+                    } else {
+                        console.log('未找到元素:', elementId);
+                    }
+                }
+            }
+
+            // 添加事件监听
+            langSwitch.addEventListener('change', toggleLanguage);
+            
+            // 初始化：检查是否有保存的语言偏好
+            const savedLang = localStorage.getItem('preferred-language');
+            if (savedLang === 'en') {
+                langSwitch.checked = true;
+                toggleLanguage(); // 立即应用英文
+            }
+            
+            console.log('语言切换功能初始化完成');
+        }
+
+        // 页面加载时初始化语言切换
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeLanguageSwitcher();
         });
     </script>
 </body>
