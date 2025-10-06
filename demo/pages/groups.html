@@ -229,66 +229,65 @@
             }
         }
         
-        /* 页面特定内容样式 */
         /* ===== 标准页面英雄区域样式 ===== */
-.page-hero {
-    background: linear-gradient(135deg, #1a5276 0%, #2c3e50 100%);
-    color: white;
-    padding: 80px 0;
-    text-align: center;
-    position: relative;
-}
+        .page-hero {
+            background: linear-gradient(135deg, #1a5276 0%, #2c3e50 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+        }
 
-.page-hero h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
+        .page-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
 
-.page-hero p {
-    font-size: 1.2rem;
-    max-width: 600px;
-    margin: 0 auto;
-    opacity: 0.9;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-}
+        .page-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
 
-/* 增强渐变效果 */
-.page-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, 
-        rgba(26, 82, 118, 0.9) 0%, 
-        rgba(44, 62, 80, 0.9) 50%, 
-        rgba(30, 136, 229, 0.8) 100%);
-    z-index: 1;
-}
+        /* 增强渐变效果 */
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(26, 82, 118, 0.9) 0%, 
+                rgba(44, 62, 80, 0.9) 50%, 
+                rgba(30, 136, 229, 0.8) 100%);
+            z-index: 1;
+        }
 
-.page-hero .container {
-    position: relative;
-    z-index: 2;
-}
+        .page-hero .container {
+            position: relative;
+            z-index: 2;
+        }
 
-/* 移动端适配 */
-@media (max-width: 768px) {
-    .page-hero {
-        padding: 60px 0;
-    }
-    
-    .page-hero h1 {
-        font-size: 2rem;
-    }
-    
-    .page-hero p {
-        font-size: 1.1rem;
-        padding: 0 20px;
-    }
-}
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .page-hero {
+                padding: 60px 0;
+            }
+            
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .page-hero p {
+                font-size: 1.1rem;
+                padding: 0 20px;
+            }
+        }
         
         .page-content {
             padding: 60px 0;
@@ -402,267 +401,362 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(230, 126, 34, 0.5);
         }
-    /* ========== 语言切换器样式 ========== */
-.language-switcher {
-    margin-left: 20px;
-    display: flex;
-    align-items: center;
-}
 
-.lang-toggle {
-    position: relative;
-    width: 70px;
-    height: 32px;
-}
+        /* ========== 语言切换器样式 ========== */
+        .language-switcher {
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+        }
 
-.lang-toggle input {
-    display: none;
-}
+        .lang-toggle {
+            position: relative;
+            width: 70px;
+            height: 32px;
+        }
 
-.lang-slider {
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: #e67e22; /* 默认橙色 - 中文状态 */
-    border-radius: 25px;
-    position: relative;
-    cursor: pointer;
-    border: 1px solid rgba(255,255,255,0.3);
-}
+        .lang-toggle input {
+            display: none;
+        }
 
-.lang-slider:before {
-    content: "";
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    background: white;
-    border-radius: 50%;
-    top: 3px;
-    left: 3px;
-    transition: 0.3s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
+        .lang-slider {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: #e67e22; /* 默认橙色 - 中文状态 */
+            border-radius: 25px;
+            position: relative;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
 
-/* 中文文字 - 默认显示 */
-.lang-slider .zh {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 11px;
-    font-weight: bold;
-    color: #1a5276; /* 深蓝色 */
-}
+        .lang-slider:before {
+            content: "";
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            transition: 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
 
-/* 英文文字 - 默认隐藏 */
-.lang-slider .en {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 11px;
-    font-weight: bold;
-    color: #1a5276; /* 深蓝色 */
-    opacity: 0; /* 默认隐藏 */
-}
+        /* 中文文字 - 默认显示 */
+        .lang-slider .zh {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 11px;
+            font-weight: bold;
+            color: #1a5276; /* 深蓝色 */
+        }
 
-/* 切换到英文状态 */
-.lang-toggle input:checked + .lang-slider {
-    background: rgba(255,255,255,0.9); /* 浅色背景 */
-}
+        /* 英文文字 - 默认隐藏 */
+        .lang-slider .en {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 11px;
+            font-weight: bold;
+            color: #1a5276; /* 深蓝色 */
+            opacity: 0; /* 默认隐藏 */
+        }
 
-.lang-toggle input:checked + .lang-slider:before {
-    transform: translateX(38px);
-}
+        /* 切换到英文状态 */
+        .lang-toggle input:checked + .lang-slider {
+            background: rgba(255,255,255,0.9); /* 浅色背景 */
+        }
 
-.lang-toggle input:checked + .lang-slider .zh {
-    opacity: 0; /* 隐藏中文 */
-}
+        .lang-toggle input:checked + .lang-slider:before {
+            transform: translateX(38px);
+        }
 
-.lang-toggle input:checked + .lang-slider .en {
-    opacity: 1; /* 显示英文 */
-    color: #1a5276; /* 深蓝色 */
-}
+        .lang-toggle input:checked + .lang-slider .zh {
+            opacity: 0; /* 隐藏中文 */
+        }
+
+        .lang-toggle input:checked + .lang-slider .en {
+            opacity: 1; /* 显示英文 */
+            color: #1a5276; /* 深蓝色 */
+        }
+
+        /* 页脚样式 */
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+        
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-icon:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .maple-leaf {
+            color: var(--toronto-red);
+            font-size: 1.2rem;
+            margin: 0 2px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* 添加淡入淡出动画 */
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .fade-in {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
     </style>
 </head>
 <body>
-   <!-- 头部导航 -->
-<header>
-    <div class="container header-container">
-        <div class="logo">
-            <a href="../index.html" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit;">
-                <img src="../trolcc_logo1.png" alt="多伦多生命河灵粮堂" class="logo-image">
-                <div>
-                    <div class="logo-text">多伦多生命河灵粮堂</div>
-                    <div class="logo-subtitle">Toronto River of Life Christian Church</div>
-                </div>
-            </a>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="../index.html" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit;">
+                    <img src="../trolcc_logo1.png" alt="多伦多生命河灵粮堂" class="logo-image">
+                    <div>
+                        <div class="logo-text">多伦多生命河灵粮堂</div>
+                        <div class="logo-subtitle">Toronto River of Life Christian Church</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- 语言切换器 -->
+            <div class="language-switcher">
+                <label class="lang-toggle">
+                    <input type="checkbox" id="lang-switch">
+                    <span class="lang-slider">
+                        <span class="zh">中</span>
+                        <span class="en">EN</span>
+                    </span>
+                </label>
+            </div>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="../index.html" class="nav-link" id="nav-home-link">首页</a></li>
+                    <li><a href="meetings.html" class="nav-link" id="nav-meetings-link">聚会时间</a></li>
+                    <li><a href="groups.html" class="nav-link active" id="nav-groups-link">小组生活</a></li>
+                    <li><a href="testimonies.html" class="nav-link" id="nav-testimonies-link">信仰见证</a></li>
+                    <li><a href="resources.html" class="nav-link" id="nav-resources-link">资源中心</a></li>
+                    <li><a href="../prayer-ai.html" class="nav-link" id="nav-prayer-link">🙏 祷告AI</a></li>
+                    
+                    <!-- 母堂资源下拉菜单 -->
+                    <li class="dropdown">
+                        <a href="#" class="nav-link" id="nav-mother-church-link">母堂资源 ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://rolcc.net/rolcc2/" target="_blank" id="mother-home">母堂主页</a></li>
+                            <li><a href="https://rolcc.net/bulletin/" target="_blank" id="mother-bulletin">电子周报</a></li>
+                            <li><a href="https://rolcc.net/rolcc2/sunday-media/" target="_blank" id="mother-sunday">主日影音</a></li>
+                            <li><a href="https://myrolcc.net/onlinezone/" target="_blank" id="mother-online">网络牧区</a></li>
+                            <li><a href="https://rolcc.net/rolcc2/church/#" target="_blank" id="mother-ministries">母堂教会事工</a></li>
+                            <li><a href="https://rolcc.net/rolcc2/equip/" target="_blank" id="mother-equip">信徒装备</a></li>
+                            <li><a href="https://rolcc.net/rolcc2/rolcc-apps/" target="_blank" id="mother-app">ROLCC APP</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li><a href="about.html" class="nav-link" id="nav-about-link">关于我们</a></li>
+                    <li><a href="contact.html" class="nav-link" id="nav-contact-link">联系我们</a></li>
+                </ul>
+            </nav>
+            
+            <div class="mobile-toggle">☰</div>
         </div>
-        
-        <!-- 语言切换器 -->
-        <div class="language-switcher">
-            <label class="lang-toggle">
-                <input type="checkbox" id="lang-switch">
-                <span class="lang-slider">
-                    <span class="zh">中</span>
-                    <span class="en">EN</span>
-                </span>
-            </label>
-        </div>
-        
-        <nav>
-            <ul class="nav-menu">
-                <li><a href="../index.html" class="nav-link" id="nav-home-link">首页</a></li>
-                <li><a href="meetings.html" class="nav-link" id="nav-meetings-link">聚会时间</a></li>
-                <li><a href="groups.html" class="nav-link active" id="nav-groups-link">小组生活</a></li>
-                <li><a href="testimonies.html" class="nav-link" id="nav-testimonies-link">信仰见证</a></li>
-                <li><a href="resources.html" class="nav-link" id="nav-resources-link">资源中心</a></li>
-                <li><a href="../prayer-ai.html" class="nav-link" id="nav-prayer-link">🙏 祷告AI</a></li>
-                
-                <!-- 母堂资源下拉菜单 -->
-                <li class="dropdown">
-                    <a href="#" class="nav-link" id="nav-mother-church-link">母堂资源 ▼</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="https://rolcc.net/rolcc2/" target="_blank" id="mother-home">母堂主页</a></li>
-                        <li><a href="https://rolcc.net/bulletin/" target="_blank" id="mother-bulletin">电子周报</a></li>
-                        <li><a href="https://rolcc.net/rolcc2/sunday-media/" target="_blank" id="mother-sunday">主日影音</a></li>
-                        <li><a href="https://myrolcc.net/onlinezone/" target="_blank" id="mother-online">网络牧区</a></li>
-                        <li><a href="https://rolcc.net/rolcc2/church/#" target="_blank" id="mother-ministries">母堂教会事工</a></li>
-                        <li><a href="https://rolcc.net/rolcc2/equip/" target="_blank" id="mother-equip">信徒装备</a></li>
-                        <li><a href="https://rolcc.net/rolcc2/rolcc-apps/" target="_blank" id="mother-app">ROLCC APP</a></li>
-                    </ul>
-                </li>
-                
-                <li><a href="about.html" class="nav-link" id="nav-about-link">关于我们</a></li>
-                <li><a href="contact.html" class="nav-link" id="nav-contact-link">联系我们</a></li>
-            </ul>
-        </nav>
-        
-        <div class="mobile-toggle">☰</div>
-    </div>
-</header>
+    </header>
 
     <!-- 页面内容 -->
     <section class="page-hero">
         <div class="container">
-            <h1>小组生活</h1>
-            <p>在亲密的关系中彼此扶持，共同成长</p>
+            <h1 id="page-title">小组生活</h1>
+            <p id="page-subtitle">在亲密的关系中彼此扶持，共同成长</p>
         </div>
     </section>
 
     <section class="page-content">
         <div class="container">
             <div class="section-title">
-                <h2>我们的小组</h2>
-                <p>加入我们的小组，建立真实的基督徒团契关系</p>
+                <h2 id="section-title">我们的小组</h2>
+                <p id="section-description">加入我们的小组，建立真实的基督徒团契关系</p>
             </div>
             
             <div class="groups-grid">
                 <div class="group-card">
                     <div class="group-header">
                         <div class="group-icon">👨‍💼</div>
-                        <h3 class="group-title">职场团契</h3>
-                        <div class="group-time">每周五晚 7:30</div>
+                        <h3 class="group-title" id="group1-title">职场团契</h3>
+                        <div class="group-time" id="group1-time">每周五晚 7:30</div>
                     </div>
                     <div class="group-details">
-                        <p>为在职弟兄姐妹提供支持，探讨信仰与工作的整合。</p>
+                        <p id="group1-description">为在职弟兄姐妹提供支持，探讨信仰与工作的整合。</p>
                         <ul>
-                            <li>职场见证分享</li>
-                            <li>专业发展交流</li>
-                            <li>职场伦理讨论</li>
-                            <li>适合年龄：25-50岁</li>
+                            <li id="group1-feature1">职场见证分享</li>
+                            <li id="group1-feature2">专业发展交流</li>
+                            <li id="group1-feature3">职场伦理讨论</li>
+                            <li id="group1-feature4">适合年龄：25-50岁</li>
                         </ul>
-                        <button class="btn" onclick="location.href='contact.html'">联系我们</button>
+                        <button class="btn" id="group1-btn" onclick="location.href='contact.html'">联系我们</button>
                     </div>
                 </div>
                 
                 <div class="group-card">
                     <div class="group-header">
                         <div class="group-icon">👩‍🎓</div>
-                        <h3 class="group-title">青年小组</h3>
-                        <div class="group-time">每周六晚 6:00</div>
+                        <h3 class="group-title" id="group2-title">青年小组</h3>
+                        <div class="group-time" id="group2-time">每周六晚 6:00</div>
                     </div>
                     <div class="group-details">
-                        <p>充满活力的青年团契，探索信仰与生活的各个层面。</p>
+                        <p id="group2-description">充满活力的青年团契，探索信仰与生活的各个层面。</p>
                         <ul>
-                            <li>圣经学习与讨论</li>
-                            <li>户外活动与服事</li>
-                            <li>音乐敬拜</li>
-                            <li>适合年龄：18-30岁</li>
+                            <li id="group2-feature1">圣经学习与讨论</li>
+                            <li id="group2-feature2">户外活动与服事</li>
+                            <li id="group2-feature3">音乐敬拜</li>
+                            <li id="group2-feature4">适合年龄：18-30岁</li>
                         </ul>
-                        <button class="btn" onclick="location.href='contact.html'">联系我们</button>
+                        <button class="btn" id="group2-btn" onclick="location.href='contact.html'">联系我们</button>
                     </div>
                 </div>
                 
                 <div class="group-card">
                     <div class="group-header">
                         <div class="group-icon">👵</div>
-                        <h3 class="group-title">长者团契</h3>
-                        <div class="group-time">每周三上午 10:00</div>
+                        <h3 class="group-title" id="group3-title">长者团契</h3>
+                        <div class="group-time" id="group3-time">每周三上午 10:00</div>
                     </div>
                     <div class="group-details">
-                        <p>为年长弟兄姐妹提供温暖的团契和属灵支持。</p>
+                        <p id="group3-description">为年长弟兄姐妹提供温暖的团契和属灵支持。</p>
                         <ul>
-                            <li>传统诗歌敬拜</li>
-                            <li>健康养生分享</li>
-                            <li>手工制作活动</li>
-                            <li>适合年龄：60岁以上</li>
+                            <li id="group3-feature1">传统诗歌敬拜</li>
+                            <li id="group3-feature2">健康养生分享</li>
+                            <li id="group3-feature3">手工制作活动</li>
+                            <li id="group3-feature4">适合年龄：60岁以上</li>
                         </ul>
-                        <button class="btn" onclick="location.href='contact.html'">联系我们</button>
+                        <button class="btn" id="group3-btn" onclick="location.href='contact.html'">联系我们</button>
                     </div>
                 </div>
                 
                 <div class="group-card">
                     <div class="group-header">
                         <div class="group-icon">👨‍👩‍👧‍👦</div>
-                        <h3 class="group-title">家庭小组</h3>
-                        <div class="group-time">每周五晚 7:00</div>
+                        <h3 class="group-title" id="group4-title">家庭小组</h3>
+                        <div class="group-time" id="group4-time">每周五晚 7:00</div>
                     </div>
                     <div class="group-details">
-                        <p>全家一起参与的团契，建立基督化的家庭。</p>
+                        <p id="group4-description">全家一起参与的团契，建立基督化的家庭。</p>
                         <ul>
-                            <li>亲子活动</li>
-                            <li>婚姻辅导</li>
-                            <li>家庭祭坛</li>
-                            <li>适合：有孩子的家庭</li>
+                            <li id="group4-feature1">亲子活动</li>
+                            <li id="group4-feature2">婚姻辅导</li>
+                            <li id="group4-feature3">家庭祭坛</li>
+                            <li id="group4-feature4">适合：有孩子的家庭</li>
                         </ul>
-                        <button class="btn" onclick="location.href='contact.html'">联系我们</button>
+                        <button class="btn" id="group4-btn" onclick="location.href='contact.html'">联系我们</button>
                     </div>
                 </div>
                 
                 <div class="group-card">
                     <div class="group-header">
                         <div class="group-icon">🌐</div>
-                        <h3 class="group-title">英语小组</h3>
-                        <div class="group-time">周日下午 2:00</div>
+                        <h3 class="group-title" id="group5-title">英语小组</h3>
+                        <div class="group-time" id="group5-time">周日下午 2:00</div>
                     </div>
                     <div class="group-details">
-                        <p>为英语使用者提供的团契，用英语探索信仰。</p>
+                        <p id="group5-description">为英语使用者提供的团契，用英语探索信仰。</p>
                         <ul>
-                            <li>英语查经</li>
-                            <li>文化交流</li>
-                            <li>国际友人欢迎</li>
-                            <li>适合：英语使用者</li>
+                            <li id="group5-feature1">英语查经</li>
+                            <li id="group5-feature2">文化交流</li>
+                            <li id="group5-feature3">国际友人欢迎</li>
+                            <li id="group5-feature4">适合：英语使用者</li>
                         </ul>
-                        <button class="btn" onclick="location.href='contact.html'">联系我们</button>
+                        <button class="btn" id="group5-btn" onclick="location.href='contact.html'">联系我们</button>
                     </div>
                 </div>
                 
                 <div class="group-card">
                     <div class="group-header">
                         <div class="group-icon">🙌</div>
-                        <h3 class="group-title">祷告小组</h3>
-                        <div class="group-time">每周二晚 8:00</div>
+                        <h3 class="group-title" id="group6-title">祷告小组</h3>
+                        <div class="group-time" id="group6-time">每周二晚 8:00</div>
                     </div>
                     <div class="group-details">
-                        <p>专注于祷告的团契，为教会和世界代求。</p>
+                        <p id="group6-description">专注于祷告的团契，为教会和世界代求。</p>
                         <ul>
-                            <li>深度祷告操练</li>
-                            <li>代祷事项分享</li>
-                            <li>祷告见证</li>
-                            <li>适合：所有年龄</li>
+                            <li id="group6-feature1">深度祷告操练</li>
+                            <li id="group6-feature2">代祷事项分享</li>
+                            <li id="group6-feature3">祷告见证</li>
+                            <li id="group6-feature4">适合：所有年龄</li>
                         </ul>
-                        <button class="btn" onclick="location.href='contact.html'">联系我们</button>
+                        <button class="btn" id="group6-btn" onclick="location.href='contact.html'">联系我们</button>
                     </div>
                 </div>
             </div>
@@ -670,46 +764,46 @@
     </section>
 
     <!-- 页脚 -->
-<footer>
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3 id="footer-about">多伦多生命河灵粮堂教会</h3>
-                <p id="footer-about-text">我们是一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。</p>
-                <div class="social-links">
-                    <a href="#" class="social-icon">📘</a>
-                    <a href="#" class="social-icon">📷</a>
-                    <a href="#" class="social-icon">📺</a>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 id="footer-about">多伦多生命河灵粮堂教会</h3>
+                    <p id="footer-about-text">我们是一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">📘</a>
+                        <a href="#" class="social-icon">📷</a>
+                        <a href="#" class="social-icon">📺</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 id="footer-links-title">快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html" id="footer-link1">首页</a></li>
+                        <li><a href="meetings.html" id="footer-link2">聚会时间</a></li>
+                        <li><a href="groups.html" id="footer-link3">小组生活</a></li>
+                        <li><a href="testimonies.html" id="footer-link4">信仰见证</a></li>
+                        <li><a href="resources.html" id="footer-link5">资源中心</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 id="footer-contact-title">联系我们</h3>
+                    <ul class="contact-info">
+                        <li id="footer-address">📍 2460 The Collegeway, Mississauga, ON L5L 1V3</li>
+                        <li id="footer-phone">📞 (416) 123-4567</li>
+                        <li id="footer-email">✉️ info@trolcc.ca</li>
+                        <li id="footer-hours">🕒 周一至周五: 9:00 AM - 5:00 PM</li>
+                    </ul>
                 </div>
             </div>
             
-            <div class="footer-column">
-                <h3 id="footer-links-title">快速链接</h3>
-                <ul class="footer-links">
-                    <li><a href="../index.html" id="footer-link1">首页</a></li>
-                    <li><a href="meetings.html" id="footer-link2">聚会时间</a></li>
-                    <li><a href="groups.html" id="footer-link3">小组生活</a></li>
-                    <li><a href="testimonies.html" id="footer-link4">信仰见证</a></li>
-                    <li><a href="resources.html" id="footer-link5">资源中心</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-column">
-                <h3 id="footer-contact-title">联系我们</h3>
-                <ul class="contact-info">
-                    <li id="footer-address">📍 2460 The Collegeway, Mississauga, ON L5L 1V3</li>
-                    <li id="footer-phone">📞 (416) 123-4567</li>
-                    <li id="footer-email">✉️ info@trolcc.ca</li>
-                    <li id="footer-hours">🕒 周一至周五: 9:00 AM - 5:00 PM</li>
-                </ul>
+            <div class="copyright">
+                <p id="copyright-text">&copy; 2023 多伦多生命河灵粮堂教会. 保留所有权利. <span class="maple-leaf">🍁</span> 为基督爱多伦多 <span class="maple-leaf">🍁</span></p>
             </div>
         </div>
-        
-        <div class="copyright">
-            <p id="copyright-text">&copy; 2023 多伦多生命河灵粮堂教会. 保留所有权利. <span class="maple-leaf">🍁</span> 为基督爱多伦多 <span class="maple-leaf">🍁</span></p>
-        </div>
-    </div>
-</footer>
+    </footer>
 
     <script>
         // 移动端菜单切换
@@ -742,13 +836,263 @@
             }
         });
 
-        // 为了解更多按钮添加功能
-        document.querySelectorAll('.btn').forEach(button => {
-            if (button.textContent === '了解更多') {
-                button.addEventListener('click', function() {
-                    alert('请通过联系我们页面与教会同工联系，了解更多小组信息。');
-                });
+        // 初始化语言切换功能
+        function initializeLanguageSwitcher() {
+            const langSwitch = document.getElementById('lang-switch');
+            if (!langSwitch) {
+                console.log('未找到语言切换开关');
+                return;
             }
+            
+            console.log('语言切换功能加载成功');
+            
+            // 完整双语内容库
+            const content = {
+                zh: {
+                    // 导航
+                    'nav-home-link': '首页',
+                    'nav-meetings-link': '聚会时间',
+                    'nav-groups-link': '小组生活',
+                    'nav-testimonies-link': '信仰见证', 
+                    'nav-resources-link': '资源中心',
+                    'nav-prayer-link': '🙏 祷告AI',
+                    'nav-mother-church-link': '母堂资源 ▼',
+                    'nav-about-link': '关于我们',
+                    'nav-contact-link': '联系我们',
+                    
+                    // 母堂资源下拉菜单
+                    'mother-home': '母堂主页',
+                    'mother-bulletin': '电子周报',
+                    'mother-sunday': '主日影音',
+                    'mother-online': '网络牧区',
+                    'mother-ministries': '母堂教会事工',
+                    'mother-equip': '信徒装备',
+                    'mother-app': 'ROLCC APP',
+                    
+                    // 页面标题区域
+                    'page-title': '小组生活',
+                    'page-subtitle': '在亲密的关系中彼此扶持，共同成长',
+                    'section-title': '我们的小组',
+                    'section-description': '加入我们的小组，建立真实的基督徒团契关系',
+                    
+                    // 小组1 - 职场团契
+                    'group1-title': '职场团契',
+                    'group1-time': '每周五晚 7:30',
+                    'group1-description': '为在职弟兄姐妹提供支持，探讨信仰与工作的整合。',
+                    'group1-feature1': '职场见证分享',
+                    'group1-feature2': '专业发展交流',
+                    'group1-feature3': '职场伦理讨论',
+                    'group1-feature4': '适合年龄：25-50岁',
+                    'group1-btn': '联系我们',
+                    
+                    // 小组2 - 青年小组
+                    'group2-title': '青年小组',
+                    'group2-time': '每周六晚 6:00',
+                    'group2-description': '充满活力的青年团契，探索信仰与生活的各个层面。',
+                    'group2-feature1': '圣经学习与讨论',
+                    'group2-feature2': '户外活动与服事',
+                    'group2-feature3': '音乐敬拜',
+                    'group2-feature4': '适合年龄：18-30岁',
+                    'group2-btn': '联系我们',
+                    
+                    // 小组3 - 长者团契
+                    'group3-title': '长者团契',
+                    'group3-time': '每周三上午 10:00',
+                    'group3-description': '为年长弟兄姐妹提供温暖的团契和属灵支持。',
+                    'group3-feature1': '传统诗歌敬拜',
+                    'group3-feature2': '健康养生分享',
+                    'group3-feature3': '手工制作活动',
+                    'group3-feature4': '适合年龄：60岁以上',
+                    'group3-btn': '联系我们',
+                    
+                    // 小组4 - 家庭小组
+                    'group4-title': '家庭小组',
+                    'group4-time': '每周五晚 7:00',
+                    'group4-description': '全家一起参与的团契，建立基督化的家庭。',
+                    'group4-feature1': '亲子活动',
+                    'group4-feature2': '婚姻辅导',
+                    'group4-feature3': '家庭祭坛',
+                    'group4-feature4': '适合：有孩子的家庭',
+                    'group4-btn': '联系我们',
+                    
+                    // 小组5 - 英语小组
+                    'group5-title': '英语小组',
+                    'group5-time': '周日下午 2:00',
+                    'group5-description': '为英语使用者提供的团契，用英语探索信仰。',
+                    'group5-feature1': '英语查经',
+                    'group5-feature2': '文化交流',
+                    'group5-feature3': '国际友人欢迎',
+                    'group5-feature4': '适合：英语使用者',
+                    'group5-btn': '联系我们',
+                    
+                    // 小组6 - 祷告小组
+                    'group6-title': '祷告小组',
+                    'group6-time': '每周二晚 8:00',
+                    'group6-description': '专注于祷告的团契，为教会和世界代求。',
+                    'group6-feature1': '深度祷告操练',
+                    'group6-feature2': '代祷事项分享',
+                    'group6-feature3': '祷告见证',
+                    'group6-feature4': '适合：所有年龄',
+                    'group6-btn': '联系我们',
+                    
+                    // 页脚
+                    'footer-about': '多伦多生命河灵粮堂教会',
+                    'footer-about-text': '我们是一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。',
+                    'footer-links-title': '快速链接',
+                    'footer-link1': '首页',
+                    'footer-link2': '聚会时间',
+                    'footer-link3': '小组生活',
+                    'footer-link4': '信仰见证',
+                    'footer-link5': '资源中心',
+                    'footer-contact-title': '联系我们',
+                    'footer-address': '📍 2460 The Collegeway, Mississauga, ON L5L 1V3',
+                    'footer-phone': '📞 (416) 123-4567',
+                    'footer-email': '✉️ info@trolcc.ca',
+                    'footer-hours': '🕒 周一至周五: 9:00 AM - 5:00 PM',
+                    'copyright-text': '© 2023 多伦多生命河灵粮堂教会. 保留所有权利. 🍁 为基督爱多伦多 🍁'   
+                },
+                en: {
+                    // Navigation
+                    'nav-home-link': 'Home',
+                    'nav-meetings-link': 'Service Times',
+                    'nav-groups-link': 'Small Groups',
+                    'nav-testimonies-link': 'Testimonies',
+                    'nav-resources-link': 'Resources',
+                    'nav-prayer-link': '🙏 Prayer AI',
+                    'nav-mother-church-link': 'Mother Church ▼',
+                    'nav-about-link': 'About Us',
+                    'nav-contact-link': 'Contact',
+                    
+                    // Mother Church Dropdown
+                    'mother-home': 'Mother Church Home',
+                    'mother-bulletin': 'E-Bulletin',
+                    'mother-sunday': 'Sunday Media',
+                    'mother-online': 'Online Zone',
+                    'mother-ministries': 'Church Ministries',
+                    'mother-equip': 'Believer Training',
+                    'mother-app': 'ROLCC APP',
+                    
+                    // Page Title Area
+                    'page-title': 'Small Groups',
+                    'page-subtitle': 'Supporting each other in close relationships, growing together',
+                    'section-title': 'Our Groups',
+                    'section-description': 'Join our groups and build authentic Christian fellowship relationships',
+                    
+                    // Group 1 - Workplace Fellowship
+                    'group1-title': 'Workplace Fellowship',
+                    'group1-time': 'Friday 7:30 PM',
+                    'group1-description': 'Providing support for working brothers and sisters, exploring the integration of faith and work.',
+                    'group1-feature1': 'Workplace testimony sharing',
+                    'group1-feature2': 'Professional development exchange',
+                    'group1-feature3': 'Workplace ethics discussion',
+                    'group1-feature4': 'Suitable age: 25-50 years',
+                    'group1-btn': 'Contact Us',
+                    
+                    // Group 2 - Youth Group
+                    'group2-title': 'Youth Group',
+                    'group2-time': 'Saturday 6:00 PM',
+                    'group2-description': 'A vibrant youth fellowship exploring various aspects of faith and life.',
+                    'group2-feature1': 'Bible study and discussion',
+                    'group2-feature2': 'Outdoor activities and service',
+                    'group2-feature3': 'Music worship',
+                    'group2-feature4': 'Suitable age: 18-30 years',
+                    'group2-btn': 'Contact Us',
+                    
+                    // Group 3 - Seniors Fellowship
+                    'group3-title': 'Seniors Fellowship',
+                    'group3-time': 'Wednesday 10:00 AM',
+                    'group3-description': 'Providing warm fellowship and spiritual support for elderly brothers and sisters.',
+                    'group3-feature1': 'Traditional hymn worship',
+                    'group3-feature2': 'Health and wellness sharing',
+                    'group3-feature3': 'Handicraft activities',
+                    'group3-feature4': 'Suitable age: 60+ years',
+                    'group3-btn': 'Contact Us',
+                    
+                    // Group 4 - Family Group
+                    'group4-title': 'Family Group',
+                    'group4-time': 'Friday 7:00 PM',
+                    'group4-description': 'Fellowship for the whole family to participate in, building Christian families.',
+                    'group4-feature1': 'Parent-child activities',
+                    'group4-feature2': 'Marriage counseling',
+                    'group4-feature3': 'Family altar',
+                    'group4-feature4': 'Suitable: Families with children',
+                    'group4-btn': 'Contact Us',
+                    
+                    // Group 5 - English Group
+                    'group5-title': 'English Group',
+                    'group5-time': 'Sunday 2:00 PM',
+                    'group5-description': 'Fellowship for English speakers to explore faith in English.',
+                    'group5-feature1': 'English Bible study',
+                    'group5-feature2': 'Cultural exchange',
+                    'group5-feature3': 'International friends welcome',
+                    'group5-feature4': 'Suitable: English speakers',
+                    'group5-btn': 'Contact Us',
+                    
+                    // Group 6 - Prayer Group
+                    'group6-title': 'Prayer Group',
+                    'group6-time': 'Tuesday 8:00 PM',
+                    'group6-description': 'Fellowship focused on prayer, interceding for the church and the world.',
+                    'group6-feature1': 'Deep prayer practice',
+                    'group6-feature2': 'Prayer request sharing',
+                    'group6-feature3': 'Prayer testimonies',
+                    'group6-feature4': 'Suitable: All ages',
+                    'group6-btn': 'Contact Us',
+                    
+                    // Footer
+                    'footer-about': 'Toronto River of Life',
+                    'footer-about-text': 'We are a loving and faithful community dedicated to spreading the gospel, serving people, and growing together in Christ\'s love.',
+                    'footer-links-title': 'Quick Links',
+                    'footer-link1': 'Home',
+                    'footer-link2': 'Service Times',
+                    'footer-link3': 'Small Groups',
+                    'footer-link4': 'Testimonies',
+                    'footer-link5': 'Resources',
+                    'footer-contact-title': 'Contact Us',
+                    'footer-address': '📍 2460 The Collegeway, Mississauga, ON L5L 1V3',
+                    'footer-phone': '📞 (416) 123-4567',
+                    'footer-email': '✉️ info@trolcc.ca',
+                    'footer-hours': '🕒 Mon-Fri: 9:00 AM - 5:00 PM',
+                    'copyright-text': '© 2023 Toronto River of Life Christian Church. All rights reserved. 🍁 Loving Toronto for Christ 🍁'
+                }
+            };
+
+            // 切换语言函数
+            function toggleLanguage() {
+                const isEnglish = langSwitch.checked;
+                const targetLang = isEnglish ? 'en' : 'zh';
+                
+                console.log('切换到语言:', targetLang);
+                
+                // 保存语言偏好
+                localStorage.setItem('preferred-language', targetLang);
+                
+                // 更新文本内容
+                for (const [elementId, text] of Object.entries(content[targetLang])) {
+                    const element = document.getElementById(elementId);
+                    if (element) {
+                        element.textContent = text;
+                    } else {
+                        console.log('未找到元素:', elementId);
+                    }
+                }
+            }
+
+            // 添加事件监听
+            langSwitch.addEventListener('change', toggleLanguage);
+            
+            // 初始化：检查是否有保存的语言偏好
+            const savedLang = localStorage.getItem('preferred-language');
+            if (savedLang === 'en') {
+                langSwitch.checked = true;
+                toggleLanguage(); // 立即应用英文
+            }
+            
+            console.log('语言切换功能初始化完成');
+        }
+
+        // 页面加载时初始化语言切换
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeLanguageSwitcher();
         });
     </script>
 </body>
