@@ -707,7 +707,18 @@
                     } 
      </style>
                                 <base href="./">
-                                      
+                      <!-- PWA Meta Tags -->
+                <link rel="manifest" href="manifest.json">
+                <meta name="theme-color" content="#2E7D32">
+                <meta name="apple-mobile-web-app-capable" content="yes">
+                <meta name="apple-mobile-web-app-status-bar-style" content="default">
+                
+                <!-- 预加载和性能优化 -->
+                <link rel="preload" href="advanced-animations.css" as="style">
+                <link rel="preload" href="performance-optimizer.js" as="script">
+                
+                <!-- 引入新样式 -->
+                <link rel="stylesheet" href="advanced-animations.css">                                
      </head>
         <body>
                    <!-- 头部导航 -->
@@ -1161,6 +1172,63 @@
         
         console.log('语言切换功能初始化完成');
     }
+</script>
+<!-- 浮动背景元素 -->
+<div class="floating-elements">
+  <div class="floating-element">✝</div>
+  <div class="floating-element">🙏</div>
+  <div class="floating-element">❤️</div>
+  <div class="floating-element">⛪</div>
+  <div class="floating-element">✨</div>
+</div>
+
+<!-- 引入优化脚本 -->
+<script src="performance-optimizer.js"></script>
+
+<!-- PWA Service Worker 注册 -->
+<script>
+  // 注册Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('sw.js')
+        .then(function(registration) {
+          console.log('ServiceWorker 注册成功: ', registration.scope);
+        })
+        .catch(function(error) {
+          console.log('ServiceWorker 注册失败: ', error);
+        });
+    });
+  }
+
+  // 显示安装提示
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    // 可以在这里显示自定义的安装提示
+    setTimeout(() => {
+      if (deferredPrompt) {
+        const installBtn = document.createElement('button');
+        installBtn.textContent = '📱 安装APP';
+        installBtn.className = 'btn-advanced';
+        installBtn.style.position = 'fixed';
+        installBtn.style.bottom = '20px';
+        installBtn.style.right = '20px';
+        installBtn.style.zIndex = '1000';
+        
+        installBtn.addEventListener('click', async () => {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            installBtn.remove();
+          }
+        });
+        
+        document.body.appendChild(installBtn);
+      }
+    }, 3000);
+  });
 </script>
 </body>
 </html>
