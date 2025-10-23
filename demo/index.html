@@ -62,6 +62,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            white-space: nowrap; /* 防止文字换行 */
         }
         
         .logo-image {
@@ -211,6 +212,8 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            background-repeat: no-repeat;  /* 不重复 */
+            min-height: 70vh;             /* 最小高度 */
             color: white;
             padding: 100px 0;
             text-align: center;
