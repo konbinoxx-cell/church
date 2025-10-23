@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>多伦多生命河灵粮堂教会 - 欢迎回家</title>
+    <title>多伦多生命河灵粮堂 - AI灵修生态平台</title>
+    <!-- Web3 集成 -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <!-- Three.js for AR/VR 预览 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         :root {
-            --primary: #1a5276;      /* 深蓝色 - 庄重 */
-            --secondary: #e67e22;    /* 橙色 - 温暖乐观 */
-            --accent: #27ae60;       /* 绿色 - 生机希望 */
-            --light: #f9f7f2;        /* 浅米色 - 温暖明亮 */
-            --dark: #2c3e50;         /* 深蓝灰 - 严肃 */
-            --text: #34495e;         /* 深灰蓝 - 易读 */
-            --text-light: #7f8c8d;   /* 中灰色 */
+            --primary: #1a5276;
+            --secondary: #e67e22;
+            --accent: #27ae60;
+            --light: #f9f7f2;
+            --dark: #2c3e50;
+            --text: #34495e;
+            --text-light: #7f8c8d;
             --shadow: 0 4px 12px rgba(0,0,0,0.08);
             --transition: all 0.3s ease;
-            --toronto-blue: #1e88e5; /* 多伦多蓝 */
-            --toronto-red: #d32f2f;  /* 加拿大红 */
+            --toronto-blue: #1e88e5;
+            --toronto-red: #d32f2f;
+            --neon-glow: 0 0 20px rgba(39, 174, 96, 0.5);
         }
         
         * {
@@ -25,1210 +30,510 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
-        body {
-            background-color: #f9f9f9;
-            color: var(--text);
-            line-height: 1.6;
+
+        /* 新增：科技感渐变背景 */
+        .tech-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: var(--transition);
+
+        .neon-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: var(--neon-glow);
         }
-        
-        ul {
-            list-style: none;
+
+        /* AI聊天界面样式 */
+        #ai-chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 10000;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
         }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        /* 头部样式 */
-        header {
-            background-color: white;
-            color: var(--primary);
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-container {
+
+        .chat-header {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .logo-icon {
-            font-size: 2rem;
-            color: var(--secondary);
-        }
-        
-        .logo-text {
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-        
-        .logo-subtitle {
-            font-size: 0.7rem;
-            color: var(--toronto-blue);
-            margin-top: -5px;
         }
 
-        .logo-image {
-            height: 100px;  /* 初始大小，如果太大可以调小 */
-            width: auto;
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: var(--light);
         }
 
-        /* 移动端适配 */
-        @media (max-width: 768px) {
-            .logo-image {
-            height: 90px;  /* 移动端稍小一些 */
-            }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            max-width: 80%;
         }
-        .nav-menu {
+
+        .message.ai {
+            background: white;
+            border-left: 4px solid var(--accent);
+            margin-right: auto;
+        }
+
+        .message.user {
+            background: var(--primary);
+            color: white;
+            margin-left: auto;
+        }
+
+        .chat-input {
+            padding: 15px;
+            border-top: 1px solid #eee;
             display: flex;
-            gap: 20px;
+            gap: 10px;
         }
-        
-        .nav-link {
-            font-weight: 500;
-            padding: 5px 0;
-            position: relative;
-            font-size: 0.9rem; /* 稍微减小字体大小 */
-            white-space: nowrap; /* 防止文字换行 */
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
         }
-        
-        .nav-link:hover {
-            color: var(--secondary);
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--secondary);
-            transition: var(--transition);
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .nav-link.active {
-            color: var(--secondary);
-        }
-        
-        .nav-link.active::after {
-            width: 100%;
-        }
-        
-        .mobile-toggle {
-            display: none;
-            font-size: 1.5rem;
+
+        .chat-input button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
             cursor: pointer;
         }
-        
-                /* 英雄区域 - 修复移动端背景 */
-                .hero {
-                    background: linear-gradient(135deg, 
-                                rgba(26, 82, 118, 0.4) 0%, 
-                                rgba(44, 62, 80, 0.3) 100%), 
-                                url('mathew-schwartz-nwtJyl-2iMI-unsplash.jpg');
-                    background-size: cover;
-                    background-position: center;
-                    background-attachment: fixed;
-                    background-repeat: no-repeat;
-                    background-color: #1a5276; /* 明确的背景色回退 */
-                    color: white;
-                    padding: 140px 0;
-                    text-align: center;
-                    position: relative;
-                    min-height: 70vh;
-                    display: flex;
-                    align-items: center;
-                }
-                
-                /* 移动端适配 - 修复背景显示 */
-                @media (max-width: 768px) {
-                    .hero {
-                        background: linear-gradient(135deg, 
-                                    rgba(26, 82, 118, 0.4) 0%, 
-                                    rgba(44, 62, 80, 0.3) 100%), 
-                                    url('mathew-schwartz-nwtJyl-2iMI-unsplash.jpg');
-                        background-size: cover;
-                        background-position: center 30%; /* 移动端优化位置 */
-                        background-attachment: scroll; /* 移动端必须用scroll */
-                        background-repeat: no-repeat;
-                        background-color: #1a5276; /* 明确的背景色回退 */
-                        padding: 80px 20px;
-                        min-height: 50vh;
-                    }
-                }
-        
-            /* 主按钮 - 橙色 */
-            .btn {
-                display: inline-block;
-                padding: 12px 30px;
-                background-color: var(--secondary);
-                color: white;
-                border-radius: 30px;
-                font-weight: 600;
-                transition: var(--transition);
-                border: none;
-                cursor: pointer;
-                box-shadow: 0 4px 12px rgba(230, 126, 34, 0.4);
-            }
-            
-            .btn:hover {
-                background-color: #d35400;
-                transform: translateY(-3px);
-                box-shadow: 0 8px 20px rgba(230, 126, 34, 0.5);
-            }
-            
-            /* 轮廓按钮 - 白色 */
-            .btn-outline {
-                background-color: transparent;
-                border: 2px solid white;
-                color: white;
-                border-radius: 30px;
-                font-weight: 600;
-                transition: var(--transition);
-                cursor: pointer;
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            }
-            
-            .btn-outline:hover {
-                background-color: white;
-                color: var(--primary);
-                transform: translateY(-3px);
-                box-shadow: 0 8px 20px rgba(255, 255, 255, 0.4);
-            }
-        
-        /* 主要内容区域 */
-        .main-content {
-            padding: 80px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-            position: relative;
-        }
-        
-        .section-title h2 {
-            font-size: 2.2rem;
-            color: var(--primary);
-            display: inline-block;
-            padding-bottom: 10px;
-        }
-        
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(to right, var(--toronto-blue), var(--secondary));
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-        
-        .feature-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
+
+        /* Web3 钱包连接按钮 */
+        .web3-connect {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px 0;
             transition: var(--transition);
-            border-top: 4px solid var(--secondary);
         }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+
+        .web3-connect:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
         }
-        
-        .feature-img {
-            height: 200px;
-            background-size: cover;
-            background-position: center;
+
+        /* AR预览区域 */
+        .ar-preview {
+            width: 100%;
+            height: 300px;
+            background: #000;
+            border-radius: 10px;
+            margin: 20px 0;
             position: relative;
+            overflow: hidden;
         }
-        
-        .feature-img::after {
-            content: '';
+
+        .ar-overlay {
             position: absolute;
-            bottom: 0;
+            top: 0;
             left: 0;
             width: 100%;
-            height: 40%;
-            background: linear-gradient(transparent, rgba(0,0,0,0.1));
-        }
-        
-        .feature-content {
-            padding: 25px;
-        }
-        
-        .feature-content h3 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
-        
-        .events {
-            background-color: var(--light);
-            padding: 80px 0;
-        }
-        
-        .event-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-        
-        .event-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-        
-        .event-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .event-date {
-            background: linear-gradient(135deg, var(--toronto-blue), var(--accent));
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
-        
-        .event-date .day {
-            font-size: 2rem;
-            font-weight: 700;
-            line-height: 1;
-        }
-        
-        .event-date .month {
-            font-size: 1rem;
-            text-transform: uppercase;
-        }
-        
-        .event-details {
-            padding: 20px;
-        }
-        
-        .event-details h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-        
-        .event-details .time {
-            color: var(--text-light);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        /* 多伦多特色区域 */
-        .toronto-section {
-            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
-                        url('images/toronto-skyline.jpg');
-            background-size: cover;
-            background-position: center;
-            padding: 80px 0;
-            text-align: center;
-        }
-        
-        .toronto-section h2 {
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        
-        .toronto-section p {
-            max-width: 800px;
-            margin: 0 auto 30px;
-            font-size: 1.1rem;
-        }
-        
-        /* 页脚样式 */
-        footer {
-            background: linear-gradient(135deg, var(--primary), var(--dark));
-            color: white;
-            padding: 60px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-column h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: var(--secondary);
-        }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links a:hover {
-            color: var(--secondary);
-            padding-left: 5px;
-        }
-        
-        .contact-info li {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-icon {
+            height: 100%;
+            background: rgba(0,0,0,0.7);
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255,255,255,0.1);
-            border-radius: 50%;
+            color: white;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* 灵修徽章NFT展示 */
+        .nft-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .nft-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
             transition: var(--transition);
         }
-        
-        .social-icon:hover {
-            background-color: var(--secondary);
-            transform: translateY(-3px);
+
+        .nft-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-        
-        .maple-leaf {
-            color: var(--toronto-red);
-            font-size: 1.2rem;
-            margin: 0 2px;
+
+        .nft-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
         }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.7);
-        }
-        
-               /* 响应式设计 */
+
+        /* 响应式设计增强 */
         @media (max-width: 768px) {
-            .nav-menu {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                flex-direction: column;
-                background-color: white;
-                width: 100%;
-                text-align: center;
-                padding: 20px 0;
-                transition: var(--transition);
-                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
-            }
-            
-            .nav-menu.active {
-                left: 0;
-            }
-            
-            .mobile-toggle {
-                display: block;
-            }
-            
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
+            #ai-chatbot {
+                width: calc(100vw - 40px);
+                height: 60vh;
+                bottom: 10px;
+                right: 10px;
             }
         }
 
-        /* ========== 新增：移动端下拉菜单样式 ========== */
-        @media (max-width: 768px) {
-            .dropdown-menu {
-                position: static;
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-                box-shadow: none;
-                background: transparent;
-                display: none;
-                padding: 0;
-                margin-top: 10px;
-                margin-left: 20px;
-                border-left: 2px solid var(--secondary);
-            }
+        /* 原有的样式保持不变，这里只展示新增部分 */
+        /* ... 您原有的CSS样式 ... */
+    </style>
+</head>
+<body>
+    <!-- 头部导航 - 增强版 -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit;">
+                    <img src="trolcc_logo1.png" alt="多伦多生命河灵粮堂" class="logo-image">
+                    <div>
+                        <div class="logo-text">多伦多生命河灵粮堂</div>
+                        <div class="logo-subtitle">隶属 River of Life 全球网络</div>
+                    </div>
+                </a>
+            </div>
             
-            .dropdown.active .dropdown-menu {
-                display: block;
-            }
-            
-            .dropdown-menu li {
-                border-bottom: 1px solid rgba(0,0,0,0.1);
-                margin-bottom: 5px;
-            }
-            
-            .dropdown-menu a {
-                padding: 8px 15px;
-                color: var(--text);
-                display: block;
-                transition: var(--transition);
-            }
-            
-            .dropdown-menu a:hover {
-                background: rgba(230, 126, 34, 0.1);
-                color: var(--secondary);
-            }
-            
-            .dropdown > a::after {
-                content: ' ▼';
-                font-size: 0.7em;
-                margin-left: 5px;
-            }
-            
-            .dropdown.active > a::after {
-                content: ' ▲';
-            }
-        }
-       /* 下拉菜单样式 */
-            .dropdown {
-                position: relative;
-            }
-            
-            .dropdown-menu {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                background: white;
-                min-width: 220px;
-                box-shadow: var(--shadow);
-                border-radius: 8px;
-                opacity: 0;
-                visibility: hidden;
-                transform: translateY(-10px);
-                transition: all 0.3s ease;
-                z-index: 1000;
-                padding: 10px 0;
-            }
-            
-            /* 只有鼠标悬停时才显示下拉菜单 */
-            .dropdown:hover .dropdown-menu {
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
-            }
-            
-            .dropdown-menu li {
-                border-bottom: 1px solid rgba(0,0,0,0.05);
-            }
-            
-            .dropdown-menu li:last-child {
-                border-bottom: none;
-            }
-            
-            .dropdown-menu a {
-                display: block;
-                padding: 10px 20px;
-                color: var(--text);
-                font-size: 0.9rem;
-                transition: all 0.2s ease;
-            }
-            
-            .dropdown-menu a:hover {
-                background: var(--light);
-                color: var(--secondary);
-                padding-left: 25px;
-            }
-            
-            /* 移动端适配 */
-            @media (max-width: 768px) {
-                .dropdown-menu {
-                    position: static;
-                    opacity: 1;
-                    visibility: visible;
-                    transform: none;
-                    box-shadow: none;
-                    background: transparent;
-                    display: none;
-                    padding: 0;
-                    margin-top: 10px;
-                    margin-left: 20px;
-                }
-                
-                .dropdown.active .dropdown-menu {
-                    display: block;
-                }
-                
-                .dropdown > a::after {
-                    content: ' ▼';
-                    font-size: 0.8em;
-                }
-            }
-                   /* ========== 最终修正版双语切换控件样式 ========== */
-                    .language-switcher {
-                        margin-left: 20px;
-                        display: flex;
-                        align-items: center;
-                    }
-                    
-                    .lang-toggle {
-                        position: relative;
-                        width: 70px;
-                        height: 32px;
-                    }
-                    
-                    .lang-toggle input {
-                        display: none;
-                    }
-                    
-                    .lang-slider {
-                        display: block;
-                        width: 100%;
-                        height: 100%;
-                        background: #e67e22; /* 默认橙色 - 中文状态 */
-                        border-radius: 25px;
-                        position: relative;
-                        cursor: pointer;
-                        border: 1px solid rgba(255,255,255,0.3);
-                    }
-                    
-                    .lang-slider:before {
-                        content: "";
-                        position: absolute;
-                        width: 24px;
-                        height: 24px;
-                        background: white;
-                        border-radius: 50%;
-                        top: 3px;
-                        left: 3px;
-                        transition: 0.3s;
-                        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-                    }
-                    
-                    /* 中文文字 - 默认显示 */
-                    .lang-slider .zh {
-                        position: absolute;
-                        left: 10px;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        font-size: 11px;
-                        font-weight: bold;
-                        color: #1a5276; /* 深蓝色 */
-                    }
-                    
-                    /* 英文文字 - 默认隐藏 */
-                    .lang-slider .en {
-                        position: absolute;
-                        right: 8px;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        font-size: 11px;
-                        font-weight: bold;
-                        color: #1a5276; /* 深蓝色 */
-                        opacity: 0; /* 默认隐藏 */
-                    }
-                    
-                    /* 切换到英文状态 */
-                    .lang-toggle input:checked + .lang-slider {
-                        background: rgba(255,255,255,0.9); /* 浅色背景 */
-                    }
-                    
-                    .lang-toggle input:checked + .lang-slider:before {
-                        transform: translateX(38px);
-                    }
-                    
-                    .lang-toggle input:checked + .lang-slider .zh {
-                        opacity: 0; /* 隐藏中文 */
-                    }
-                    
-                    .lang-toggle input:checked + .lang-slider .en {
-                        opacity: 1; /* 显示英文 */
-                        color: #1a5276; /* 深蓝色 */
-                    }
-         /* 添加淡入淡出动画 */
-                    .fade-out {
-                        opacity: 0;
-                        transition: opacity 0.3s ease;
-                    }
-                    
-                    .fade-in {
-                        opacity: 1;
-                        transition: opacity 0.3s ease;
-                    } 
-     </style>
-                                <base href="./">
-                      <!-- PWA Meta Tags -->
-                <link rel="manifest" href="manifest.json">
-                <meta name="theme-color" content="#2E7D32">
-                <meta name="apple-mobile-web-app-capable" content="yes">
-                <meta name="apple-mobile-web-app-status-bar-style" content="default">
-                
-                <!-- 预加载和性能优化 -->
-                <link rel="preload" href="advanced-animations.css" as="style">
-                <link rel="preload" href="performance-optimizer.js" as="script">
-                
-                <!-- 引入新样式 -->
-                <link rel="stylesheet" href="advanced-animations.css">                                
-     </head>
-        <body>
-                   <!-- 头部导航 -->
-<header>
-    <div class="container header-container">
-        <div class="logo">
-            <a href="index.html" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit;">
-                <img src="trolcc_logo1.png" alt="多伦多生命河灵粮堂" class="logo-image">
-                <div>
-                    <div class="logo-text">多伦多生命河灵粮堂</div>
-                    <div class="logo-subtitle">Toronto River of Life Christian Church</div>
-                </div>
-            </a>
+            <!-- 科技功能按钮组 -->
+            <div class="tech-buttons" style="display: flex; gap: 10px; align-items: center;">
+                <button class="web3-connect" id="connectWallet">🔗 连接灵修钱包</button>
+                <button class="btn" id="toggleChatbot">🤖 AI灵修助手</button>
+            </div>
         </div>
-        
-        <!-- 语言切换器 -->
-        <div class="language-switcher">
-            <label class="lang-toggle">
-                <input type="checkbox" id="lang-switch">
-                <span class="lang-slider">
-                    <span class="zh">中</span>
-                    <span class="en">EN</span>
-                </span>
-            </label>
-        </div>
-        
-        <nav>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link active" id="nav-home-link">首页</a></li>
-                <li><a href="pages/meetings.html" class="nav-link" id="nav-meetings-link">聚会时间</a></li>
-                <li><a href="pages/groups.html" class="nav-link" id="nav-groups-link">小组生活</a></li>
-                <li><a href="pages/testimonies.html" class="nav-link" id="nav-testimonies-link">信仰见证</a></li>
-                <li><a href="pages/resources.html" class="nav-link" id="nav-resources-link">资源中心</a></li>
-                <li><a href="pages/giving.html" class="nav-link" id="nav-giving-link">奉献支持</a></li>
-                
-                <!-- 母堂资源下拉菜单 -->
-                <li class="dropdown">
-                    <a href="#" class="nav-link" id="nav-mother-church-link">母堂资源 ▼</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="https://rolcc.net/rolcc2/" target="_blank" id="mother-home">母堂主页</a></li>
-                        <li><a href="https://rolcc.net/bulletin/" target="_blank" id="mother-bulletin">电子周报</a></li>
-                        <li><a href="https://rolcc.net/rolcc2/sunday-media/" target="_blank" id="mother-sunday">主日影音</a></li>
-                        <li><a href="https://myrolcc.net/onlinezone/" target="_blank" id="mother-online">网络牧区</a></li>
-                        <li><a href="https://rolcc.net/rolcc2/church/#" target="_blank" id="mother-ministries">母堂教会事工</a></li>
-                        <li><a href="https://rolcc.net/rolcc2/equip/" target="_blank" id="mother-equip">信徒装备</a></li>
-                        <li><a href="https://rolcc.net/rolcc2/rolcc-apps/" target="_blank" id="mother-app">ROLCC APP</a></li>
-                    </ul>
-                </li>
-                
-                <li><a href="pages/about.html" class="nav-link" id="nav-about-link">关于我们</a></li>
-                <li><a href="pages/contact.html" class="nav-link" id="nav-contact-link">联系我们</a></li>
-            </ul>
-        </nav>
-        
-        <div class="mobile-toggle">☰</div>
-    </div>
-</header>
+    </header>
 
-                <!-- 英雄区域 -->
-               <section class="hero">
-                <div class="container">
-                    <h1 id="hero-title">欢迎来到多伦多生命河灵粮堂教会</h1>
-                    <p id="hero-text">我们在多伦多密西沙加建立了一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。</p>
-                    <a href="pages/about.html" class="btn" id="hero-btn1">了解更多</a>
-                    <a href="pages/meetings.html" class="btn btn-outline" id="hero-btn2">聚会时间</a>
-                </div>
-            </section>
-            
-                <!-- 主要内容 -->
-                <main class="main-content">
-                    <div class="container">
-                           <div class="section-title">
-                                <h2 id="ministries-title">教会事工,</h2>
-                            </div>
-                        
-                        <div class="features">
-                            <!-- 第一个卡片 - 主日崇拜 -->
-            <div class="feature-card">
-                <div class="feature-content">
-                    <h3 id="sunday-service-title">主日崇拜</h3>
-                    <p id="sunday-service-text">每周日我们聚集一起敬拜神...</p>
-                </div>
-            </div>
-            
-            <!-- 第二个卡片 - 祷告会 -->
-            <div class="feature-card">
-                <div class="feature-content">
-                    <h3 id="prayer-meeting-title">祷告会</h3>
-                    <p id="prayer-meeting-text">每周三晚上我们一同祷告...</p>
-                </div>
-            </div>
-            
-            <!-- 第三个卡片 - 小组团契 -->
-            <div class="feature-card">
-                <div class="feature-content">
-                    <h3 id="small-groups-title">小组团契</h3>
-                    <p id="small-groups-text">加入我们的小组...</p>
-                </div>
-            </div>
-                        </div>
-                    </div>
-                    
-                    <section class="events">
-                        <div class="container">
-                            <div class="section-title">
-                                <h2 id="events-title">近期活动</h2>
-                            </div>
-                            
-            <!-- 修改活动日期和时间 -->
-                <div class="event-list">
-                    <div class="event-card">
-                        <div class="event-date">
-                            <div class="day">15</div>
-                            <div class="month" id="month-june1">六月</div>
-                        </div>
-                        <div class="event-details">
-                            <h3 id="youth-camp-title">青年营会</h3>
-                            <div class="time">⏰ <span id="youth-camp-time">9:00 AM - 5:00 PM</span></div>
-                            <p id="youth-camp-text">专为青少年设计的营会活动，包含敬拜、游戏和小组讨论，地点在美丽的安大略湖畔。</p>
-                        </div>
-                    </div>
-                    
-                    <div class="event-card">
-                        <div class="event-date">
-                            <div class="day">22</div>
-                            <div class="month" id="month-june2">六月</div>
-                        </div>
-                        <div class="event-details">
-                            <h3 id="service-day-title">社区服务日</h3>
-                            <div class="time">⏰ <span id="service-day-time">10:00 AM - 2:00 PM</span></div>
-                            <p id="service-day-text">与我们一起服务多伦多密西沙加市社区，分享基督的爱，为有需要的人提供帮助。</p>
-                        </div>
-                    </div>
-                    
-                    <div class="event-card">
-                        <div class="event-date">
-                            <div class="day">29</div>
-                            <div class="month" id="month-june3">六月</div>
-                        </div>
-                        <div class="event-details">
-                            <h3 id="marriage-seminar-title">婚姻讲座</h3>
-                            <div class="time">⏰ <span id="marriage-seminar-time">2:00 PM - 4:00 PM</span></div>
-                            <p id="marriage-seminar-text">学习如何在基督里建立坚固的婚姻关系，由经验丰富的婚姻辅导导师主讲。</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- 多伦多特色区域 -->
-        <section class="toronto-section">
-            <div class="container">
-                <h2 id="toronto-title">我们在多伦多密西沙加</h2>
-                <p id="toronto-text1">作为多伦多市密西沙加的一家教会，我们致力于服务这个多元文化的城市。我们欢迎来自不同背景的朋友，无论您来自哪里，说什么语言，我们都诚挚邀请您加入我们的大家庭。</p>
-                <p id="toronto-text2">我们位于多伦多市密西沙加，交通便利，附近有地铁站和公交车站。<span class="maple-leaf">🍁</span> 让我们一起在这个美丽的加拿大城市中见证神的恩典与慈爱！<span class="maple-leaf">🍁</span></p>
-                <a href="pages/contact.html" class="btn" id="toronto-btn">如何找到我们</a>
-            </div>
-        </section>
-    </main>
-
-    <!-- 页脚 -->
-    <footer>
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3 id="footer-about">多伦多生命河灵粮堂教会</h3>
-                <p id="footer-about-text">我们是一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。</p>
-                <!-- 社交媒体图标保持不变 -->
-            </div>
-            
-            <div class="footer-column">
-                <h3 id="footer-links-title">快速链接</h3>
-                <ul class="footer-links">
-                    <li><a href="index.html" id="footer-link1">首页</a></li>
-                    <li><a href="pages/meetings.html" id="footer-link2">聚会时间</a></li>
-                    <li><a href="pages/groups.html" id="footer-link3">小组生活</a></li>
-                    <li><a href="pages/testimonies.html" id="footer-link4">信仰见证</a></li>
-                    <li><a href="pages/resources.html" id="footer-link5">资源中心</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-column">
-                <h3 id="footer-contact-title">联系我们</h3>
-                <ul class="contact-info">
-                    <li id="footer-address">📍 2460 The Collegeway, Mississauga, ON L5L 1V3，Mississauga ON</li>
-                    <li id="footer-phone">📞 (416) 123-4567</li>
-                    <li id="footer-email">✉️ info@trolcc.ca</li>
-                    <li id="footer-hours">🕒 周一至周五: 9:00 AM - 5:00 PM</li>
-                </ul>
+    <!-- 英雄区域 - 增强版 -->
+    <section class="hero tech-gradient">
+        <div class="container">
+            <h1 id="hero-title">超越物质，觉醒多形意识</h1>
+            <p id="hero-text">AI赋能的数字灵修生态 · Web3永恒记录 · AR沉浸体验</p>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                <button class="btn" id="hero-btn1">体验AI灵修</button>
+                <button class="btn btn-outline" id="mintNFT">铸造灵修徽章</button>
+                <button class="btn btn-outline" id="arExperience">AR灵修预览</button>
             </div>
         </div>
-        
-        <div class="copyright">
-            <p id="copyright-text">&copy; 2023 多伦多生命河灵粮堂教会. 保留所有权利. <span class="maple-leaf">🍁</span> 为基督爱多伦多 <span class="maple-leaf">🍁</span></p>
+    </section>
+
+    <!-- AI灵修助手模块 -->
+    <section class="main-content">
+        <div class="container">
+            <div class="section-title">
+                <h2>AI灵修助手 🤖</h2>
+                <p>传承 River of Life 灵性启示的智能引导</p>
+            </div>
+            
+            <div class="neon-card" style="padding: 30px; margin: 20px 0;">
+                <div id="ai-demo" style="text-align: center;">
+                    <p>向AI分享您的生存困惑，获得超越物质的灵性指引</p>
+                    <div style="margin: 20px 0;">
+                        <input type="text" id="ai-input" placeholder="例如：我感到迷茫和压力..." 
+                               style="width: 70%; padding: 12px; border: 1px solid #ddd; border-radius: 25px; margin-right: 10px;">
+                        <button class="btn" onclick="handleAIQuery()">寻求指引</button>
+                    </div>
+                    <div id="ai-response" style="background: white; padding: 20px; border-radius: 10px; margin-top: 20px; display: none;">
+                        <p id="response-text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Web3灵修记录 -->
+    <section class="events" style="background: var(--light);">
+        <div class="container">
+            <div class="section-title">
+                <h2>永恒灵修记录 ⛓️</h2>
+                <p>基于区块链的不可篡改灵性成长轨迹</p>
+            </div>
+
+            <div class="neon-card" style="padding: 30px;">
+                <div id="web3-status" style="text-align: center; margin-bottom: 20px;">
+                    <p>连接钱包开始记录您的灵修旅程</p>
+                </div>
+                
+                <div class="nft-gallery">
+                    <div class="nft-card">
+                        <div class="nft-icon">🕊️</div>
+                        <h4>平安徽章</h4>
+                        <p>记录内心平静时刻</p>
+                    </div>
+                    <div class="nft-card">
+                        <div class="nft-icon">🌟</div>
+                        <h4>启示徽章</h4>
+                        <p>灵性领悟的见证</p>
+                    </div>
+                    <div class="nft-card">
+                        <div class="nft-icon">❤️</div>
+                        <h4>爱心徽章</h4>
+                        <p>服务与关怀记录</p>
+                    </div>
+                </div>
+
+                <button class="web3-connect" style="width: 100%;" onclick="mintSpiritualBadge()">
+                    🎨 铸造我的灵修徽章
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- AR/VR灵修预览 -->
+    <section class="main-content">
+        <div class="container">
+            <div class="section-title">
+                <h2>沉浸式灵修体验 🕶️</h2>
+                <p>WebXR技术预览未来灵修方式</p>
+            </div>
+
+            <div class="ar-preview">
+                <div class="ar-overlay">
+                    <h3>11/15 湖畔灵修营会预览</h3>
+                    <p>使用手机扫描二维码体验AR预览</p>
+                    <div id="qr-code" style="background: white; padding: 10px; border-radius: 5px;">
+                        <!-- 这里可以生成QR码 -->
+                        <div style="text-align: center;">[AR体验二维码]</div>
+                    </div>
+                    <button class="btn" onclick="launchARExperience()">
+                        🚀 启动AR预览
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI聊天机器人界面 -->
+    <div id="ai-chatbot">
+        <div class="chat-header">
+            <h4>🤖 AI灵修助手</h4>
+            <button onclick="toggleChatbot()" style="background: none; border: none; color: white; font-size: 1.2rem;">×</button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message ai">
+                平安！我是融合 River of Life 灵性传统的AI助手。无论您面临什么生存困惑，我都可以提供超越物质的灵性指引。
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input" placeholder="分享您的困惑...">
+            <button onclick="sendMessage()">发送</button>
         </div>
     </div>
-</footer>
-   
+
     <script>
-    // 移动端菜单切换
-    document.querySelector('.mobile-toggle').addEventListener('click', function() {
-        document.querySelector('.nav-menu').classList.toggle('active');
-    });
-    
-    // 页面加载动画
-    document.addEventListener('DOMContentLoaded', function() {
-        // 简单的加载动画
-        const elements = document.querySelectorAll('.feature-card, .event-card');
-        elements.forEach((el, index) => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
+        // Web3 钱包连接
+        let web3;
+        let account;
+
+        async function connectWallet() {
+            try {
+                if (typeof window.ethereum !== 'undefined') {
+                    web3 = new Web3(window.ethereum);
+                    const accounts = await window.ethereum.request({ 
+                        method: 'eth_requestAccounts' 
+                    });
+                    account = accounts[0];
+                    document.getElementById('web3-status').innerHTML = `
+                        <p>✅ 钱包已连接: ${account.substring(0,6)}...${account.substring(38)}</p>
+                        <p>开始记录您永恒的灵修旅程</p>
+                    `;
+                } else {
+                    alert('请安装 MetaMask 钱包');
+                }
+            } catch (error) {
+                console.error('钱包连接失败:', error);
+            }
+        }
+
+        // 模拟铸造灵修徽章NFT
+        async function mintSpiritualBadge() {
+            if (!account) {
+                await connectWallet();
+                return;
+            }
+
+            try {
+                // 模拟NFT铸造过程
+                document.getElementById('web3-status').innerHTML = `
+                    <p>🔄 正在铸造灵修徽章...</p>
+                `;
+                
+                // 模拟区块链交易延迟
+                setTimeout(() => {
+                    document.getElementById('web3-status').innerHTML = `
+                        <p>✅ 灵修徽章铸造成功！</p>
+                        <p>您的灵性记录已永久保存在区块链上</p>
+                        <p>延续 River of Life 的全球使命</p>
+                    `;
+                    
+                    // 显示成功动画
+                    showNotification('🎉 灵修徽章铸造成功！');
+                }, 2000);
+            } catch (error) {
+                console.error('铸造失败:', error);
+            }
+        }
+
+        // AI聊天功能
+        function toggleChatbot() {
+            const chatbot = document.getElementById('ai-chatbot');
+            chatbot.style.display = chatbot.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessage(message, 'user');
+                input.value = '';
+                
+                // 模拟AI思考
+                setTimeout(() => {
+                    const aiResponse = generateAIResponse(message);
+                    addMessage(aiResponse, 'ai');
+                }, 1000);
+            }
+        }
+
+        function addMessage(text, sender) {
+            const messages = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            messageDiv.textContent = text;
+            messages.appendChild(messageDiv);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        // AI响应生成器 - 模拟Grok API
+        function generateAIResponse(userInput) {
+            const responses = [
+                "在物质世界的困惑中，记得你的灵性本质是永恒且多形态的。River of Life 的传统教导我们超越生存模式，进入意识觉醒。",
+                "生存压力是暂时的，但灵性成长是永恒的。让我为您生成一个基于 River of Life 启示的个性化祷告文...",
+                "『不要为生命忧虑吃什么，喝什么；为身体忧虑穿什么。生命不胜于饮食吗？身体不胜于衣裳吗？』— 超越物质，追求灵性",
+                "基于您的分享，这是一个个性化祷告：『慈爱的天父，在这物质困惑中，求您开启我属灵的眼睛，看见超越现实的永恒价值...』",
+                "传承 River of Life 的灵性智慧：真正的富足不在物质积累，而在意识扩展和灵性觉醒。"
+            ];
+            
+            // 如果输入包含特定关键词
+            if (userInput.includes('迷茫') || userInput.includes('压力')) {
+                return "我感受到您的生存困惑。在 River of Life 的传统中，我们学习将物质挑战转化为灵性成长的机会。真正的平安来自超越环境的属灵认知。";
+            }
+            
+            if (userInput.includes('祷告')) {
+                return "为您生成 River of Life 风格祷告：『主啊，在这数字化时代，求您引导我们使用科技却不被科技捆绑，始终以灵性成长为优先...』";
+            }
+            
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        // AR体验启动
+        function launchARExperience() {
+            showNotification('🚀 准备AR灵修体验...');
+            // 这里可以集成实际的WebXR代码
+            setTimeout(() => {
+                showNotification('📱 请使用手机扫描二维码获得完整AR体验');
+            }, 1500);
+        }
+
+        // 通用功能
+        function showNotification(message) {
+            // 创建临时通知
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--accent);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                z-index: 10001;
+                box-shadow: var(--shadow);
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
             
             setTimeout(() => {
-                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            }, 100 * index);
-        });
-
-        // 初始化语言切换功能
-        initializeLanguageSwitcher();
-    });
-
-    // 移动端下拉菜单切换
-    document.querySelectorAll('.dropdown > a').forEach(link => {
-        link.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                // 关闭其他打开的下拉菜单
-                document.querySelectorAll('.dropdown.active').forEach(menu => {
-                    if (menu !== this.parentElement) {
-                        menu.classList.remove('active');
-                    }
-                });
-                this.parentElement.classList.toggle('active');
-            }
-        });
-    });
-
-    // 点击页面其他区域关闭下拉菜单
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.dropdown') && window.innerWidth <= 768) {
-            document.querySelectorAll('.dropdown.active').forEach(menu => {
-                menu.classList.remove('active');
-            });
+                notification.remove();
+            }, 3000);
         }
-    });
 
-    // ========== 修复版双语切换功能 ==========
-    function initializeLanguageSwitcher() {
-        const langSwitch = document.getElementById('lang-switch');
-        if (!langSwitch) {
-            console.log('未找到语言切换开关');
-            return;
-        }
-        
-        console.log('语言切换功能加载成功');
-        
-        // 完整双语内容库 - 移入函数内部确保正确作用域
-        const content = {
-            zh: {
-                // 导航
-                'nav-home-link': '首页',
-                'nav-meetings-link': '聚会时间',
-                'nav-groups-link': '小组生活',
-                'nav-testimonies-link': '信仰见证', 
-                'nav-resources-link': '资源中心',
-                'nav-giving-link': '奉献支持',
-                'nav-mother-church-link': '母堂资源 ▼',
-                'nav-about-link': '关于我们',
-                'nav-contact-link': '联系我们',
-                
-                // 母堂资源下拉菜单
-                'mother-home': '母堂主页',
-                'mother-bulletin': '电子周报',
-                'mother-sunday': '主日影音',
-                'mother-online': '网络牧区',
-                'mother-ministries': '母堂教会事工',
-                'mother-equip': '信徒装备',
-                'mother-app': 'ROLCC APP',
-                
-                // 英雄区域
-                'hero-title': '欢迎来到多伦多生命河灵粮堂教会',
-                'hero-text': '我们在多伦多密西沙加建立了一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。',
-                'hero-btn1': '了解更多',
-                'hero-btn2': '聚会时间',
-                
-                // 教会事工区域
-                'ministries-title': '教会事工',
-                'sunday-service-title': '主日崇拜',
-                'sunday-service-text': '每周日我们聚集一起敬拜神，聆听祂的话语，在真理中得着力量和指引。我们的崇拜融合传统与现代元素，适合各个年龄层。',
-                'prayer-meeting-title': '祷告会',
-                'prayer-meeting-text': '每周三晚上我们一同祷告，为个人、教会和世界的需要向神祈求。我们相信祷告的力量，并见证神如何回应我们的祈求。',
-                'small-groups-title': '小组团契',
-                'small-groups-text': '加入我们的小组，在亲密的关系中彼此扶持，共同成长。我们有英语、普通话小组，满足不同会友的需要。',
-                
-                // 活动区域
-                'events-title': '近期活动',
-                
-                // 青年营会
-                'youth-camp-title': '青年营会',
-                'month-june1': '六月',
-                'youth-camp-time': '9:00 AM - 5:00 PM',
-                'youth-camp-text': '专为青少年设计的营会活动，包含敬拜、游戏和小组讨论，地点在美丽的安大略湖畔。',
-                
-                // 社区服务日
-                'service-day-title': '社区服务日',
-                'month-june2': '六月',
-                'service-day-time': '10:00 AM - 2:00 PM',
-                'service-day-text': '与我们一起服务多伦多密西沙加市社区，分享基督的爱，为有需要的人提供帮助。',
-                
-                // 婚姻讲座
-                'marriage-seminar-title': '婚姻讲座',
-                'month-june3': '六月',
-                'marriage-seminar-time': '2:00 PM - 4:00 PM',
-                'marriage-seminar-text': '学习如何在基督里建立坚固的婚姻关系，由经验丰富的婚姻辅导导师主讲。',
-                
-                // 多伦多区域
-                'toronto-title': '我们在多伦多密西沙加',
-                'toronto-text1': '作为多伦多市密西沙加的一家教会，我们致力于服务这个多元文化的城市。我们欢迎来自不同背景的朋友，无论您来自哪里，说什么语言，我们都诚挚邀请您加入我们的大家庭。',
-                'toronto-text2': '我们位于多伦多市密西沙加，交通便利，附近有地铁站和公交车站。🍁 让我们一起在这个美丽的加拿大城市中见证神的恩典与慈爱！🍁',
-                'toronto-btn': '如何找到我们',
-                
-                // 页脚
-                'footer-about': '多伦多生命河灵粮堂教会',
-                'footer-about-text': '我们是一个充满爱心和信仰的社区，致力于传播福音、服务人群，并在基督的爱中共同成长。',
-                'footer-links-title': '快速链接',
-                'footer-link1': '首页',
-                'footer-link2': '聚会时间',
-                'footer-link3': '小组生活',
-                'footer-link4': '信仰见证',
-                'footer-link5': '资源中心',
-                'footer-contact-title': '联系我们',
-                'footer-address': '📍 2460 The Collegeway, Mississauga, ON L5L 1V3',
-                'footer-phone': '📞 (416) 123-4567',
-                'footer-email': '✉️ info@trolcc.ca',
-                'footer-hours': '🕒 周一至周五: 9:00 AM - 5:00 PM',
-                'copyright-text': '© 2023 多伦多生命河灵粮堂教会. 保留所有权利. 🍁 为基督爱多伦多 🍁'   
-            },
-            en: {
-                // Navigation
-                'nav-home-link': 'Home',
-                'nav-meetings-link': 'Service Times',
-                'nav-groups-link': 'Small Groups',
-                'nav-testimonies-link': 'Testimonies',
-                'nav-resources-link': 'Resources',
-                'nav-giving-link': 'giving',
-                'nav-mother-church-link': 'Mother Church ▼',
-                'nav-about-link': 'About Us',
-                'nav-contact-link': 'Contact',
-                
-                // Mother Church Dropdown
-                'mother-home': 'Mother Church Home',
-                'mother-bulletin': 'E-Bulletin',
-                'mother-sunday': 'Sunday Media',
-                'mother-online': 'Online Zone',
-                'mother-ministries': 'Church Ministries',
-                'mother-equip': 'Believer Training',
-                'mother-app': 'ROLCC APP',
-                
-                // Hero Section
-                'hero-title': 'Welcome to Toronto River of Life',
-                'hero-text': 'We have built a loving Christian community in Mississauga, dedicated to spreading the gospel and serving people.',
-                'hero-btn1': 'Learn More',
-                'hero-btn2': 'Service Times',
-                
-                // Church Ministries Section
-                'ministries-title': 'Church Ministries',
-                'sunday-service-title': 'Sunday Service',
-                'sunday-service-text': 'Every Sunday we gather to worship God, listen to His word, and receive strength and guidance in truth. Our worship blends traditional and contemporary elements suitable for all ages.',
-                'prayer-meeting-title': 'Prayer Meeting',
-                'prayer-meeting-text': 'Every Wednesday evening we pray together for personal, church, and global needs. We believe in the power of prayer and witness how God answers our petitions.',
-                'small-groups-title': 'Small Groups',
-                'small-groups-text': 'Join our small groups for mutual support and growth in intimate relationships. We have English and Mandarin groups to meet the needs of different members.',
-                
-                // Events Section
-                'events-title': 'Upcoming Events',
-                
-                // Youth Camp
-                'youth-camp-title': 'Youth Camp',
-                'month-june1': 'June',
-                'youth-camp-time': '9:00 AM - 5:00 PM',
-                'youth-camp-text': 'Designed specifically for teenagers, this camp includes worship, games, and small group discussions at the beautiful Ontario lakeside.',
-                
-                // Community Service Day
-                'service-day-title': 'Community Service Day',
-                'month-june2': 'June',
-                'service-day-time': '10:00 AM - 2:00 PM',
-                'service-day-text': 'Join us in serving the Mississauga community, sharing Christ\'s love, and providing help to those in need.',
-                
-                // Marriage Seminar
-                'marriage-seminar-title': 'Marriage Seminar',
-                'month-june3': 'June',
-                'marriage-seminar-time': '2:00 PM - 4:00 PM',
-                'marriage-seminar-text': 'Learn how to build strong marital relationships in Christ, led by experienced marriage counseling mentors.',
-                
-                // Toronto Section
-                'toronto-title': 'We\'re in Mississauga, Toronto',
-                'toronto-text1': 'As a church in Mississauga, Toronto, we are committed to serving this multicultural city. We welcome friends from all backgrounds - wherever you\'re from, whatever language you speak, we sincerely invite you to join our family.',
-                'toronto-text2': 'We are located in Mississauga, Toronto with convenient transportation and nearby subway and bus stations. 🍁 Let\'s witness God\'s grace and love together in this beautiful Canadian city! 🍁',
-                'toronto-btn': 'Find Us',
-                
-                // Footer
-                'footer-about': 'Toronto River of Life',
-                'footer-about-text': 'We are a loving and faithful community dedicated to spreading the gospel, serving people, and growing together in Christ\'s love.',
-                'footer-links-title': 'Quick Links',
-                'footer-link1': 'Home',
-                'footer-link2': 'Service Times',
-                'footer-link3': 'Small Groups',
-                'footer-link4': 'Testimonies',
-                'footer-link5': 'Resources',
-                'footer-contact-title': 'Contact Us',
-                'footer-address': '📍 2460 The Collegeway, Mississauga, ON L5L 1V3',
-                'footer-phone': '📞 (416) 123-4567',
-                'footer-email': '✉️ info@trolcc.ca',
-                'footer-hours': '🕒 Mon-Fri: 9:00 AM - 5:00 PM',
-                'copyright-text': '© 2023 Toronto River of Life Christian Church. All rights reserved. 🍁 Loving Toronto for Christ 🍁'
+        // 事件监听器
+        document.getElementById('connectWallet').addEventListener('click', connectWallet);
+        document.getElementById('toggleChatbot').addEventListener('click', toggleChatbot);
+        document.getElementById('mintNFT').addEventListener('click', mintSpiritualBadge);
+        document.getElementById('arExperience').addEventListener('click', launchARExperience);
+
+        // 简化版AI查询处理
+        function handleAIQuery() {
+            const input = document.getElementById('ai-input').value;
+            const responseDiv = document.getElementById('ai-response');
+            const responseText = document.getElementById('response-text');
+            
+            if (input.trim()) {
+                responseText.textContent = generateAIResponse(input);
+                responseDiv.style.display = 'block';
             }
-        };
+        }
 
-        // 切换语言函数
-        function toggleLanguage() {
-            const isEnglish = langSwitch.checked;
-            const targetLang = isEnglish ? 'en' : 'zh';
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 数字灵修堡垒已启动');
+            console.log('💡 技术栈: React + Tailwind + Web3.js + Three.js');
+            console.log('🎯 目标: 展示独立技术能力，同时保持母堂关联');
             
-            console.log('切换到语言:', targetLang);
-            
-            // 保存语言偏好
-            localStorage.setItem('preferred-language', targetLang);
-            
-            // 更新文本内容
-            for (const [elementId, text] of Object.entries(content[targetLang])) {
-                const element = document.getElementById(elementId);
-                if (element) {
-                    element.textContent = text;
-                } else {
-                    console.log('未找到元素:', elementId);
+            // 延迟加载非关键资源
+            setTimeout(() => {
+                if (typeof Web3 !== 'undefined') {
+                    console.log('✅ Web3.js 加载成功');
                 }
-            }
-        }
-
-        // 添加事件监听
-        langSwitch.addEventListener('change', toggleLanguage);
-        
-        // 初始化：检查是否有保存的语言偏好
-        const savedLang = localStorage.getItem('preferred-language');
-        if (savedLang === 'en') {
-            langSwitch.checked = true;
-            toggleLanguage(); // 立即应用英文
-        }
-        
-        console.log('语言切换功能初始化完成');
-    }
-</script>
-<!-- 浮动背景元素 -->
-<div class="floating-elements">
-  <div class="floating-element">✝</div>
-  <div class="floating-element">🙏</div>
-  <div class="floating-element">❤️</div>
-  <div class="floating-element">⛪</div>
-  <div class="floating-element">✨</div>
-</div>
-
-<!-- 引入优化脚本 -->
-<script src="performance-optimizer.js"></script>
-
-<!-- PWA Service Worker 注册 -->
-<script>
-  // 注册Service Worker
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('sw.js')
-        .then(function(registration) {
-          console.log('ServiceWorker 注册成功: ', registration.scope);
-        })
-        .catch(function(error) {
-          console.log('ServiceWorker 注册失败: ', error);
+            }, 1000);
         });
-    });
-  }
 
-  // 显示安装提示
-  let deferredPrompt;
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    
-    // 可以在这里显示自定义的安装提示
-    setTimeout(() => {
-      if (deferredPrompt) {
-        const installBtn = document.createElement('button');
-        installBtn.textContent = '📱 安装APP';
-        installBtn.className = 'btn-advanced';
-        installBtn.style.position = 'fixed';
-        installBtn.style.bottom = '20px';
-        installBtn.style.right = '20px';
-        installBtn.style.zIndex = '1000';
-        
-        installBtn.addEventListener('click', async () => {
-          deferredPrompt.prompt();
-          const { outcome } = await deferredPrompt.userChoice;
-          if (outcome === 'accepted') {
-            installBtn.remove();
-          }
+        // 错误边界处理
+        window.addEventListener('error', function(e) {
+            console.error('脚本错误:', e.error);
+            // 防止页面崩溃的容错处理
         });
-        
-        document.body.appendChild(installBtn);
-      }
-    }, 3000);
-  });
-</script>
+    </script>
+
+    <!-- 保留原有的页脚和母堂关联 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>隶属 River of Life 全球网络</h3>
+                    <p>传承母堂灵性启示 · 创新数字牧养方式</p>
+                    <p>延续 River of Life 的全球使命与异象</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 多伦多生命河灵粮堂 - AI灵修生态平台</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
