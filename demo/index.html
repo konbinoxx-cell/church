@@ -232,27 +232,93 @@
             }
         }
 
-        /* 英雄区域 */
-        .hero {
-            background: linear-gradient(135deg, 
-                        rgba(26, 82, 118, 0.4) 0%, 
-                        rgba(44, 62, 80, 0.3) 100%), 
-                        url('mathew-schwartz-nwtJyl-2iMI-unsplash.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: white;
-            padding: 100px 0;
-            text-align: center;
-            position: relative;
-        }
+        /* 英雄区域修复 */
+.hero {
+    background: linear-gradient(135deg, 
+                rgba(26, 82, 118, 0.4) 0%, 
+                rgba(44, 62, 80, 0.3) 100%), 
+                url('mathew-schwartz-nwtJyl-2iMI-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+    position: relative;
+    min-height: 60vh; /* 确保最小高度 */
+    display: flex;
+    align-items: center;
+}
 
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
+.hero .container {
+    width: 100%;
+}
 
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 确保主要内容区域显示 */
+.main-content {
+    padding: 80px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.section-title h2 {
+    font-size: 2.2rem;
+    color: var(--primary);
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(to right, #1e88e5, var(--secondary));
+}
+
+/* 响应式修复 */
+@media (max-width: 768px) {
+    .hero {
+        padding: 60px 0;
+        min-height: 50vh;
+        background-attachment: scroll; /* 移动端取消固定背景 */
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero p {
+        font-size: 1.1rem;
+    }
+    
+    .main-content {
+        padding: 50px 0;
+    }
+}
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 30px;
