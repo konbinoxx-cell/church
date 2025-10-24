@@ -36,128 +36,179 @@
             padding: 0 15px;
         }
         
-        /* 头部样式 */
-        header {
-            background-color: white;
-            color: var(--primary);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
-        }
-        
-        .logo-image {
-            height: 100px;
-            width: auto;
-        }
+      /* 头部导航修复 */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
 
-        .logo-text {
-            font-size: 1.3rem;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-        
-        .logo-subtitle {
-            font-size: 0.7rem;
-            color: #1e88e5;
-            margin-top: -5px;
-            white-space: nowrap;
-        }
+.logo-image {
+    height: 50px;
+    width: auto;
+}
 
-        /* 导航菜单 */
-        .nav-menu {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .nav-link {
-            font-weight: 500;
-            padding: 8px 12px;
-            position: relative;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            color: var(--text);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border-radius: 20px;
-        }
-        
-        .nav-link:hover {
-            color: var(--secondary);
-            background: rgba(230, 126, 34, 0.1);
-        }
-        
-        .nav-link.active {
-            color: var(--secondary);
-            background: rgba(230, 126, 34, 0.1);
-        }
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1a5276;
+}
 
-        /* 下拉菜单样式 */
-        .dropdown {
-            position: relative;
-        }
-        
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: white;
-            min-width: 220px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            border-radius: 8px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            z-index: 1000;
-            padding: 10px 0;
-        }
-        
-        .dropdown:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        
-        .dropdown-menu li {
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-        
-        .dropdown-menu li:last-child {
-            border-bottom: none;
-        }
-        
-        .dropdown-menu a {
-            display: block;
-            padding: 10px 20px;
-            color: var(--text);
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
-        
-        .dropdown-menu a:hover {
-            background: var(--light);
-            color: var(--secondary);
-            padding-left: 25px;
-        }
+.logo-subtitle {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 2px;
+}
 
+/* 导航菜单修复 */
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 5px;
+}
+
+.nav-link {
+    color: #333;
+    text-decoration: none;
+    padding: 12px 16px;
+    display: block;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background-color: #f8f9fa;
+    color: #1a5276;
+}
+
+.nav-link.active {
+    background-color: #1a5276;
+    color: white;
+}
+
+/* 下拉菜单修复 */
+.dropdown {
+    position: relative;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 220px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    z-index: 1000;
+    border-radius: 4px;
+    overflow: hidden;
+    top: 100%;
+    left: 0;
+    border: 1px solid #e0e0e0;
+}
+
+.dropdown-menu li {
+    list-style: none;
+}
+
+.dropdown-menu a {
+    color: #333;
+    padding: 12px 16px;
+    display: block;
+    text-decoration: none;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f8f9fa;
+    color: #1a5276;
+}
+
+.dropdown-menu a:last-child {
+    border-bottom: none;
+}
+
+/* 汉堡菜单样式 */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    width: 30px;
+    height: 21px;
+    justify-content: space-between;
+}
+
+.menu-toggle span {
+    height: 3px;
+    width: 100%;
+    background-color: #333;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* 响应式设计修复 */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        z-index: 1000;
+        padding: 10px 20px;
+        gap: 0;
+    }
+    
+    .nav-menu.active {
+        display: flex;
+    }
+    
+    .nav-link {
+        padding: 15px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        background-color: #f8f9fa;
+        width: 100%;
+        margin-top: 5px;
+        border: none;
+    }
+    
+    .dropdown-menu a {
+        padding-left: 30px;
+    }
+}
+
+/* 移动端菜单激活状态 */
+@media (max-width: 768px) {
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+    
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+}
         /* 英雄区域 */
         .hero {
             background: linear-gradient(135deg, 
@@ -938,6 +989,22 @@
                 height: 80px;
             }
         }
+        // 移动端菜单切换
+            document.getElementById('menuToggle').addEventListener('click', function() {
+                this.classList.toggle('active');
+                document.querySelector('.nav-menu').classList.toggle('active');
+            });
+            
+            // 点击菜单外区域关闭菜单
+            document.addEventListener('click', function(event) {
+                const menu = document.querySelector('.nav-menu');
+                const toggle = document.getElementById('menuToggle');
+                
+                if (!menu.contains(event.target) && !toggle.contains(event.target) && menu.classList.contains('active')) {
+                    menu.classList.remove('active');
+                    toggle.classList.remove('active');
+                }
+            });
     </style>
 </head>
 <body>
@@ -953,7 +1020,12 @@
                     </div>
                 </a>
             </div>
-            
+            <!-- 在logo后面添加这个按钮 -->
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <nav>
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link active">首页</a></li>
