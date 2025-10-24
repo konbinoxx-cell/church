@@ -405,18 +405,76 @@
     </header>
 
     <!-- 英雄区域 -->
-    <section class="hero">
-        <div class="container">
-            <h1>超越物质，觉醒多形意识</h1>
-            <p>科幻灵修体验 · 全息经文 · 量子祷告 · 数字圣殿</p>
-            <div>
-                <a href="#hologram" class="btn">体验全息经文</a>
-                <a href="#quantum" class="btn">加入量子网络</a>
-                <a href="#sanctuary" class="btn">建造数字圣殿</a>
+<section class="hero">
+    <div class="container">
+        <h1>超越物质，觉醒多形意识</h1>
+        <p>科幻灵修体验 · 全息经文 · 量子祷告 · 数字圣殿</p>
+        <div>
+            <a href="#hologram" class="btn">体验全息经文</a>
+            <a href="#quantum" class="btn">加入量子网络</a>
+            <a href="#sanctuary" class="btn">建造数字圣殿</a>
+        </div>
+    </div>
+</section>
+
+<!-- 全息经文投影 -->
+<section class="main-content" id="hologram">
+    <div class="container">
+        <div class="section-title">
+            <h2>📜 全息经文投影</h2>
+            <p>3D悬浮显示的智能经文系统</p>
+        </div>
+        
+        <div class="holographic-scripture">
+            <!-- 您原有的全息经文内容 -->
+            <div class="hologram-controls">
+                <select id="scriptureSelector">
+                    <option value="john1_1">约翰福音 1:1</option>
+                    <option value="philippians4_13">腓立比书 4:13</option>
+                    <option value="jeremiah29_11">耶利米书 29:11</option>
+                </select>
+                <button onclick="rotateHologram()">🔄 旋转视角</button>
+                <button onclick="changeHologramColor()">🎨 改变光色</button>
+            </div>
+            <div class="hologram-display">
+                <div class="hologram-text" id="hologramText">
+                    <div class="scripture-verse">太初有道，道与神同在，道就是神。</div>
+                    <div class="scripture-reference">— 约翰福音 1:1</div>
+                </div>
+                <div class="light-beam"></div>
+                <div class="particle-field" id="particleField"></div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
+<!-- 量子祷告网络 -->
+<section class="main-content" style="background: var(--light);" id="quantum">
+    <div class="container">
+        <div class="section-title">
+            <h2>⚛️ 量子祷告网络</h2>
+            <p>实时连接的全球祷告能量场</p>
+        </div>
+        
+        <div class="quantum-prayer-network">
+            <!-- 您原有的量子祷告内容 -->
+        </div>
+    </div>
+</section>
+
+<!-- 数字圣殿建造 -->
+<section class="main-content" id="sanctuary">
+    <div class="container">
+        <div class="section-title">
+            <h2>🏛️ 数字圣殿建造</h2>
+            <p>建造您个人的虚拟敬拜空间</p>
+        </div>
+        
+        <div class="digital-sanctuary">
+            <!-- 您原有的数字圣殿内容 -->
+        </div>
+    </div>
+</section>
     <!-- 这里保留您原有的全息经文、量子祷告、数字圣殿等内容 -->
 
     <script>
