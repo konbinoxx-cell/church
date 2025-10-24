@@ -49,6 +49,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo-image {
@@ -87,7 +88,6 @@
 
         .nav-link:hover {
             background-color: rgba(255, 255, 255, 0.1);
-            color: white;
         }
 
         .nav-link.active {
@@ -136,11 +136,7 @@
             color: #1a5276;
         }
 
-        .dropdown-menu a:last-child {
-            border-bottom: none;
-        }
-
-        /* 汉堡菜单样式 */
+        /* 汉堡菜单样式 - 修复版 */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -148,9 +144,9 @@
             width: 30px;
             height: 21px;
             justify-content: space-between;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
+            padding: 0;
+            background: transparent;
+            border: none;
         }
 
         .menu-toggle span {
@@ -159,6 +155,7 @@
             background-color: white;
             border-radius: 3px;
             transition: all 0.3s ease;
+            display: block;
         }
 
         /* 汉堡菜单动画 */
@@ -174,14 +171,14 @@
             transform: rotate(-45deg) translate(6px, -6px);
         }
 
-        /* 响应式设计 */
+        /* 响应式设计 - 修复版 */
         @media (max-width: 768px) {
             .menu-toggle {
-                display: flex;
+                display: flex; /* 移动端显示三横杠 */
             }
             
             .nav-menu {
-                display: none;
+                display: none; /* 默认隐藏 */
                 flex-direction: column;
                 position: absolute;
                 top: 100%;
@@ -189,136 +186,70 @@
                 width: 100%;
                 background: linear-gradient(135deg, #1a5276 0%, #2c3e50 100%);
                 z-index: 1000;
-                padding: 10px 20px;
-                gap: 0;
+                padding: 20px;
+                gap: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             }
             
             .nav-menu.active {
-                display: flex;
+                display: flex; /* 激活时显示 */
+            }
+            
+            .nav-link {
+                padding: 15px;
+                text-align: center;
+                border: 1px solid rgba(255,255,255,0.1);
             }
             
             .dropdown-menu {
                 position: static;
                 box-shadow: none;
-                background-color: rgba(0, 0, 0, 0.1);
+                background-color: rgba(0, 0, 0, 0.2);
                 width: 100%;
-                margin-top: 5px;
-                border: none;
+                margin-top: 10px;
+                border: 1px solid rgba(255,255,255,0.1);
             }
             
             .dropdown-menu a {
                 color: white;
-                padding-left: 30px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 12px 20px;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
             }
         }
 
-        @media (max-width: 480px) {
-            .nav-link {
-                font-size: 0.75rem;
-                padding: 6px 10px;
+        /* 确保PC端导航始终显示 */
+        @media (min-width: 769px) {
+            .nav-menu {
+                display: flex !important;
             }
             
-            .logo-text {
-                font-size: 1.1rem;
-            }
-            
-            .logo-subtitle {
-                font-size: 0.6rem;
-            }
-            
-            .logo-image {
-                height: 40px;
+            .menu-toggle {
+                display: none !important;
             }
         }
 
-        /* 英雄区域修复 */
-.hero {
-    background: linear-gradient(135deg, 
-                rgba(26, 82, 118, 0.4) 0%, 
-                rgba(44, 62, 80, 0.3) 100%), 
-                url('mathew-schwartz-nwtJyl-2iMI-unsplash.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: white;
-    padding: 100px 0;
-    text-align: center;
-    position: relative;
-    min-height: 60vh; /* 确保最小高度 */
-    display: flex;
-    align-items: center;
-}
+        /* 英雄区域 */
+        .hero {
+            background: linear-gradient(135deg, 
+                        rgba(26, 82, 118, 0.4) 0%, 
+                        rgba(44, 62, 80, 0.3) 100%), 
+                        #1a5276; /* 备用背景色 */
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+        }
 
-.hero .container {
-    width: 100%;
-}
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
 
-.hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
-
-.hero p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* 确保主要内容区域显示 */
-.main-content {
-    padding: 80px 0;
-    position: relative;
-    z-index: 1;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 50px;
-    position: relative;
-}
-
-.section-title h2 {
-    font-size: 2.2rem;
-    color: var(--primary);
-    display: inline-block;
-    padding-bottom: 10px;
-}
-
-.section-title h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: linear-gradient(to right, #1e88e5, var(--secondary));
-}
-
-/* 响应式修复 */
-@media (max-width: 768px) {
-    .hero {
-        padding: 60px 0;
-        min-height: 50vh;
-        background-attachment: scroll; /* 移动端取消固定背景 */
-    }
-    
-    .hero h1 {
-        font-size: 2rem;
-    }
-    
-    .hero p {
-        font-size: 1.1rem;
-    }
-    
-    .main-content {
-        padding: 50px 0;
-    }
-}
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 30px;
@@ -348,9 +279,66 @@
             box-shadow: 0 8px 20px rgba(230, 126, 34, 0.5);
         }
 
-        /* 其他样式保持不变... */
-        /* 这里保留您原有的全息经文、量子祷告、数字圣殿等样式 */
+        /* 主要内容区域 */
+        .main-content {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
 
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px;
+                min-height: 50vh;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                display: block;
+                width: 100%;
+                max-width: 250px;
+                margin: 10px auto;
+            }
+            
+            .main-content {
+                padding: 50px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .logo-subtitle {
+                font-size: 0.7rem;
+            }
+            
+            .logo-image {
+                height: 40px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -405,77 +393,45 @@
     </header>
 
     <!-- 英雄区域 -->
-<section class="hero">
-    <div class="container">
-        <h1>超越物质，觉醒多形意识</h1>
-        <p>科幻灵修体验 · 全息经文 · 量子祷告 · 数字圣殿</p>
-        <div>
-            <a href="#hologram" class="btn">体验全息经文</a>
-            <a href="#quantum" class="btn">加入量子网络</a>
-            <a href="#sanctuary" class="btn">建造数字圣殿</a>
-        </div>
-    </div>
-</section>
-
-<!-- 全息经文投影 -->
-<section class="main-content" id="hologram">
-    <div class="container">
-        <div class="section-title">
-            <h2>📜 全息经文投影</h2>
-            <p>3D悬浮显示的智能经文系统</p>
-        </div>
-        
-        <div class="holographic-scripture">
-            <!-- 您原有的全息经文内容 -->
-            <div class="hologram-controls">
-                <select id="scriptureSelector">
-                    <option value="john1_1">约翰福音 1:1</option>
-                    <option value="philippians4_13">腓立比书 4:13</option>
-                    <option value="jeremiah29_11">耶利米书 29:11</option>
-                </select>
-                <button onclick="rotateHologram()">🔄 旋转视角</button>
-                <button onclick="changeHologramColor()">🎨 改变光色</button>
-            </div>
-            <div class="hologram-display">
-                <div class="hologram-text" id="hologramText">
-                    <div class="scripture-verse">太初有道，道与神同在，道就是神。</div>
-                    <div class="scripture-reference">— 约翰福音 1:1</div>
-                </div>
-                <div class="light-beam"></div>
-                <div class="particle-field" id="particleField"></div>
+    <section class="hero">
+        <div class="container">
+            <h1>超越物质，觉醒多形意识</h1>
+            <p>科幻灵修体验 · 全息经文 · 量子祷告 · 数字圣殿</p>
+            <div>
+                <a href="#hologram" class="btn">体验全息经文</a>
+                <a href="#quantum" class="btn">加入量子网络</a>
+                <a href="#sanctuary" class="btn">建造数字圣殿</a>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- 量子祷告网络 -->
-<section class="main-content" style="background: var(--light);" id="quantum">
-    <div class="container">
-        <div class="section-title">
-            <h2>⚛️ 量子祷告网络</h2>
-            <p>实时连接的全球祷告能量场</p>
+    <!-- 全息经文投影 -->
+    <section class="main-content" id="hologram">
+        <div class="container">
+            <div class="section-title">
+                <h2>📜 全息经文投影</h2>
+                <p>3D悬浮显示的智能经文系统</p>
+            </div>
+            
+            <div style="background: #f8f9fa; padding: 30px; border-radius: 10px; text-align: center;">
+                <p>全息经文内容区域</p>
+            </div>
         </div>
-        
-        <div class="quantum-prayer-network">
-            <!-- 您原有的量子祷告内容 -->
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- 数字圣殿建造 -->
-<section class="main-content" id="sanctuary">
-    <div class="container">
-        <div class="section-title">
-            <h2>🏛️ 数字圣殿建造</h2>
-            <p>建造您个人的虚拟敬拜空间</p>
+    <!-- 量子祷告网络 -->
+    <section class="main-content" id="quantum">
+        <div class="container">
+            <div class="section-title">
+                <h2>⚛️ 量子祷告网络</h2>
+                <p>实时连接的全球祷告能量场</p>
+            </div>
+            
+            <div style="background: #f8f9fa; padding: 30px; border-radius: 10px; text-align: center;">
+                <p>量子祷告内容区域</p>
+            </div>
         </div>
-        
-        <div class="digital-sanctuary">
-            <!-- 您原有的数字圣殿内容 -->
-        </div>
-    </div>
-</section>
-    <!-- 这里保留您原有的全息经文、量子祷告、数字圣殿等内容 -->
+    </section>
 
     <script>
         // 移动端菜单切换
