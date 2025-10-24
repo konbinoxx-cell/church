@@ -134,7 +134,7 @@
     border-bottom: none;
 }
 
-/* 汉堡菜单样式 */
+/* 汉堡菜单样式 - 必须添加这些 */
 .menu-toggle {
     display: none;
     flex-direction: column;
@@ -142,6 +142,10 @@
     width: 30px;
     height: 21px;
     justify-content: space-between;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
 }
 
 .menu-toggle span {
@@ -152,6 +156,43 @@
     transition: all 0.3s ease;
 }
 
+/* 移动端显示汉堡菜单 */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex; /* 在移动端显示三横杠 */
+    }
+    
+    .nav-menu {
+        display: none; /* 默认隐藏导航菜单 */
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        z-index: 1000;
+        padding: 10px 20px;
+        gap: 0;
+    }
+    
+    .nav-menu.active {
+        display: flex; /* 点击时显示导航 */
+    }
+}
+
+/* 汉堡菜单动画 */
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
 /* 响应式设计修复 */
 @media (max-width: 768px) {
     .menu-toggle {
