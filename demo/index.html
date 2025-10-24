@@ -856,6 +856,83 @@
                 font-size: 2rem;
             }
         }
+    /* 移动端简单修复 */
+@media (max-width: 768px) {
+    /* 修复导航换行 */
+    .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .nav-link {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+        white-space: nowrap;
+    }
+    
+    /* 修复英雄区域文字 */
+    .hero h1 {
+        font-size: 1.8rem;
+        line-height: 1.3;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+    
+    /* 修复按钮布局 */
+    .hero .btn {
+        display: block;
+        margin: 10px auto;
+        max-width: 200px;
+    }
+    
+    /* 修复科幻功能区域 */
+    .hologram-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .hologram-controls select,
+    .hologram-controls button {
+        width: 100%;
+    }
+    
+    .scripture-verse {
+        font-size: 1.3rem;
+    }
+    
+    .quantum-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .sanctuary-controls {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .sanctuary-preview {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 超小屏幕额外修复 */
+@media (max-width: 480px) {
+    .nav-link {
+        font-size: 0.75rem;
+        padding: 6px 8px;
+    }
+    
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+    
+    .section-title h2 {
+        font-size: 1.6rem;
+    }
+}
     </style>
 </head>
 <body>
