@@ -1023,22 +1023,7 @@
                 height: 80px;
             }
         }
-        // 移动端菜单切换
-            document.getElementById('menuToggle').addEventListener('click', function() {
-                this.classList.toggle('active');
-                document.querySelector('.nav-menu').classList.toggle('active');
-            });
-            
-            // 点击菜单外区域关闭菜单
-            document.addEventListener('click', function(event) {
-                const menu = document.querySelector('.nav-menu');
-                const toggle = document.getElementById('menuToggle');
-                
-                if (!menu.contains(event.target) && !toggle.contains(event.target) && menu.classList.contains('active')) {
-                    menu.classList.remove('active');
-                    toggle.classList.remove('active');
-                }
-            });
+        
     </style>
 </head>
 <body>
@@ -1180,12 +1165,99 @@
         </div>
     </section>
 
-    <!-- 数字圣殿建造 -->
-    <section class="main-content" id="sanctuary">
-        <div class="container">
-            <div class="section-title">
-                <h2>🏛️ 数字圣殿建造</h2>
-                <p>建造您个人的虚拟敬拜空间</p>
+            <!-- 这里继续数字圣殿建造部分的完整代码 -->
+            <div class="digital-sanctuary">
+                <div class="sanctuary-controls">
+                    <div class="room-selector">
+                        <h4>选择圣殿样式</h4>
+                        <div class="room-options">
+                            <button class="room-btn active">古典教堂</button>
+                            <button class="room-btn">现代圣殿</button>
+                            <button class="room-btn">自然敬拜</button>
+                        </div>
+                    </div>
+                    <div class="decorations-selector">
+                        <h4>装饰元素</h4>
+                        <div class="decoration-options">
+                            <button class="decor-btn active">祭坛</button>
+                            <button class="decor-btn">烛台</button>
+                            <button class="decor-btn">十字架</button>
+                        </div>
+                    </div>
+                    <button class="bless-sanctuary">🙏 祝福圣殿</button>
+                </div>
+                
+                <div class="sanctuary-preview">
+                    <div class="sanctuary-3d">
+                        <div class="room-base">
+                            <div class="room-walls">
+                                <div class="wall front"></div>
+                                <div class="wall back"></div>
+                                <div class="wall left"></div>
+                                <div class="wall right"></div>
+                            </div>
+                            <div class="room-floor"></div>
+                            <div class="room-ceiling"></div>
+                            <div class="decoration altar"></div>
+                            <div class="decoration candle" style="left: 30%;"></div>
+                            <div class="decoration candle" style="right: 30%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="sanctuary-stats">
+                        <div class="stat">
+                            <span>圣洁度</span>
+                            <div class="holiness-meter">
+                                <div class="holiness-fill" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                        <div class="stat">
+                            <span>平安指数</span>
+                            <div class="peace-meter">
+                                <div class="peace-fill" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p>© 2023 多伦多生命河灵粮堂 - 隶属 River of Life 全球网络</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript 放在这里 -->
+    <script>
+    // 移动端菜单切换
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            // 点击菜单外区域关闭菜单
+            document.addEventListener('click', function(e) {
+                if (navMenu.contains(e.target) || menuToggle.contains(e.target)) return;
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        }
+    });
+
+    // 其他功能函数
+    function sendQuantumPrayer() {
+        // 量子祷告功能
+        console.log('发射量子祷告');
+    }
+    </script>
+</body>
+</html>
