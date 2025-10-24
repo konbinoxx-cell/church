@@ -223,7 +223,20 @@
             text-align: center;
             position: relative;
         }
-
+            /* 移动端适配 - 修复背景显示 */
+            @media (max-width: 768px) {
+                .hero {
+                    background: linear-gradient(135deg, 
+                                rgba(26, 82, 118, 0.4) 0%, 
+                                rgba(44, 62, 80, 0.3) 100%), 
+                                url('mathew-schwartz-nwtJyl-2iMI-unsplash.jpg');
+                    background-size: cover;
+                    background-position: center 30%; /* 移动端优化位置 */
+                    background-attachment: scroll; /* 移动端必须用scroll */
+                    background-repeat: no-repeat;
+                    background-color: #1a5276; /* 明确的背景色回退 */
+                }
+            }
         .hero h1 {
             font-size: 2.5rem;
             margin-bottom: 20px;
