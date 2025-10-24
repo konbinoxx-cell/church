@@ -81,38 +81,81 @@
         /* 导航菜单 */
         .nav-menu {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             align-items: center;
+            flex-wrap: wrap;
         }
         
         .nav-link {
             font-weight: 500;
-            padding: 5px 0;
+            padding: 8px 12px;
             position: relative;
             font-size: 0.9rem;
             white-space: nowrap;
             color: var(--text);
             text-decoration: none;
             transition: all 0.3s ease;
+            border-radius: 20px;
         }
         
         .nav-link:hover {
             color: var(--secondary);
+            background: rgba(230, 126, 34, 0.1);
         }
         
-        .nav-link::after {
-            content: '';
+        .nav-link.active {
+            color: var(--secondary);
+            background: rgba(230, 126, 34, 0.1);
+        }
+
+        /* 下拉菜单样式 */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
             position: absolute;
-            bottom: 0;
+            top: 100%;
             left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--secondary);
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
             transition: all 0.3s ease;
+            z-index: 1000;
+            padding: 10px 0;
         }
         
-        .nav-link:hover::after {
-            width: 100%;
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu li {
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .dropdown-menu li:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--text);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        
+        .dropdown-menu a:hover {
+            background: var(--light);
+            color: var(--secondary);
+            padding-left: 25px;
         }
 
         /* 英雄区域 */
@@ -164,80 +207,7 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(230, 126, 34, 0.5);
         }
-/* 下拉菜单样式 */
-.dropdown {
-    position: relative;
-}
 
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: white;
-    min-width: 220px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    border-radius: 8px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-    z-index: 1000;
-    padding: 10px 0;
-}
-
-.dropdown:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.dropdown-menu li {
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-
-.dropdown-menu li:last-child {
-    border-bottom: none;
-}
-
-.dropdown-menu a {
-    display: block;
-    padding: 10px 20px;
-    color: var(--text);
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
-    text-decoration: none;
-}
-
-.dropdown-menu a:hover {
-    background: var(--light);
-    color: var(--secondary);
-    padding-left: 25px;
-}
-
-/* 移动端适配 */
-@media (max-width: 768px) {
-    .dropdown-menu {
-        position: static;
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-        box-shadow: none;
-        background: transparent;
-        display: none;
-        padding: 0;
-        margin-top: 10px;
-        margin-left: 20px;
-    }
-    
-    .dropdown.active .dropdown-menu {
-        display: block;
-    }
-    
-    .dropdown > a::after {
-        content: ' ▼';
-        font-size: 0.8em;
-    }
-}
         /* 主要内容区域 */
         .main-content {
             padding: 80px 0;
@@ -832,11 +802,95 @@
             color: rgba(255,255,255,0.7);
         }
 
-        /* 响应式设计 */
+        /* === 移动端修复 === */
         @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 0;
+            }
+            
             .nav-menu {
+                justify-content: center;
+                gap: 8px;
+            }
+            
+            .nav-link {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+                border: 1px solid rgba(0,0,0,0.1);
+                background: rgba(0,0,0,0.02);
+            }
+            
+            /* 英雄区域修复 */
+            .hero {
+                padding: 60px 20px;
+                background-attachment: scroll;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+                line-height: 1.3;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+                line-height: 1.4;
+                margin-bottom: 25px;
+            }
+            
+            .hero .btn {
+                display: block;
+                width: 100%;
+                max-width: 250px;
+                margin: 8px auto;
+            }
+            
+            /* 下拉菜单移动端修复 */
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: transparent;
+                display: none;
+                padding: 0;
+                margin-top: 10px;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .dropdown > a::after {
+                content: ' ▼';
+                font-size: 0.7em;
+            }
+            
+            .dropdown.active > a::after {
+                content: ' ▲';
+            }
+            
+            /* 科幻功能区域移动端优化 */
+            .hologram-controls {
                 flex-direction: column;
                 gap: 10px;
+            }
+            
+            .hologram-controls select,
+            .hologram-controls button {
+                width: 100%;
+            }
+            
+            .scripture-verse {
+                font-size: 1.3rem;
+                line-height: 1.4;
+            }
+            
+            .quantum-stats {
+                grid-template-columns: 1fr;
+                gap: 15px;
             }
             
             .sanctuary-controls {
@@ -848,91 +902,42 @@
                 grid-template-columns: 1fr;
             }
             
-            .hero {
-                padding: 60px 0;
+            .sanctuary-3d {
+                height: 300px;
+            }
+            
+            .room-base {
+                transform: translate(-50%, -50%) rotateX(60deg) rotateY(-45deg) scale(0.8);
+            }
+        }
+
+        /* 超小屏幕优化 */
+        @media (max-width: 480px) {
+            .nav-link {
+                font-size: 0.75rem;
+                padding: 6px 10px;
             }
             
             .hero h1 {
-                font-size: 2rem;
+                font-size: 1.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+            
+            .logo-text {
+                font-size: 1.1rem;
+            }
+            
+            .logo-subtitle {
+                font-size: 0.6rem;
+            }
+            
+            .logo-image {
+                height: 80px;
             }
         }
-    /* 移动端简单修复 */
-@media (max-width: 768px) {
-    /* 修复导航换行 */
-    .nav-menu {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-    }
-    
-    .nav-link {
-        font-size: 0.8rem;
-        padding: 8px 12px;
-        white-space: nowrap;
-    }
-    
-    /* 修复英雄区域文字 */
-    .hero h1 {
-        font-size: 1.8rem;
-        line-height: 1.3;
-    }
-    
-    .hero p {
-        font-size: 1rem;
-        line-height: 1.4;
-    }
-    
-    /* 修复按钮布局 */
-    .hero .btn {
-        display: block;
-        margin: 10px auto;
-        max-width: 200px;
-    }
-    
-    /* 修复科幻功能区域 */
-    .hologram-controls {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .hologram-controls select,
-    .hologram-controls button {
-        width: 100%;
-    }
-    
-    .scripture-verse {
-        font-size: 1.3rem;
-    }
-    
-    .quantum-stats {
-        grid-template-columns: 1fr;
-    }
-    
-    .sanctuary-controls {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .sanctuary-preview {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* 超小屏幕额外修复 */
-@media (max-width: 480px) {
-    .nav-link {
-        font-size: 0.75rem;
-        padding: 6px 8px;
-    }
-    
-    .hero h1 {
-        font-size: 1.5rem;
-    }
-    
-    .section-title h2 {
-        font-size: 1.6rem;
-    }
-}
     </style>
 </head>
 <body>
@@ -950,32 +955,32 @@
             </div>
             
             <nav>
-    <ul class="nav-menu">
-        <li><a href="index.html" class="nav-link active">首页</a></li>
-        <li><a href="pages/meetings.html" class="nav-link">聚会时间</a></li>
-        <li><a href="pages/groups.html" class="nav-link">小组生活</a></li>
-        <li><a href="pages/testimonies.html" class="nav-link">信仰见证</a></li>
-        <li><a href="pages/resources.html" class="nav-link">资源中心</a></li>
-        <li><a href="pages/giving.html" class="nav-link">奉献支持</a></li>
-        
-        <!-- 母堂资源下拉菜单 -->
-        <li class="dropdown">
-            <a href="#" class="nav-link">母堂资源 ▼</a>
-            <ul class="dropdown-menu">
-                <li><a href="https://rolcc.net/rolcc2/" target="_blank">母堂主页</a></li>
-                <li><a href="https://rolcc.net/bulletin/" target="_blank">电子周报</a></li>
-                <li><a href="https://rolcc.net/rolcc2/sunday-media/" target="_blank">主日影音</a></li>
-                <li><a href="https://myrolcc.net/onlinezone/" target="_blank">网络牧区</a></li>
-                <li><a href="https://rolcc.net/rolcc2/church/#" target="_blank">母堂教会事工</a></li>
-                <li><a href="https://rolcc.net/rolcc2/equip/" target="_blank">信徒装备</a></li>
-                <li><a href="https://rolcc.net/rolcc2/rolcc-apps/" target="_blank">ROLCC APP</a></li>
-            </ul>
-        </li>
-        
-        <li><a href="pages/about.html" class="nav-link">关于我们</a></li>
-        <li><a href="pages/contact.html" class="nav-link">联系我们</a></li>
-    </ul>
-</nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link active">首页</a></li>
+                    <li><a href="pages/meetings.html" class="nav-link">聚会时间</a></li>
+                    <li><a href="pages/groups.html" class="nav-link">小组生活</a></li>
+                    <li><a href="pages/testimonies.html" class="nav-link">信仰见证</a></li>
+                    <li><a href="pages/resources.html" class="nav-link">资源中心</a></li>
+                    <li><a href="pages/giving.html" class="nav-link">奉献支持</a></li>
+                    
+                    <!-- 母堂资源下拉菜单 -->
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">母堂资源 ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://rolcc.net/rolcc2/" target="_blank">母堂主页</a></li>
+                            <li><a href="https://rolcc.net/bulletin/" target="_blank">电子周报</a></li>
+                            <li><a href="https://rolcc.net/rolcc2/sunday-media/" target="_blank">主日影音</a></li>
+                            <li><a href="https://myrolcc.net/onlinezone/" target="_blank">网络牧区</a></li>
+                            <li><a href="https://rolcc.net/rolcc2/church/#" target="_blank">母堂教会事工</a></li>
+                            <li><a href="https://rolcc.net/rolcc2/equip/" target="_blank">信徒装备</a></li>
+                            <li><a href="https://rolcc.net/rolcc2/rolcc-apps/" target="_blank">ROLCC APP</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li><a href="pages/about.html" class="nav-link">关于我们</a></li>
+                    <li><a href="pages/contact.html" class="nav-link">联系我们</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
@@ -1075,110 +1080,4 @@
                 <p>建造您个人的虚拟敬拜空间</p>
             </div>
             
-            <div class="digital-sanctuary">
-                <div class="sanctuary-controls">
-                    <div class="room-selector">
-                        <h4>选择圣殿房间:</h4>
-                        <div class="room-options">
-                            <button class="room-btn active" data-room="prayer">祈祷室</button>
-                            <button class="room-btn" data-room="meditation">冥想室</button>
-                            <button class="room-btn" data-room="scripture">经文库</button>
-                            <button class="room-btn" data-room="worship">敬拜厅</button>
-                        </div>
-                    </div>
-                    
-                    <div class="decorations-selector">
-                        <h4>添加装饰:</h4>
-                        <div class="decoration-options">
-                            <button class="decor-btn" data-decor="altar">祭坛 ✝️</button>
-                            <button class="decor-btn" data-decor="candle">圣烛 🕯️</button>
-                            <button class="decor-btn" data-decor="font">圣水盆 💧</button>
-                            <button class="decor-btn" data-decor="cross">十字架 ✞</button>
-                        </div>
-                    </div>
-                    
-                    <button class="bless-sanctuary" onclick="consecrateSanctuary()">
-                        🙏 祝圣圣殿
-                    </button>
-                </div>
-                
-                <div class="sanctuary-preview">
-                    <div class="sanctuary-3d">
-                        <div class="room-base prayer-room">
-                            <div class="room-walls">
-                                <div class="wall front"></div>
-                                <div class="wall back"></div>
-                                <div class="wall left"></div>
-                                <div class="wall right"></div>
-                            </div>
-                            <div class="room-floor"></div>
-                            <div class="room-ceiling"></div>
-                            <div class="decorations-container" id="decorationsContainer"></div>
-                            <div class="blessing-effects" id="blessingEffects"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="sanctuary-stats">
-                        <div class="stat">
-                            <span>圣洁度:</span>
-                            <div class="holiness-meter">
-                                <div class="holiness-fill" id="holinessFill" style="width: 30%"></div>
-                            </div>
-                            <span id="holinessPercent">30%</span>
-                        </div>
-                        <div class="stat">
-                            <span>平安指数:</span>
-                            <div class="peace-meter">
-                                <div class="peace-fill" id="peaceFill" style="width: 45%"></div>
-                            </div>
-                            <span id="peacePercent">45%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 页脚 -->
-    <footer>
-        <div class="container">
-            <p><strong>多伦多生命河灵粮堂</strong> - 隶属 River of Life 全球网络</p>
-            <p>传承母堂灵性启示 · 创新数字牧养方式</p>
-            <div class="copyright">
-                <p>&copy; 2024 多伦多生命河灵粮堂教会. 保留所有权利. 🍁 为基督爱多伦多 🍁</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // 全息经文投影功能
-        class HolographicScripture {
-            constructor() {
-                this.scriptures = {
-                    john1_1: {
-                        verse: "太初有道，道与神同在，道就是神。",
-                        reference: "约翰福音 1:1"
-                    },
-                    philippians4_13: {
-                        verse: "我靠着那加给我力量的，凡事都能做。",
-                        reference: "腓立比书 4:13"
-                    },
-                    jeremiah29_11: {
-                        verse: "耶和华说：我知道我向你们所怀的意念是赐平安的意念，不是降灾祸的意念，要叫你们末后有指望。",
-                        reference: "耶利米书 29:11"
-                    }
-                };
-                this.currentColor = '#00ff88';
-                this.init();
-            }
-
-            init() {
-                this.createParticles();
-                document.getElementById('scriptureSelector').addEventListener('change', (e) => {
-                    this.changeScripture(e.target.value);
-                });
-            }
-
-            changeScripture(scriptureKey) {
-                const scripture = this.scriptures[scriptureKey];
-                const textElement = document.getElementById('hologram
+            <
